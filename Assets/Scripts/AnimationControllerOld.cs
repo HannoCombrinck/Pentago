@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimationController : MonoBehaviour
+public class AnimationControllerOld : MonoBehaviour
 {
     [Tooltip("The transform/gameobject that is animated and drives the rotation of the boards.")]
     public Transform animatedTransform; 
