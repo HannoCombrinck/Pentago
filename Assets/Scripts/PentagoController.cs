@@ -105,7 +105,7 @@ public class Pentago
         public GameAction action;
         public PlayerID[,] state;
     }
-    private List<HistoryEntry> history;
+    private List<HistoryEntry> history = new List<HistoryEntry>();
 
 
     public void NewGame()

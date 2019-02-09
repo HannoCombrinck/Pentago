@@ -12,6 +12,9 @@ public class AnimationApplier : MonoBehaviour
     public Transform animatedBone;
 
     private Animator animator;
+    private Transform objectBeingAnimated;
+    private bool animating = false;
+    private string currentAnimation;
 
     void Awake()
     {
@@ -25,10 +28,38 @@ public class AnimationApplier : MonoBehaviour
         animator = gameObject.GetComponent<Animator>();
     }
 
+    void Update()
+    {
+        if (!animating)
+            return;
+
+        // TODO: This check could run in a coroutine so it doesn't have to happen every frame
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName(currentAnimation))
+        {
+            Debug.Log("AnimationApplier: Animation time: " + animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
+            return;
+        }
+
+        Debug.Log("AnimationApplier: Finished animation");
+        animating = false;
+
+        // TODO
+        // This point is reached if the current animation has finished playing
+        // Detach objectToAnimate
+    }
+
     // Apply animationName animation to objectToAnimate
     public void ApplyTo(Transform objectToAnimate, string animationName)
     {
         Debug.Log("AnimationApplier: " + gameObject.name + " is applying animation " + animationName + " of bone " + animatedBone.name + " to object " + objectToAnimate.gameObject.name);
 
+        objectBeingAnimated = objectToAnimate;
+        currentAnimation = animationName;
+        animating = true;
+
+        // TODO
+        // Attach objectToAnimate to animatedBone
+        // Play animation
     }
+    
 }
