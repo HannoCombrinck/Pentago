@@ -56,14 +56,21 @@ public class AnimationApplier : MonoBehaviour
         objectBeingAnimated = null;
         currentAnimation = "None";
         transform.position = Vector3.zero;
+        transform.rotation = Quaternion.identity;
         animator.SetTrigger("Reset");
         inProgress = false;
 
         Debug.Log("AnimationApplier: Finished animation");
     }
 
-    // Apply animationName animation to objectToAnimate (there must exist a trigger property with the same name as the provided animationName)
+    // Convenience override for ApplyTo with no rotationOffset 
     public void ApplyTo(Transform objectToAnimate, string animationName)
+    {
+        ApplyTo(objectToAnimate, Quaternion.identity, animationName);
+    }
+
+    // Apply animationName animation to objectToAnimate (there must exist a trigger property with the same name as the provided animationName)
+    public void ApplyTo(Transform objectToAnimate, Quaternion rotationOffset, string animationName)
     {
         if (inProgress || isAboutToStart)
             return;
@@ -74,6 +81,7 @@ public class AnimationApplier : MonoBehaviour
         currentAnimation = animationName;
 
         transform.position = objectBeingAnimated.position;
+        transform.rotation = rotationOffset;
         AttachObjectToAnimate();
         animator.SetTrigger(animationName);
 
