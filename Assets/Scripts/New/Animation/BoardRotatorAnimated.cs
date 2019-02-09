@@ -21,12 +21,12 @@ public class BoardRotatorAnimated : MonoBehaviour, IBoardRotator
     public void RotateClockwise()
     {
         Debug.Log("BoardRotatorAnimated: Attempting animated clockwise rotation on: " + gameObject.name);
-        animationApplier.ApplyTo(transform, "CW");
+        animationApplier.ApplyTo(transform, "RotateCW");
     }
 
     public void RotateCounterClockwise()
     {
         Debug.Log("BoardRotatorAnimated: Attempting animated counterclockwise rotation on: " + gameObject.name);
-        animationApplier.ApplyTo(transform, "CCW");
+        animationApplier.ApplyTo(transform, "RotateCCW");
     }
 }
