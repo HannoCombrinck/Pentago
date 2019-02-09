@@ -13,7 +13,7 @@ public class AnimationApplier : MonoBehaviour
 
     private Animator animator;
     private Transform objectBeingAnimated;
-    private bool animating = false;
+    private bool inProgress = false;
     private string currentAnimation;
 
     void Awake()
@@ -23,14 +23,9 @@ public class AnimationApplier : MonoBehaviour
         Debug.Assert(animatedBone);
     }
 
-    void Start()
-    {
-        animator = gameObject.GetComponent<Animator>();
-    }
-
     void Update()
     {
-        if (!animating)
+        if (!inProgress)
             return;
 
         // TODO: This check could run in a coroutine so it doesn't have to happen every frame
@@ -41,7 +36,8 @@ public class AnimationApplier : MonoBehaviour
         }
 
         Debug.Log("AnimationApplier: Finished animation");
-        animating = false;
+        objectBeingAnimated = null;
+        inProgress = false;
 
         // TODO
         // This point is reached if the current animation has finished playing
@@ -51,11 +47,14 @@ public class AnimationApplier : MonoBehaviour
     // Apply animationName animation to objectToAnimate
     public void ApplyTo(Transform objectToAnimate, string animationName)
     {
+        if (inProgress)
+            return;
+
         Debug.Log("AnimationApplier: " + gameObject.name + " is applying animation " + animationName + " of bone " + animatedBone.name + " to object " + objectToAnimate.gameObject.name);
 
         objectBeingAnimated = objectToAnimate;
         currentAnimation = animationName;
-        animating = true;
+        inProgress = true;
 
         // TODO
         // Attach objectToAnimate to animatedBone
