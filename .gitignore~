@@ -35,5 +35,5 @@ sysinfo.txt
 *.apk
 *.unitypackage
 
-..gitignore.un~
+*.un
 
