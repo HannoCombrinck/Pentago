@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/* This AnimationApplier provides and interface to apply an animation of the specified 
- * GameObject/Bone/Transform (controlled by the animator it is attached to) to another 
- * GameObject/Transform
+/* This AnimationApplier provides and interface to apply an animation of the attached animator to another GameObject
  */
 public class AnimationApplier : MonoBehaviour
 {
@@ -81,7 +79,7 @@ public class AnimationApplier : MonoBehaviour
         currentAnimation = animationName;
 
         transform.position = objectBeingAnimated.position;
-        transform.rotation = rotationOffset;
+        transform.rotation = rotationOffset; //TODO take objectBeingAnimated.rotation into account
         AttachObjectToAnimate();
         animator.SetTrigger(animationName);
 
