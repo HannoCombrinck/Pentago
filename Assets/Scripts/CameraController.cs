@@ -22,7 +22,7 @@ public class CameraController : MonoBehaviour
 
     private Camera attachedCamera;
     private Quaternion rotation;
-    private bool ignoreCameraOrbit = false;
+    //private bool ignoreCameraOrbit = false;
 
     void Awake()
     {
@@ -32,21 +32,45 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
-        HandleMouseInputs(); // TODO: Move this (and relevant members) out to PlayerController and provide public functions: SetPitch, SetYaw, SetDistance etc.
+        //HandleMouseInputs(); // TODO: Move this (and relevant members) out to PlayerController and provide public functions: SetPitch, SetYaw, SetDistance etc.
         UpdateCameraTransform();
     }
 
-    public void IgnoreCameraOrbit(bool b)
+    public void Yaw(float angle)
+    {
+        yaw += angle;
+        yaw = ClampAngle(yaw, minYaw, maxYaw);
+        UpdateRotation();
+    }
+
+    public void Pitch(float angle)
+    {
+        pitch += angle;
+        pitch = ClampAngle(pitch, minPitch, maxPitch);
+        UpdateRotation();
+    }
+
+    public void Zoom(float deltaDistance)
+    {
+        distance -= deltaDistance;
+    }
+
+    private void UpdateRotation()
+    {
+        rotation = Quaternion.AngleAxis(yaw, Vector3.up) * Quaternion.AngleAxis(pitch, Vector3.right);
+    }
+
+    /*public void IgnoreCameraOrbit(bool b)
     {
         ignoreCameraOrbit = b;
-    }
+    }*/
 
     public Camera GetCamera()
     {
         return attachedCamera;
     }
 
-    private void HandleMouseInputs()
+    /*private void HandleMouseInputs()
     {
         if (Input.GetMouseButton(0) && !ignoreCameraOrbit) // Holding left mouse button 
         {
@@ -61,7 +85,7 @@ public class CameraController : MonoBehaviour
             distance -= Input.GetAxis("Mouse Y") * mouseSensitivityZoom;
         }
         distance -= Input.mouseScrollDelta.y * mouseSensitivityScroll;
-    }
+    }*/
 
     private void UpdateCameraTransform()
     {

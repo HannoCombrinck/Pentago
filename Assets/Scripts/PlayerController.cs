@@ -100,11 +100,11 @@ public class PlayerController : MonoBehaviour
         if (!Input.GetMouseButton(0)) // Released left mouse button while moving camera
         {
             updateState = StateHoverEmpty;
-            cameraController.IgnoreCameraOrbit(true);
+            //cameraController.IgnoreCameraOrbit(true);
             return;
         }
 
-        cameraController.IgnoreCameraOrbit(false);
+        //cameraController.IgnoreCameraOrbit(false);
     }
 
     // Right mouse button clicked on empty space and zooming camera
