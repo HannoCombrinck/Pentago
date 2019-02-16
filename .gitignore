@@ -37,5 +37,6 @@ sysinfo.txt
 
 *.blend1
 
+*.*~
 ..gitignore.un~
 
