@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ContextHoverClickable : InputContext
 {
@@ -12,18 +10,18 @@ public class ContextHoverClickable : InputContext
         contextIdle = GetComponent<ContextIdle>();
     }
 
-    public override void OnEnter()
+    protected override void OnEnter()
     {
         SetClickable(handler.mouseRayInfo.collider.gameObject);
         Debug.Log("Entering hover clickable context: " + clickable.name);
     }
 
-    public override void OnExit()
+    protected override void OnExit()
     {
         Debug.Log("Exiting hover clickable context");
     }
 
-    public override void OnHandleInput()
+    protected override void OnHandleInput()
     {
         if (!handler.mouseOverClickable)
         {

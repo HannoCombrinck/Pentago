@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ContextOrbitCamera : InputContext
 {
@@ -15,17 +13,17 @@ public class ContextOrbitCamera : InputContext
         idleContext = GetComponent<ContextIdle>();
     }
 
-    public override void OnEnter()
+    protected override void OnEnter()
     {
         Debug.Log("Entering orbit camera context");
     }
 
-    public override void OnExit()
+    protected override void OnExit()
     {
         Debug.Log("Exiting orbit camera context");
     }
 
-    public override void OnHandleInput()
+    protected override void OnHandleInput()
     {
         if (Input.GetMouseButtonUp(0))
         {

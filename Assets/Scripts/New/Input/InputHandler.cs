@@ -16,6 +16,7 @@ public class InputHandler : MonoBehaviour
 
     void Start()
     {
+        // Switch to default input context
         contextToSwitchTo = context;
         context.Enter(this);
         previousMousePosition = Input.mousePosition;
@@ -30,11 +31,11 @@ public class InputHandler : MonoBehaviour
         previousMousePosition = Input.mousePosition;
         mouseMoved = mouseDelta.magnitude > 0.0f;
 
-        context.OnHandleInput();
+        context.HandleInput();
 
         if (contextToSwitchTo != context)
         {
-            context.OnExit();
+            context.Exit();
             context = contextToSwitchTo;
             context.Enter(this);
         }

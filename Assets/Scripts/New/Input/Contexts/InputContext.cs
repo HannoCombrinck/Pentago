@@ -20,7 +20,7 @@ public abstract class InputContext : MonoBehaviour
         OnHandleInput();
     }
 
-    public abstract void OnEnter();
-    public abstract void OnExit();
-    public abstract void OnHandleInput();
+    protected abstract void OnEnter();
+    protected abstract void OnExit();
+    protected abstract void OnHandleInput();
 }

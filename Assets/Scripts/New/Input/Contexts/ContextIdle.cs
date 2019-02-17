@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ContextIdle : InputContext
 {
@@ -15,17 +13,17 @@ public class ContextIdle : InputContext
         contextZoomCamera = GetComponent<ContextZoomCamera>();
     }
 
-    public override void OnEnter()
+    protected override void OnEnter()
     {
         Debug.Log("Entering Idle context");
     }
 
-    public override void OnExit()
+    protected override void OnExit()
     {
         Debug.Log("Exiting Idle context");
     }
 
-    public override void OnHandleInput()
+    protected override void OnHandleInput()
     {
         if (handler.mouseOverClickable)
         {
