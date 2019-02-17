@@ -15,12 +15,10 @@ public class ContextIdle : InputContext
 
     protected override void OnEnter()
     {
-        Debug.Log("Entering Idle context");
     }
 
     protected override void OnExit()
     {
-        Debug.Log("Exiting Idle context");
     }
 
     protected override void OnHandleInput()

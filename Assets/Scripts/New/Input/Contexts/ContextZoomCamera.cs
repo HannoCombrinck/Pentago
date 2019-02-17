@@ -14,12 +14,10 @@ public class ContextZoomCamera : InputContext
 
     protected override void OnEnter()
     {
-        Debug.Log("Entering zoom camera context");
     }
 
     protected override void OnExit()
     {
-        Debug.Log("Exiting zoom camera context");
     }
 
     protected override void OnHandleInput()

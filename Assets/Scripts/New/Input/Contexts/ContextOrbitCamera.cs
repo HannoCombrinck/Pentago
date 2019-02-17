@@ -15,12 +15,10 @@ public class ContextOrbitCamera : InputContext
 
     protected override void OnEnter()
     {
-        Debug.Log("Entering orbit camera context");
     }
 
     protected override void OnExit()
     {
-        Debug.Log("Exiting orbit camera context");
     }
 
     protected override void OnHandleInput()

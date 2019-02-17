@@ -3,7 +3,7 @@
 public class ContextHoverClickable : InputContext
 {
     private InputContext contextIdle;
-    private GameObject clickable;
+    private GameObject clickableObject;
 
     void Awake()
     {
@@ -13,12 +13,11 @@ public class ContextHoverClickable : InputContext
     protected override void OnEnter()
     {
         SetClickable(handler.mouseRayInfo.collider.gameObject);
-        Debug.Log("Entering hover clickable context: " + clickable.name);
     }
 
     protected override void OnExit()
     {
-        Debug.Log("Exiting hover clickable context");
+        DeselectClickable();
     }
 
     protected override void OnHandleInput()
@@ -28,22 +27,27 @@ public class ContextHoverClickable : InputContext
             handler.SwitchContext(contextIdle);
             return;
         }
-        else if (clickable != handler.mouseRayInfo.collider.gameObject)
+        else if (clickableObject != handler.mouseRayInfo.collider.gameObject)
         {
             SetClickable(handler.mouseRayInfo.collider.gameObject);
         }
 
-
+        if (Input.GetMouseButtonDown(0))
+        {
+            var clickable = clickableObject.GetComponent<Clickable>();
+            if (clickable)
+                clickable.Clicked();
+        }
     }
 
     private void SetClickable(GameObject newClickable)
     {
         DeselectClickable();
-        clickable = newClickable;
+        clickableObject = newClickable;
     }
 
     private void DeselectClickable()
     {
-        clickable = null;
+        clickableObject = null;
     }
 }

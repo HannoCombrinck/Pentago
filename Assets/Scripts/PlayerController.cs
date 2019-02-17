@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // Run update for current input state
-        updateState();
+        //updateState();
     }
 
     // Cast a ray to determine of mouse is hovering over a clickable game object
