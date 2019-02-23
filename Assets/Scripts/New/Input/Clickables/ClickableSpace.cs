@@ -2,10 +2,9 @@
 
 public class ClickableSpace : MonoBehaviour, IClickable
 {
-    public GameState gameState;
     public GameEvent spaceClicked;
 
-    Space space;
+    private Space space;
 
     void Awake()
     {
@@ -17,25 +16,31 @@ public class ClickableSpace : MonoBehaviour, IClickable
 
     public void OnLeftClick()
     {
+        // TODO: Implement this
+        // Player clicked on a space
+        //  Validate move
+        //      If valid move then execute move MOVE_TYPE.PLACE_MARBLE    
+        //      If not valid move then play sound for invalid placement
+
+
         //spaceClicked.Raise();
-        Debug.Log("Space left clicked");
-        Debug.Log("Player " + gameState.currentPlayer + " clicked space " + gameObject.name);
+        Debug.Log("Player " + space.gameState.currentPlayer.ToString() + " clicked space " + gameObject.name + ", space state: " + space.state.ToString());
     }
 
     public void OnRightClick()
     {
-        Debug.Log("Space right clicked");
+        Debug.Log("Space right clicked " + gameObject.name);
     }
 
     public void OnMousePointerEnter()
     {
-        Debug.Log("Mouse entered space");
+        Debug.Log("Mouse entered space " + gameObject.name);
         //TODO: preview placement
     }
 
     public void OnMousePointerExit()
     {
-        Debug.Log("Mouse left space");
+        Debug.Log("Mouse left space " + gameObject.name);
         //TODO: remove placement preview
     }
 }

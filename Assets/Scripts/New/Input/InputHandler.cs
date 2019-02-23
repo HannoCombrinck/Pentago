@@ -36,6 +36,7 @@ public class InputHandler : MonoBehaviour
 
     public void SwitchContext(InputContext newContext)
     {
+        // TODO: Keep track of previous context so SwitchContextToPrevious();
         activeContext.OnExit();
         newContext.OnEnter();
         contextToSwitchTo = newContext;
