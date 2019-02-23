@@ -10,10 +10,10 @@ public class ContextIdle : InputContext
             return;
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0)) // Left mouse button
             handler.SwitchContext(GetComponent<ContextOrbitCamera>());
 
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1)) // Right mouse button
             handler.SwitchContext(GetComponent<ContextZoomCamera>());
     }
 }

@@ -2,7 +2,16 @@
 
 public class ClickableSpace : MonoBehaviour, IClickable
 {
+    public GameState gameState;
     public GameEvent spaceClicked;
+
+    public enum STATE
+    {
+        UNOCCUPIED,
+        OCCUPIED_WHITE,
+        OCCUPIED_BLACK
+    }
+    public STATE currentState;
 
     void Awake()
     {
@@ -13,6 +22,7 @@ public class ClickableSpace : MonoBehaviour, IClickable
     {
         //spaceClicked.Raise();
         Debug.Log("Space left clicked");
+        Debug.Log("Player " + gameState.currentPlayer + " clicked space " + gameObject.name);
     }
 
     public void OnRightClick()

@@ -15,13 +15,11 @@ public class ContextHoverClickable : InputContext
         // Handle the case where the input context hasn't changed but the mouse is 
         // pointing at a different clickable than in the previous Update().
         if (clickable != handler.mousePointer.clickable)
-        {
             SetClickable(handler.mousePointer.clickable);
-        }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0)) // Left mouse button
             clickable.OnLeftClick();
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1)) // Right mouse button
             clickable.OnRightClick();
     }
 

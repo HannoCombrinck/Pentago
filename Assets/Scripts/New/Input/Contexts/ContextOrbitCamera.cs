@@ -8,7 +8,7 @@ public class ContextOrbitCamera : InputContext
 
     public override void OnHandleInput()
     {
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0)) // Left mouse button
         {
             handler.SwitchContext(GetComponent<ContextIdle>());
             return;

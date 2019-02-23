@@ -7,7 +7,7 @@ public class ContextZoomCamera : InputContext
 
     public override void OnHandleInput()
     {
-        if (Input.GetMouseButtonUp(1))
+        if (Input.GetMouseButtonUp(1)) // Right mouse button
         {
             handler.SwitchContext(GetComponent<ContextIdle>());
             return;
