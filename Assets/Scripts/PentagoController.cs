@@ -9,13 +9,13 @@ using UnityEngine;
 // The PlayerController can directly interact with the BoardController, however, the PentagoController is in control of the game at a higher lever
 // The PentagoController lets the PlayerController interact with the BoardController and monitors the state changes
 
-interface GameAction
+interface GameActionOld
 {
     void Execute(Pentago.PlayerID[,] gameState);
     string GetDescription();
 }
 
-class PlaceMarbleAction : GameAction
+class PlaceMarbleAction : GameActionOld
 {
     private int row;
     private int col;
@@ -45,7 +45,7 @@ class PlaceMarbleAction : GameAction
     }
 }
 
-class RotateSubBoardAction : GameAction
+class RotateSubBoardAction : GameActionOld
 {
     private int row;
     private int col;
@@ -102,7 +102,7 @@ public class Pentago
 
     private struct HistoryEntry
     {
-        public GameAction action;
+        public GameActionOld action;
         public PlayerID[,] state;
     }
     private List<HistoryEntry> history = new List<HistoryEntry>();
@@ -136,7 +136,7 @@ public class Pentago
         return PlayerID.NONE;
     }
 
-    private void ExecuteAction(GameAction action)
+    private void ExecuteAction(GameActionOld action)
     {
         history.Add(new HistoryEntry
         {

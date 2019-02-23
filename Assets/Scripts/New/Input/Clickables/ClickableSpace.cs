@@ -23,6 +23,11 @@ public class ClickableSpace : MonoBehaviour, IClickable
         //      If not valid move then play sound for invalid placement
 
 
+        /*GameActionData nextActionData = new GameActionData();
+        nextActionData.player = space.gameState.currentPlayer;
+        nextActionData.moveType = GameState.MOVE_TYPE.PLACE_MARBLE;*/
+
+
         //spaceClicked.Raise();
         Debug.Log("Player " + space.gameState.currentPlayer.ToString() + " clicked space " + gameObject.name + ", space state: " + space.state.ToString());
     }
