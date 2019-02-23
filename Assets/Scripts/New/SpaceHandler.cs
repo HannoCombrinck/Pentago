@@ -27,7 +27,7 @@ public class SpaceHandler : MonoBehaviour
         FindBoardStateIndices();
     }
 
-    void FindBoardStateIndices()
+    public void FindBoardStateIndices()
     {
         sortedSpaces.Sort(spaceComparer);
 

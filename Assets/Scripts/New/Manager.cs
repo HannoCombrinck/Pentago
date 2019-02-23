@@ -27,7 +27,7 @@ public class Manager : MonoBehaviour
         // TODO: Fire new game event and whatever else needs to happen when a new game starts
     }
 
-    public bool ExecuteAction(IGameAction action)
+    public bool ExecuteGameAction(IGameAction action)
     {
         // TODO: Check for valid move
         action.Execute(gameState);

@@ -3,8 +3,11 @@
 public class Space : MonoBehaviour
 {
     public GameState gameState;
+    public GameSettings gameSettings;
     public GameState.SPACE_STATE state = GameState.SPACE_STATE.UNOCCUPIED;
     public int boardIndex;
+
+    private GameObject currentMarble;
 
     void Update()
     {
@@ -12,6 +15,31 @@ public class Space : MonoBehaviour
         {
             state = gameState.boardState[boardIndex];
             Debug.Log("Space " + gameObject.name + " has changed stated");
+
+            switch (state)
+            {
+                case GameState.SPACE_STATE.UNOCCUPIED:
+                    if (currentMarble != null)
+                        Destroy(currentMarble);
+
+                    currentMarble = null;
+                    break;
+                case GameState.SPACE_STATE.OCCUPIED_PLAYER1:
+                    if (currentMarble != null)
+                        Destroy(currentMarble);
+
+                    currentMarble = Instantiate(gameSettings.player1MarblePrefab, transform.position + Vector3.up * gameSettings.marbleHeightOffset, Quaternion.identity);
+                    currentMarble.transform.SetParent(transform);
+                    break;
+                case GameState.SPACE_STATE.OCCUPIED_PLAYER2:
+                    if (currentMarble != null)
+                        Destroy(currentMarble);
+
+                    currentMarble = Instantiate(gameSettings.player2MarblePrefab, transform.position + Vector3.up * gameSettings.marbleHeightOffset, Quaternion.identity);
+                    currentMarble.transform.SetParent(transform);
+                    break;
+            }
+
             // TODO: Fire event (space state changed to reflect new game state)
         }
     }

@@ -17,9 +17,7 @@ public class ClickableSpace : MonoBehaviour, IClickable
 
     public void OnLeftClick()
     {
-        // TODO: ???
-        gameManager.ExecuteAction(new ActionPlaceMarble(space.boardIndex));
-        //
+        gameManager.ExecuteGameAction(new ActionPlaceMarble(space.boardIndex));
 
         Debug.Log("Player " + space.gameState.currentPlayer.ToString() + " clicked space " + gameObject.name + ", space state: " + space.state.ToString());
     }
