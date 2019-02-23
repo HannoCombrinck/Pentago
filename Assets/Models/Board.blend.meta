@@ -59,6 +59,7 @@ ModelImporter:
     100106: TR_006
     100108: TR_007
     100110: TR_008
+    100112: TopLeft1
     400000: //RootNode
     400002: Cube
     400004: Cube_005
@@ -115,6 +116,7 @@ ModelImporter:
     400106: TR_006
     400108: TR_007
     400110: TR_008
+    400112: TopLeft1
     2300000: Cube
     2300002: Cube_005
     2300004: Cube_006
@@ -170,6 +172,7 @@ ModelImporter:
     2300104: TR_006
     2300106: TR_007
     2300108: TR_008
+    2300110: TopLeft1
     3300000: Cube
     3300002: Cube_005
     3300004: Cube_006
@@ -225,6 +228,7 @@ ModelImporter:
     3300104: TR_006
     3300106: TR_007
     3300108: TR_008
+    3300110: TopLeft1
     4300000: Cube_007
     4300002: Cube_005
     4300004: Cube_009
@@ -280,6 +284,7 @@ ModelImporter:
     4300104: TL_006
     4300106: TL_007
     4300108: TL_008
+    4300110: TopLeft1
     6400000: BL
     6400002: BL_001
     6400004: BL_002
@@ -321,6 +326,7 @@ ModelImporter:
     6400076: TR_006
     6400078: TR_007
     6400080: TR_008
+    6400082: TopLeft1
     7400000: Default Take
     9500000: //RootNode
     2186277476908879412: ImportLogs

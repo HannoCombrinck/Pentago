@@ -2,8 +2,7 @@
 
 public class ClickableSpace : MonoBehaviour, IClickable
 {
-    public GameEvent spaceClicked;
-    //public GameEventInfo gameEventInfo;
+    public Manager gameManager;
 
     private Space space;
 
@@ -17,18 +16,10 @@ public class ClickableSpace : MonoBehaviour, IClickable
 
     public void OnLeftClick()
     {
-        // TODO: Implement this
-        // Player clicked on a space
-        //  Validate move
-        //      If valid move then execute move MOVE_TYPE.PLACE_MARBLE    
-        //      If not valid move then play sound for invalid placement
+        // TODO: ???
+        gameManager.ExecuteAction(new ActionPlaceMarble(space.GetBoardStateIndex()));
+        //
 
-
-        // TODO: Where to send this action?
-        // new ActionPlaceMarble(space.GetBoardStateIndex());
-
-
-        //spaceClicked.Raise();
         Debug.Log("Player " + space.gameState.currentPlayer.ToString() + " clicked space " + gameObject.name + ", space state: " + space.state.ToString());
     }
 

@@ -14,7 +14,7 @@ public class CameraController : MonoBehaviour
     public float yaw = -30;
     public float minYaw = -360f;
     public float maxYaw = 360f;
-    public float pitch = -25f;
+    public float pitch = 25f;
     public float minPitch = -60f;
     public float maxPitch = 60f;
 
@@ -41,7 +41,7 @@ public class CameraController : MonoBehaviour
 
     public void Pitch(float angle)
     {
-        pitch += angle;
+        pitch -= angle;
         pitch = ClampAngle(pitch, minPitch, maxPitch);
         UpdateRotation();
     }
@@ -65,7 +65,7 @@ public class CameraController : MonoBehaviour
     {
         distance = Mathf.Clamp(distance, minDistance, maxDistance);
         Vector3 camTargetPoint = followObject.transform.position + Vector3.up * heightOffset;
-        transform.position = camTargetPoint + (rotation * Vector3.forward * distance);
+        transform.position = camTargetPoint + (rotation * Vector3.back * distance);
         transform.LookAt(camTargetPoint);
     }
 

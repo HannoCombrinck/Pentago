@@ -14,5 +14,13 @@ public class Manager : MonoBehaviour
         
     }
 
+    public bool ExecuteAction(IGameAction action)
+    {
+        /*if (!IsValidAction(action))
+            return false;*/
+
+        action.Execute(gameState);
+        return true;
+    }
     
 }
