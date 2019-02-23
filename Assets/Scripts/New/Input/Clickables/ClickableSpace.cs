@@ -5,16 +5,13 @@ public class ClickableSpace : MonoBehaviour, IClickable
     public GameState gameState;
     public GameEvent spaceClicked;
 
-    public enum STATE
-    {
-        UNOCCUPIED,
-        OCCUPIED_WHITE,
-        OCCUPIED_BLACK
-    }
-    public STATE currentState;
+    Space space;
 
     void Awake()
     {
+        space = GetComponent<Space>();
+        Debug.Assert(space != null);
+
         //Debug.Assert(spaceClicked != null);
     }
 
