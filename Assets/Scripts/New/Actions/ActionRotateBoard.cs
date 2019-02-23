@@ -7,20 +7,18 @@ public class ActionRotateBoard : IGameAction
         COUNTERCLOCKWISE
     };
 
-    ActionRotateBoard(GameState.PLAYER player, int boardIndex, DIRECTION rotateDirection)
+    public ActionRotateBoard(int boardIndex, DIRECTION rotateDirection)
     {
-        this.player = player;
         this.boardIndex = boardIndex;
         this.rotateDirection = rotateDirection;
     }
     
-    GameState.PLAYER player = GameState.PLAYER.PLAYER1;
     int boardIndex;
     DIRECTION rotateDirection;
 
     public string GetDescription()
     {
-        return player.ToString() + " rotated board " + boardIndex + " " + rotateDirection.ToString();
+        return boardIndex + " board rotated " + rotateDirection.ToString();
     }
 
     public void Execute(GameState gameState)

@@ -3,6 +3,7 @@
 public class ClickableSpace : MonoBehaviour, IClickable
 {
     public GameEvent spaceClicked;
+    //public GameEventInfo gameEventInfo;
 
     private Space space;
 
@@ -23,9 +24,8 @@ public class ClickableSpace : MonoBehaviour, IClickable
         //      If not valid move then play sound for invalid placement
 
 
-        /*GameActionData nextActionData = new GameActionData();
-        nextActionData.player = space.gameState.currentPlayer;
-        nextActionData.moveType = GameState.MOVE_TYPE.PLACE_MARBLE;*/
+        // TODO: Where to send this action?
+        // new ActionPlaceMarble(space.GetBoardStateIndex());
 
 
         //spaceClicked.Raise();

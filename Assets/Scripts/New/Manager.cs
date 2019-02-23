@@ -2,15 +2,17 @@
 
 public class Manager : MonoBehaviour
 {
+    public GameState gameState;
 
-
-    void Start()
+    void Awake()
     {
-        
+        Debug.Assert(gameState != null);
     }
 
     void Update()
     {
         
     }
+
+    
 }

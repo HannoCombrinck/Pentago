@@ -27,6 +27,7 @@ public class Space : MonoBehaviour
     public void PlaceMarble()
     {
         // Space state changed (can happen when Player (Human or AI) placed a marble)
+        
     }
 
     public int GetBoardStateIndex()
