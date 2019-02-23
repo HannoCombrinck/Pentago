@@ -2,7 +2,7 @@
 
 public class ContextHoverClickable : InputContext
 {
-    private GameObject clickableObject;
+    private IClickable clickable;
 
     public override void OnHandleInput()
     {
@@ -11,22 +11,23 @@ public class ContextHoverClickable : InputContext
             handler.SwitchContext(GetComponent<ContextIdle>());
             return;
         }
-        else if (clickableObject != handler.mousePointer.hitInfo.collider.gameObject)
+
+        // Handle the case where the input context hasn't changed but the mouse is 
+        // pointing at a different clickable than in the previous Update().
+        if (clickable != handler.mousePointer.clickable)
         {
-            SetClickable(handler.mousePointer.hitInfo.collider.gameObject);
+            SetClickable(handler.mousePointer.clickable);
         }
 
         if (Input.GetMouseButtonDown(0))
-        {
-            var clickable = clickableObject.GetComponent<Clickable>();
-            if (clickable)
-                clickable.Clicked();
-        }
+            clickable.OnLeftClick();
+        if (Input.GetMouseButtonDown(1))
+            clickable.OnRightClick();
     }
 
     public override void OnEnter()
     {
-        SetClickable(handler.mousePointer.hitInfo.collider.gameObject);
+        SetClickable(handler.mousePointer.clickable);
     }
 
     public override void OnExit()
@@ -34,15 +35,17 @@ public class ContextHoverClickable : InputContext
         DeselectClickable();
     }
 
-    private void SetClickable(GameObject newClickable)
+    private void SetClickable(IClickable newClickable)
     {
         DeselectClickable();
-        clickableObject = newClickable;
+        clickable = newClickable;
+        clickable.OnMousePointerEnter();
     }
 
     private void DeselectClickable()
     {
-        clickableObject = null;
+        clickable?.OnMousePointerExit();
+        clickable = null;
     }
 
 }
