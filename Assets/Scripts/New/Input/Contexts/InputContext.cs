@@ -4,23 +4,20 @@ public abstract class InputContext : MonoBehaviour
 {
     protected InputHandler handler;
 
-    public void Enter(InputHandler h)
+    protected virtual void Awake()
     {
-        handler = h;
-        OnEnter();
+        handler = GetComponent<InputHandler>();
+        Debug.Assert(handler != null);
     }
 
-    public void Exit()
-    {
-        OnExit();
-    }
-
-    public void HandleInput()
-    {
-        OnHandleInput();
-    }
-
-    protected abstract void OnEnter();
-    protected abstract void OnExit();
-    protected abstract void OnHandleInput();
+    // Called every Update() while the context is the active context.
+    public abstract void OnHandleInput();
+    // Called immediately when context switch is requested (directly after OnExit() of previously active context).
+    public virtual void OnEnter() { }
+    // Called immediately when context switch is requested (directly before OnEnter() of newly requested context).
+    public virtual void OnExit() { }
+    // Called at the beginning of the next Update() after context switch is requested.
+    public virtual void OnFirstUpdate() { }
+    // Called at the beginning of the next Update() after context switch is requested.
+    public virtual void OnLastUpdate() { }
 }

@@ -2,34 +2,18 @@
 
 public class ContextHoverClickable : InputContext
 {
-    private InputContext contextIdle;
     private GameObject clickableObject;
 
-    void Awake()
+    public override void OnHandleInput()
     {
-        contextIdle = GetComponent<ContextIdle>();
-    }
-
-    protected override void OnEnter()
-    {
-        SetClickable(handler.mouseRayInfo.collider.gameObject);
-    }
-
-    protected override void OnExit()
-    {
-        DeselectClickable();
-    }
-
-    protected override void OnHandleInput()
-    {
-        if (!handler.mouseOverClickable)
+        if (!handler.mousePointer.overClickable)
         {
-            handler.SwitchContext(contextIdle);
+            handler.SwitchContext(GetComponent<ContextIdle>());
             return;
         }
-        else if (clickableObject != handler.mouseRayInfo.collider.gameObject)
+        else if (clickableObject != handler.mousePointer.hitInfo.collider.gameObject)
         {
-            SetClickable(handler.mouseRayInfo.collider.gameObject);
+            SetClickable(handler.mousePointer.hitInfo.collider.gameObject);
         }
 
         if (Input.GetMouseButtonDown(0))
@@ -38,6 +22,16 @@ public class ContextHoverClickable : InputContext
             if (clickable)
                 clickable.Clicked();
         }
+    }
+
+    public override void OnEnter()
+    {
+        SetClickable(handler.mousePointer.hitInfo.collider.gameObject);
+    }
+
+    public override void OnExit()
+    {
+        DeselectClickable();
     }
 
     private void SetClickable(GameObject newClickable)
@@ -50,4 +44,5 @@ public class ContextHoverClickable : InputContext
     {
         clickableObject = null;
     }
+
 }

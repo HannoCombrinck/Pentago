@@ -1,49 +1,53 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class InputHandler : MonoBehaviour
 {
-    public LayerMask clickableLayer;
-    public InputContext context;
-    public Ray mouseRay;
-    public RaycastHit mouseRayInfo;
-    public bool mouseOverClickable;
-    public bool mouseMoved;
+    public InputContext activeContext;
+    [HideInInspector]
+    public MousePointer mousePointer;
+    [HideInInspector]
+    public MouseMovement mouseMovement;
 
     private InputContext contextToSwitchTo;
-    private Vector3 previousMousePosition;
+
+    void Awake()
+    {
+        Debug.Assert(activeContext != null);
+
+        mousePointer = GetComponent<MousePointer>();
+        Debug.Assert(mousePointer != null);
+        mouseMovement = GetComponent<MouseMovement>();
+        Debug.Assert(mouseMovement != null);
+    }
 
     void Start()
     {
-        // Switch to default input context
-        contextToSwitchTo = context;
-        context.Enter(this);
-        previousMousePosition = Input.mousePosition;
+        // Handle switch to default input context
+        contextToSwitchTo = activeContext;
+        activeContext.OnEnter();
+        activeContext.OnFirstUpdate();
     }
 
     void Update()
     {
-        mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-        mouseOverClickable = Physics.Raycast(mouseRay, out mouseRayInfo, 100f, clickableLayer);
-
-        var mouseDelta = Input.mousePosition - previousMousePosition;
-        previousMousePosition = Input.mousePosition;
-        mouseMoved = mouseDelta.magnitude > 0.0f;
-
-        context.HandleInput();
-
-        if (contextToSwitchTo != context)
-        {
-            context.Exit();
-            context = contextToSwitchTo;
-            context.Enter(this);
-        }
+        HandleContextSwitch();
+        activeContext.OnHandleInput();
     }
 
     public void SwitchContext(InputContext newContext)
     {
+        activeContext.OnExit();
+        newContext.OnEnter();
         contextToSwitchTo = newContext;
     }
 
+    void HandleContextSwitch()
+    {
+        if (contextToSwitchTo == activeContext)
+            return;
+
+        activeContext.OnLastUpdate();
+        activeContext = contextToSwitchTo;
+        activeContext.OnFirstUpdate();
+    }
 }
