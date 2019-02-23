@@ -33,16 +33,18 @@ public class AnimationApplier : MonoBehaviour
 
     void Update()
     {
+        // Check animator state to determine when the animation has actually started playing
         if (isAboutToStart && animator.GetCurrentAnimatorStateInfo(0).IsName(currentAnimation))
         {
-            // Animation has actually started playing
             inProgress = true;
             isAboutToStart = false;
         }
 
+        // Early return if no animation is in progress
         if (!inProgress)
             return;
 
+        // Early return while the animation is in progress
         // TODO: This check could run in a coroutine so it doesn't have to happen every frame
         if (animator.GetCurrentAnimatorStateInfo(0).IsName(currentAnimation) &&
             animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f)
@@ -50,6 +52,7 @@ public class AnimationApplier : MonoBehaviour
             return;
         }
 
+        // If this point is reached then an animation has played and finished
         DetachObjectBeingAnimated();
         objectBeingAnimated = null;
         currentAnimation = "None";
