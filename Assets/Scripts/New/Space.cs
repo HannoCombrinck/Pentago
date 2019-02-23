@@ -15,6 +15,7 @@ public class Space : MonoBehaviour
         if (state != gameState.boardState[GetBoardStateIndex()])
         {
             state = gameState.boardState[GetBoardStateIndex()];
+            Debug.Log("Space " + gameObject.name + " has changed stated");
             // TODO: Fire event (space state changed to reflect new game state)
         }
     }

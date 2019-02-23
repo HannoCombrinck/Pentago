@@ -9,8 +9,8 @@ public class SpaceHandler : MonoBehaviour
     {
         spaces = GetComponentsInChildren<Space>();
 
-        foreach (var s in spaces)
-            Debug.Log("Space: " + s.gameObject.name);
+        /*foreach (var s in spaces)
+            Debug.Log("Space: " + s.gameObject.name);*/
     }
 
     void Update()
