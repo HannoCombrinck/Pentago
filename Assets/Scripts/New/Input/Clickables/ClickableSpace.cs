@@ -10,6 +10,7 @@ public class ClickableSpace : MonoBehaviour, IClickable
     {
         space = GetComponent<Space>();
         Debug.Assert(space != null);
+        Debug.Assert(gameManager != null);
 
         //Debug.Assert(spaceClicked != null);
     }
@@ -17,7 +18,7 @@ public class ClickableSpace : MonoBehaviour, IClickable
     public void OnLeftClick()
     {
         // TODO: ???
-        gameManager.ExecuteAction(new ActionPlaceMarble(space.GetBoardStateIndex()));
+        gameManager.ExecuteAction(new ActionPlaceMarble(space.boardIndex));
         //
 
         Debug.Log("Player " + space.gameState.currentPlayer.ToString() + " clicked space " + gameObject.name + ", space state: " + space.state.ToString());

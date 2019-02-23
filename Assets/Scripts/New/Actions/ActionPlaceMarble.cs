@@ -6,7 +6,7 @@ public class ActionPlaceMarble : IGameAction
         this.spaceIndex = spaceIndex;
     }
 
-    int spaceIndex;
+    public int spaceIndex;
 
     public string GetDescription()
     {
