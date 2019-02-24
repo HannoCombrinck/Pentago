@@ -3,16 +3,24 @@ using UnityEngine;
 
 public class SpaceHandler : MonoBehaviour
 {
+    public GameState gameState;
+    public GameSettings gameSettings;
     public List<Space> sortedSpaces = new List<Space>();
 
     void Awake()
     {
+        Debug.Assert(gameState != null);
+        Debug.Assert(gameSettings != null);
+
         var xMin = float.MaxValue;
         var xMax = float.MinValue;
 
         var spaces = GetComponentsInChildren<Space>();
         foreach (var s in spaces)
         {
+            s.gameState = gameState;
+            s.gameSettings = gameSettings;
+
             sortedSpaces.Add(s);
 
             if (s.gameObject.transform.position.x < xMin)

@@ -2,12 +2,19 @@
 
 public class Space : MonoBehaviour
 {
-    public GameState gameState;
-    public GameSettings gameSettings;
     public GameState.SPACE_STATE state = GameState.SPACE_STATE.UNOCCUPIED;
     public int boardIndex;
 
+    public GameState gameState { get; set; }
+    public GameSettings gameSettings { get; set; }
+
     private GameObject currentMarble;
+
+    void Start()
+    {
+        Debug.Assert(gameState != null);
+        Debug.Assert(gameSettings != null);
+    }
 
     void Update()
     {

@@ -3,6 +3,16 @@
 [CreateAssetMenu]
 public class GameState : ScriptableObject
 {
+    public void ResetState()
+    {
+        currentPlayer = PLAYER.PLAYER1;
+        winState = WIN_STATE.IN_PROGRESS;
+        nextMove = MOVE_TYPE.PLACE_MARBLE;
+
+        for (int i = 0; i < boardState.Length; i++)
+            boardState[i] = GameState.SPACE_STATE.UNOCCUPIED;
+    }
+
     public enum WIN_STATE
     {
         IN_PROGRESS,

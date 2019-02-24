@@ -7,23 +7,12 @@ public class Manager : MonoBehaviour
     void Awake()
     {
         Debug.Assert(gameState != null);
-        ResetGameState();
-    }
-
-    public void ResetGameState()
-    {
-        // TODO: Set initial gameState
-        gameState.currentPlayer = GameState.PLAYER.PLAYER1;
-        gameState.winState = GameState.WIN_STATE.IN_PROGRESS;
-        gameState.nextMove = GameState.MOVE_TYPE.PLACE_MARBLE;
-
-        for (int i = 0; i < gameState.boardState.Length; i++)
-            gameState.boardState[i] = GameState.SPACE_STATE.UNOCCUPIED;
+        gameState.ResetState();
     }
 
     public void StartNewGame()
     {
-        ResetGameState();
+        gameState.ResetState();
         // TODO: Fire new game event and whatever else needs to happen when a new game starts
     }
 
