@@ -2,47 +2,46 @@
 
 public class Space : MonoBehaviour
 {
-    public GameState.SPACE_STATE state = GameState.SPACE_STATE.UNOCCUPIED;
+    public CommonTypes.SPACE_STATE state = CommonTypes.SPACE_STATE.UNOCCUPIED;
     public int boardIndex;
 
-    public GameState gameState { get; set; }
-    public GameSettings gameSettings { get; set; }
+    public Pentago game { get; set; }
 
     private GameObject currentMarble;
 
     void Start()
     {
-        Debug.Assert(gameState != null);
-        Debug.Assert(gameSettings != null);
+        Debug.Assert(game.state != null);
+        Debug.Assert(game.settings != null);
     }
 
     void Update()
     {
-        if (state != gameState.boardState[boardIndex])
+        if (state != game.state.boardState[boardIndex])
         {
-            state = gameState.boardState[boardIndex];
+            state = game.state.boardState[boardIndex];
             Debug.Log("Space " + gameObject.name + " has changed stated");
 
             switch (state)
             {
-                case GameState.SPACE_STATE.UNOCCUPIED:
+                case CommonTypes.SPACE_STATE.UNOCCUPIED:
                     if (currentMarble != null)
                         Destroy(currentMarble);
 
                     currentMarble = null;
                     break;
-                case GameState.SPACE_STATE.OCCUPIED_PLAYER1:
+                case CommonTypes.SPACE_STATE.OCCUPIED_PLAYER1:
                     if (currentMarble != null)
                         Destroy(currentMarble);
 
-                    currentMarble = Instantiate(gameSettings.player1MarblePrefab, transform.position + Vector3.up * gameSettings.marbleHeightOffset, Quaternion.identity);
+                    currentMarble = Instantiate(game.settings.player1MarblePrefab, transform.position + Vector3.up * game.settings.marbleHeightOffset, Quaternion.identity);
                     currentMarble.transform.SetParent(transform);
                     break;
-                case GameState.SPACE_STATE.OCCUPIED_PLAYER2:
+                case CommonTypes.SPACE_STATE.OCCUPIED_PLAYER2:
                     if (currentMarble != null)
                         Destroy(currentMarble);
 
-                    currentMarble = Instantiate(gameSettings.player2MarblePrefab, transform.position + Vector3.up * gameSettings.marbleHeightOffset, Quaternion.identity);
+                    currentMarble = Instantiate(game.settings.player2MarblePrefab, transform.position + Vector3.up * game.settings.marbleHeightOffset, Quaternion.identity);
                     currentMarble.transform.SetParent(transform);
                     break;
             }
@@ -51,15 +50,16 @@ public class Space : MonoBehaviour
         }
     }
 
-    public void SetState()
+    public void SetState(CommonTypes.SPACE_STATE state)
     {
-        // Space state changed (e.g. can happen when state loaded from saved game)
+        // Space state changed externally e.g. due to loading from saved game 
     }
 
+    // TODO: This should be called by ClickableSpace instead of directly calling game action
     public void PlaceMarble()
     {
-        // Space state changed (can happen when Player (Human or AI) placed a marble)
-        
+        // TODO: Update visual by playing animation or instantiating appropriate visual
+        game.ExecuteAction(new ActionPlaceMarble(boardIndex));
     }
     
 }

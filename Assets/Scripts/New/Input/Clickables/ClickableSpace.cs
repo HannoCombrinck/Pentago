@@ -2,24 +2,20 @@
 
 public class ClickableSpace : MonoBehaviour, IClickable
 {
-    public Manager gameManager;
-
     private Space space;
 
     void Awake()
     {
         space = GetComponent<Space>();
         Debug.Assert(space != null);
-        Debug.Assert(gameManager != null);
-
-        //Debug.Assert(spaceClicked != null);
     }
 
     public void OnLeftClick()
     {
-        gameManager.ExecuteGameAction(new ActionPlaceMarble(space.boardIndex));
+        // TODO: Change this to call Space.PlaceMarble() as opposed to calling game.ExecuteAction directly
+        space.PlaceMarble();
 
-        Debug.Log("Player " + space.gameState.currentPlayer.ToString() + " clicked space " + gameObject.name + ", space state: " + space.state.ToString());
+        Debug.Log("Player " + space.game.state.currentPlayer.ToString() + " clicked space " + gameObject.name + ", space state: " + space.state.ToString());
     }
 
     public void OnRightClick()

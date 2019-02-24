@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BoardController : MonoBehaviour
 {
-    Pentago.PlayerID nextPlayer = Pentago.PlayerID.PLAYER1;
+    PentagoOld.PlayerID nextPlayer = PentagoOld.PlayerID.PLAYER1;
     public GameObject whiteMarble;
     public GameObject blackMarble;
     public GameObject whiteMarblePreview;
@@ -33,7 +33,7 @@ public class BoardController : MonoBehaviour
             return;
         }
 
-        if (nextPlayer == Pentago.PlayerID.PLAYER1)
+        if (nextPlayer == PentagoOld.PlayerID.PLAYER1)
         {
             whiteMarblePreview.SetActive(true);
             blackMarblePreview.SetActive(false);
@@ -57,17 +57,17 @@ public class BoardController : MonoBehaviour
 
         GameObject marble = null;
 
-        if (nextPlayer == Pentago.PlayerID.PLAYER1)
+        if (nextPlayer == PentagoOld.PlayerID.PLAYER1)
         {
             Debug.Log("Placing white marble on position: " + go.name);
             marble = Instantiate(whiteMarble);
-            nextPlayer = Pentago.PlayerID.PLAYER2;
+            nextPlayer = PentagoOld.PlayerID.PLAYER2;
         }
-        else if (nextPlayer == Pentago.PlayerID.PLAYER2)
+        else if (nextPlayer == PentagoOld.PlayerID.PLAYER2)
         {
             Debug.Log("Placing black marble on position: " + go.name);
             marble = Instantiate(blackMarble);
-            nextPlayer = Pentago.PlayerID.PLAYER1;
+            nextPlayer = PentagoOld.PlayerID.PLAYER1;
         }
 
         if (marble != null)

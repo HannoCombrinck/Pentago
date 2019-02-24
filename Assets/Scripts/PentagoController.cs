@@ -11,7 +11,7 @@ using UnityEngine;
 
 interface GameActionOld
 {
-    void Execute(Pentago.PlayerID[,] gameState);
+    void Execute(PentagoOld.PlayerID[,] gameState);
     string GetDescription();
 }
 
@@ -19,16 +19,16 @@ class PlaceMarbleAction : GameActionOld
 {
     private int row;
     private int col;
-    private Pentago.PlayerID player;
+    private PentagoOld.PlayerID player;
 
-    public PlaceMarbleAction(int _row, int _col, Pentago.PlayerID _player)
+    public PlaceMarbleAction(int _row, int _col, PentagoOld.PlayerID _player)
     {
         row = _row;
         col = _col;
         player = _player;
     }
 
-    public void Execute(Pentago.PlayerID[,] gameState)
+    public void Execute(PentagoOld.PlayerID[,] gameState)
     {
         gameState[row, col] = player;
     }
@@ -36,7 +36,7 @@ class PlaceMarbleAction : GameActionOld
     public string GetDescription()
     {
         string descriptionString = "Player 1 ";
-        if (player == Pentago.PlayerID.PLAYER2)
+        if (player == PentagoOld.PlayerID.PLAYER2)
             descriptionString = "Player 2 ";
 
         descriptionString += "placed a marble on row " + row + " column " + col;
@@ -49,10 +49,10 @@ class RotateSubBoardAction : GameActionOld
 {
     private int row;
     private int col;
-    private Pentago.RotateDirection direction;
-    private Pentago.PlayerID player;
+    private PentagoOld.RotateDirection direction;
+    private PentagoOld.PlayerID player;
 
-    public RotateSubBoardAction(int _row, int _col, Pentago.RotateDirection _direction, Pentago.PlayerID _player)
+    public RotateSubBoardAction(int _row, int _col, PentagoOld.RotateDirection _direction, PentagoOld.PlayerID _player)
     {
         row = _row;
         col = _col;
@@ -60,7 +60,7 @@ class RotateSubBoardAction : GameActionOld
         player = _player;
     }
 
-    public void Execute(Pentago.PlayerID[,] gameState)
+    public void Execute(PentagoOld.PlayerID[,] gameState)
     {
         // RotateSubMatrix(gameState, 3, row, col);
     }
@@ -68,11 +68,11 @@ class RotateSubBoardAction : GameActionOld
     public string GetDescription()
     {
         string descriptionString = "Player 1 ";
-        if (player == Pentago.PlayerID.PLAYER2)
+        if (player == PentagoOld.PlayerID.PLAYER2)
             descriptionString = "Player 2 ";
 
         string directionString = "left";
-        if (direction == Pentago.RotateDirection.RIGHT)
+        if (direction == PentagoOld.RotateDirection.RIGHT)
             directionString = "right";
 
         descriptionString += "rotated sub board " + row + ", " + col + " to the " + directionString;
@@ -81,7 +81,7 @@ class RotateSubBoardAction : GameActionOld
     }
 }
 
-public class Pentago
+public class PentagoOld
 {
     public enum PlayerID : byte
     {

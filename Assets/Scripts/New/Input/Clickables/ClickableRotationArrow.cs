@@ -2,19 +2,17 @@
 
 public class ClickableRotationArrow : MonoBehaviour, IClickable
 {
-    public Manager gameManager;
+    public Board board;
     public ActionRotateBoard.DIRECTION direction;
-    public int boardIndex;
 
     void Awake()
     {
-        Debug.Assert(gameManager != null);
+        Debug.Assert(board != null);
     }
 
     public void OnLeftClick()
     {
-        gameManager.ExecuteGameAction(new ActionRotateBoard(boardIndex, direction));
-        Debug.Log("Rotation arrow left clicked " + gameObject.name);
+        board.RotateBoard(direction);
     }
 
     public void OnRightClick()

@@ -18,11 +18,11 @@ public class ActionPlaceMarble : IGameAction
         // TODO: Finish implementation
         switch (gameState.currentPlayer)
         {
-            case GameState.PLAYER.PLAYER1:
-                gameState.boardState[spaceIndex] = GameState.SPACE_STATE.OCCUPIED_PLAYER1;
+            case CommonTypes.PLAYER.PLAYER1:
+                gameState.boardState[spaceIndex] = CommonTypes.SPACE_STATE.OCCUPIED_PLAYER1;
                 break;
-            case GameState.PLAYER.PLAYER2:
-                gameState.boardState[spaceIndex] = GameState.SPACE_STATE.OCCUPIED_PLAYER2;
+            case CommonTypes.PLAYER.PLAYER2:
+                gameState.boardState[spaceIndex] = CommonTypes.SPACE_STATE.OCCUPIED_PLAYER2;
                 break;
         }
     }
