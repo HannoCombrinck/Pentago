@@ -12,21 +12,22 @@ public class ClickableRotationArrow : MonoBehaviour, IClickable
 
     public void OnLeftClick()
     {
+        Debug.Log("Rotation arrow left clicked " + gameObject.name);
         board.RotateBoard(direction);
     }
 
     public void OnRightClick()
     {
-        Debug.Log("Rotation arrow right clicked " + gameObject.name);
+        //Debug.Log("Rotation arrow right clicked " + gameObject.name);
     }
 
     public void OnMousePointerEnter()
     {
-        Debug.Log("Mouse entered Rotation arrow " + gameObject.name);
+        //Debug.Log("Mouse entered Rotation arrow " + gameObject.name);
     }
 
     public void OnMousePointerExit()
     {
-        Debug.Log("Mouse left Rotation arrow " + gameObject.name);
+        //Debug.Log("Mouse left Rotation arrow " + gameObject.name);
     }
 }

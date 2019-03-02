@@ -20,18 +20,18 @@ public class ClickableSpace : MonoBehaviour, IClickable
 
     public void OnRightClick()
     {
-        Debug.Log("Space right clicked " + gameObject.name);
+        //Debug.Log("Space right clicked " + gameObject.name);
     }
 
     public void OnMousePointerEnter()
     {
-        Debug.Log("Mouse entered space " + gameObject.name);
+        //Debug.Log("Mouse entered space " + gameObject.name);
         //TODO: preview placement
     }
 
     public void OnMousePointerExit()
     {
-        Debug.Log("Mouse left space " + gameObject.name);
+        //Debug.Log("Mouse left space " + gameObject.name);
         //TODO: remove placement preview
     }
 }
