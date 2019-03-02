@@ -3,7 +3,7 @@
 public class Space : MonoBehaviour
 {
     public CommonTypes.SPACE_STATE state = CommonTypes.SPACE_STATE.UNOCCUPIED;
-    public int boardIndex;
+    public int spaceIndex;
 
     public Pentago game { get; set; }
 
@@ -17,10 +17,10 @@ public class Space : MonoBehaviour
 
     void Update()
     {
-        if (state != game.state.boardState[boardIndex])
+        if (state != game.state.spaceState[spaceIndex])
         {
-            state = game.state.boardState[boardIndex];
-            Debug.Log("Space " + gameObject.name + " has changed stated");
+            state = game.state.spaceState[spaceIndex];
+            //Debug.Log("Space " + gameObject.name + " has changed stated");
 
             switch (state)
             {
@@ -59,7 +59,7 @@ public class Space : MonoBehaviour
     public void PlaceMarble()
     {
         // TODO: Update visual by playing animation or instantiating appropriate visual
-        game.ExecuteAction(new ActionPlaceMarble(boardIndex));
+        game.ExecuteAction(new ActionPlaceMarble(spaceIndex));
     }
     
 }

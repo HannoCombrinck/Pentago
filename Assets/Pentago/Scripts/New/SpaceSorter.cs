@@ -14,7 +14,7 @@ public class SpaceSorter : SpatialSorter<Space>
 
         for (int i = 0; i < sortedSpatials.Count; i++)
         {
-            sortedSpatials[i].boardIndex = i;
+            sortedSpatials[i].spaceIndex = i;
             sortedSpatials[i].game = game;
         }
     }
