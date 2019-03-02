@@ -1,4 +1,5 @@
-﻿
+﻿using UnityEngine;
+
 public class ActionRotateBoard : IGameAction
 {
     public enum DIRECTION
@@ -23,6 +24,7 @@ public class ActionRotateBoard : IGameAction
 
     public void Execute(GameState gameState)
     {
+        Debug.Log("Rotating board " + boardIndex + " " + rotateDirection.ToString());
         //TODO: Modify gameState to reflect this change
     }
 }
