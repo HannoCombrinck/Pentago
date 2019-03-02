@@ -22,13 +22,13 @@ public class BoardRotatorAnimated : MonoBehaviour, IBoardRotator
 
     public void RotateClockwise()
     {
-        Debug.Log("BoardRotatorAnimated: Attempting animated clockwise rotation on: " + gameObject.name);
+        //Debug.Log("BoardRotatorAnimated: Attempting animated clockwise rotation on: " + gameObject.name);
         animationApplier.ApplyTo(transform, Quaternion.Euler(0.0f, yawOffset, 0.0f), "RotateCW");
     }
 
     public void RotateCounterClockwise()
     {
-        Debug.Log("BoardRotatorAnimated: Attempting animated counterclockwise rotation on: " + gameObject.name);
+        //Debug.Log("BoardRotatorAnimated: Attempting animated counterclockwise rotation on: " + gameObject.name);
         animationApplier.ApplyTo(transform, Quaternion.Euler(0.0f, yawOffset, 0.0f), "RotateCCW");
     }
 }

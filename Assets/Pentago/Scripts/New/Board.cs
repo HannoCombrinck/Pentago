@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Board : MonoBehaviour
 {
@@ -7,7 +8,14 @@ public class Board : MonoBehaviour
 
     public void RotateBoard(ActionRotateBoard.DIRECTION direction)
     {
-        // TODO: Update visual by playing animation or instantiating appropriate visual
+        StartCoroutine(AnimateBoardThenExecuteRotateAction(direction));
+    }
+
+    IEnumerator AnimateBoardThenExecuteRotateAction(ActionRotateBoard.DIRECTION direction)
+    {
+        // TODO: Play animation and re-sort spaces
+        // CONTINUE HERE
+        yield return new WaitForSeconds(2.0f);
         game.ExecuteAction(new ActionRotateBoard(boardIndex, direction));
     }
 }
