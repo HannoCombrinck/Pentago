@@ -1,16 +1,10 @@
 ﻿
-public class ActionRotateQuadrant : IGameAction
+public class ActionRotateQuadrant : IAction
 {
-    public enum DIRECTION
-    {
-        CLOCKWISE,
-        COUNTERCLOCKWISE
-    };
-
     private int quadrantIndex;
-    private DIRECTION rotateDirection;
+    private CommonTypes.ROTATE_DIRECTION rotateDirection;
 
-    public ActionRotateQuadrant(int quadrantIndex, DIRECTION rotateDirection)
+    public ActionRotateQuadrant(int quadrantIndex, CommonTypes.ROTATE_DIRECTION rotateDirection)
     {
         this.quadrantIndex = quadrantIndex;
         this.rotateDirection = rotateDirection;
@@ -25,9 +19,9 @@ public class ActionRotateQuadrant : IGameAction
     {
         var quadrantIndexToBoardIndexMapper = new SpaceIndexMapper(ref gameState.spaceState, quadrantIndex);
 
-        if (rotateDirection == DIRECTION.CLOCKWISE)
+        if (rotateDirection == CommonTypes.ROTATE_DIRECTION.CLOCKWISE)
             SquareMatrixRotater.Rotate90DegreesClockwise(quadrantIndexToBoardIndexMapper);
-        else if (rotateDirection == DIRECTION.COUNTERCLOCKWISE)
+        else if (rotateDirection == CommonTypes.ROTATE_DIRECTION.COUNTERCLOCKWISE)
             SquareMatrixRotater.Rotate90DegreesCounterclockwise(quadrantIndexToBoardIndexMapper);
     }
 

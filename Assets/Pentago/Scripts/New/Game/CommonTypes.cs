@@ -20,6 +20,12 @@ public static class CommonTypes
         ROTATE_QUADRANT
     }
 
+    public enum ROTATE_DIRECTION
+    {
+        CLOCKWISE,
+        COUNTERCLOCKWISE
+    };
+
     public enum SPACE_STATE
     {
         UNOCCUPIED,

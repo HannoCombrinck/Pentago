@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 
-// Initialize and sort Quadrant components with regards to their world space positions
-public class QuadrantSorter : SpatialSorter<Quadrant>
+// Initialize and manage all quadrant visuals (i.e. GameObjects with Quadrant component attached) that 
+// are descendants of this GameObject.
+public class QuadrantManager : SpatialSorter<Quadrant>
 {
-    public Pentago game;
+    [Tooltip("TEMPORARY TO BE REMOVED")]
+    public Game game;
 
     protected override void Awake()
     {

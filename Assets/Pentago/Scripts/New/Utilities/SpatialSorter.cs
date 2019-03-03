@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-// Search for spatial component descendents and sort them according to their world
+// Search for spatial component descendents of type SpatialComponentType and sort them according to their world
 // space positions in the xz plane. Maintain and expose this sorted list.
 public class SpatialSorter<SpatialComponentType> : MonoBehaviour
     where SpatialComponentType : Component
@@ -33,6 +33,11 @@ public class SpatialSorter<SpatialComponentType> : MonoBehaviour
     public void Sort()
     {
         sortedSpatials.Sort(spatialComponentIndexComparer);
+    }
+
+    public SpatialComponentType Get(int index)
+    {
+        return sortedSpatials[index];
     }
 
     // Comparer to sorts spatial components from top left to bottom right based on world space positions in xz plane.

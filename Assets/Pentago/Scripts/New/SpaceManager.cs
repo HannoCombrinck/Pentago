@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 
-// Initialize and sort Space components with regards to their world space positions.
-public class SpaceSorter : SpatialSorter<Space>
+// Initialize and manage all space visuals (i.e. GameObjects with Space component attached) that 
+// are descendants of this GameObject.
+public class SpaceManager : SpatialSorter<Space>
 {
-    public Pentago game;
+    [Tooltip("TEMPORARY TO BE REMOVED")]
+    public Game game;
 
     protected override void Awake()
     {

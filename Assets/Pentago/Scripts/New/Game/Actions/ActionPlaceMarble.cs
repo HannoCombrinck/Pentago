@@ -1,5 +1,5 @@
 ﻿
-public class ActionPlaceMarble : IGameAction
+public class ActionPlaceMarble : IAction
 {
     public ActionPlaceMarble(int spaceIndex)
     {

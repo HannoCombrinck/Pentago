@@ -2,6 +2,7 @@
 
 public class ClickableSpace : MonoBehaviour, IClickable
 {
+    public BoardManager boardManager;
     private Space space;
 
     void Awake()
@@ -13,7 +14,9 @@ public class ClickableSpace : MonoBehaviour, IClickable
     public void OnLeftClick()
     {
         //Debug.Log("Player " + space.game.state.currentPlayer.ToString() + " clicked space " + gameObject.name + ", space state: " + space.state.ToString());
-        space.PlaceMarble();
+
+        boardManager.PlaceMarble(space.spaceIndex);
+        //space.PlaceMarble();
     }
 
     public void OnRightClick()

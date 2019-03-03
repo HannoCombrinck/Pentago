@@ -5,7 +5,7 @@ public class Space : MonoBehaviour
     public CommonTypes.SPACE_STATE state = CommonTypes.SPACE_STATE.UNOCCUPIED;
     public int spaceIndex;
 
-    public Pentago game { get; set; }
+    public Game game { get; set; }
 
     private GameObject currentMarble;
 
@@ -49,17 +49,4 @@ public class Space : MonoBehaviour
             // TODO: Fire event (space state changed to reflect new game state)
         }
     }
-
-    public void SetState(CommonTypes.SPACE_STATE state)
-    {
-        // Space state changed externally e.g. due to loading from saved game 
-    }
-
-    // TODO: This should be called by ClickableSpace instead of directly calling game action
-    public void PlaceMarble()
-    {
-        // TODO: Update visual by playing animation or instantiating appropriate visual
-        game.ExecuteAction(new ActionPlaceMarble(spaceIndex));
-    }
-    
 }

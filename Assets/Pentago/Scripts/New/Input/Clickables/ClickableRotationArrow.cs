@@ -2,8 +2,9 @@
 
 public class ClickableRotationArrow : MonoBehaviour, IClickable
 {
+    public BoardManager boardManager;
     public Quadrant quadrant;
-    public ActionRotateQuadrant.DIRECTION direction;
+    public CommonTypes.ROTATE_DIRECTION direction;
 
     void Awake()
     {
@@ -12,7 +13,8 @@ public class ClickableRotationArrow : MonoBehaviour, IClickable
 
     public void OnLeftClick()
     {
-        quadrant.RotateQuadrant(direction);
+        boardManager.RotateQuadrant(quadrant.quadrantIndex, direction);
+        //quadrant.RotateQuadrant(direction);
     }
 
     public void OnRightClick()
