@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class BoardRotatorAnimated : MonoBehaviour, IBoardRotator
+public class QuadrantRotatorAnimated : MonoBehaviour, IQuadrantRotator
 {
-    [Tooltip("The animation that should be used to rotate this board.")]
+    [Tooltip("The animation that should be used to rotate this quadrant.")]
     public AnimationApplier animationApplier;
     [Tooltip("Yaw rotation offset to apply to animation (degrees).")]
     public float yawOffset = 0.0f;
@@ -22,13 +20,13 @@ public class BoardRotatorAnimated : MonoBehaviour, IBoardRotator
 
     public void RotateClockwise()
     {
-        //Debug.Log("BoardRotatorAnimated: Attempting animated clockwise rotation on: " + gameObject.name);
+        //Debug.Log("QuadrantRotatorAnimated: Attempting animated clockwise rotation on: " + gameObject.name);
         animationApplier.ApplyTo(transform, Quaternion.Euler(0.0f, yawOffset, 0.0f), "RotateCW");
     }
 
     public void RotateCounterClockwise()
     {
-        //Debug.Log("BoardRotatorAnimated: Attempting animated counterclockwise rotation on: " + gameObject.name);
+        //Debug.Log("QuadrantRotatorAnimated: Attempting animated counterclockwise rotation on: " + gameObject.name);
         animationApplier.ApplyTo(transform, Quaternion.Euler(0.0f, yawOffset, 0.0f), "RotateCCW");
     }
 

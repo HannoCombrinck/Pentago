@@ -2,17 +2,17 @@
 
 public class ClickableRotationArrow : MonoBehaviour, IClickable
 {
-    public Board board;
-    public ActionRotateBoard.DIRECTION direction;
+    public Quadrant quadrant;
+    public ActionRotateQuadrant.DIRECTION direction;
 
     void Awake()
     {
-        Debug.Assert(board != null);
+        Debug.Assert(quadrant != null);
     }
 
     public void OnLeftClick()
     {
-        board.RotateBoard(direction);
+        quadrant.RotateQuadrant(direction);
     }
 
     public void OnRightClick()

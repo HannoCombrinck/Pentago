@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
-// Initialize and sort Board components with regards to their world space positions
-public class BoardSorter : SpatialSorter<Board>
+// Initialize and sort Quadrant components with regards to their world space positions
+public class QuadrantSorter : SpatialSorter<Quadrant>
 {
     public Pentago game;
 
@@ -14,7 +14,7 @@ public class BoardSorter : SpatialSorter<Board>
 
         for (int i = 0; i < sortedSpatials.Count; i++)
         {
-            sortedSpatials[i].boardIndex = i;
+            sortedSpatials[i].quadrantIndex = i;
             sortedSpatials[i].game = game;
         }
     }

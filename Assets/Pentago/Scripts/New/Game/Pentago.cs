@@ -31,7 +31,7 @@ public class Pentago : MonoBehaviour
     {
         if (state.nextMove == CommonTypes.MOVE_TYPE.PLACE_MARBLE)
         {
-            state.nextMove = CommonTypes.MOVE_TYPE.ROTATE_BOARD;
+            state.nextMove = CommonTypes.MOVE_TYPE.ROTATE_QUADRANT;
             return;
         }
 

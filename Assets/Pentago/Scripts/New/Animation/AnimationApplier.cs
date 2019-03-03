@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 /* This AnimationApplier provides and interface to apply an animation of the attached animator to another GameObject
  */

@@ -17,7 +17,7 @@ public static class CommonTypes
     public enum MOVE_TYPE
     {
         PLACE_MARBLE,
-        ROTATE_BOARD
+        ROTATE_QUADRANT
     }
 
     public enum SPACE_STATE

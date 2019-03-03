@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(BoardRotatorAnimated))]
+[CustomEditor(typeof(QuadrantRotatorAnimated))]
 public class RotatorAnimatedEditor : Editor
 {
     public override void OnInspectorGUI()
@@ -10,7 +10,7 @@ public class RotatorAnimatedEditor : Editor
 
         GUI.enabled = Application.isPlaying;
 
-        BoardRotatorAnimated rotater = target as BoardRotatorAnimated;
+        QuadrantRotatorAnimated rotater = target as QuadrantRotatorAnimated;
         if (GUILayout.Button("Clockwise"))
             rotater.RotateClockwise();
         if (GUILayout.Button("Counterclockwise"))
