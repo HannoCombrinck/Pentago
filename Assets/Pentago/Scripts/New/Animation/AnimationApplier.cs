@@ -59,7 +59,7 @@ public class AnimationApplier : MonoBehaviour
         animator.SetTrigger("Reset");
         inProgress = false;
 
-        Debug.Log("AnimationApplier: Finished animation");
+        //Debug.Log("AnimationApplier: Finished animation");
     }
 
     public bool IsAnimationInProgress()
@@ -79,7 +79,7 @@ public class AnimationApplier : MonoBehaviour
         if (inProgress || isAboutToStart)
             return;
 
-        Debug.Log("AnimationApplier: " + gameObject.name + " is applying animation " + animationName + " of bone " + animatedBone.name + " to object " + objectToAnimate.gameObject.name);
+        //Debug.Log("AnimationApplier: " + gameObject.name + " is applying animation " + animationName + " of bone " + animatedBone.name + " to object " + objectToAnimate.gameObject.name);
 
         objectBeingAnimated = objectToAnimate;
         currentAnimation = animationName;

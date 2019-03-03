@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(GameState))]
+[CustomEditor(typeof(State))]
 public class GameStateEditor : Editor
 {
     public override void OnInspectorGUI()
@@ -10,7 +10,7 @@ public class GameStateEditor : Editor
 
         GUI.enabled = true;
 
-        GameState state = target as GameState;
+        State state = target as State;
         if (GUILayout.Button("Reset"))
             state.ResetState();
     }

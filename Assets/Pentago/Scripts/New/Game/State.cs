@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [CreateAssetMenu]
-public class GameState : ScriptableObject
+public class State : ScriptableObject
 {
     public void ResetState()
     {

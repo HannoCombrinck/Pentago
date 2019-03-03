@@ -13,7 +13,7 @@ public class ActionPlaceMarble : IGameAction
         return "Marble placed on space " + spaceIndex;
     }
 
-    public void Execute(GameState gameState)
+    public void Execute(State gameState)
     {
         // TODO: Finish implementation
         switch (gameState.currentPlayer)
