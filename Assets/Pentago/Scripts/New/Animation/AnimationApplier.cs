@@ -64,6 +64,11 @@ public class AnimationApplier : MonoBehaviour
         Debug.Log("AnimationApplier: Finished animation");
     }
 
+    public bool IsAnimationInProgress()
+    {
+        return inProgress || isAboutToStart;
+    }
+
     // Convenience override for ApplyTo with no rotationOffset 
     public void ApplyTo(Transform objectToAnimate, string animationName)
     {

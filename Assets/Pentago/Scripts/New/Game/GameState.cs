@@ -5,7 +5,6 @@ public class GameState : ScriptableObject
 {
     public void ResetState()
     {
-
         currentPlayer = CommonTypes.PLAYER.PLAYER1;
         winState = CommonTypes.WIN_STATE.IN_PROGRESS;
         nextMove = CommonTypes.MOVE_TYPE.PLACE_MARBLE;

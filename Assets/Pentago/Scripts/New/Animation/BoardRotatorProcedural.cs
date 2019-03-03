@@ -14,4 +14,9 @@ public class BoardRotatorProcedural : MonoBehaviour, IBoardRotator
     {
         Debug.Log("BoardRotatorProcedural: Attempting procedural counterclockwise rotation on: " + gameObject.name);
     }
+
+    public bool IsBusyRotating()
+    {
+        return false;
+    }
 }

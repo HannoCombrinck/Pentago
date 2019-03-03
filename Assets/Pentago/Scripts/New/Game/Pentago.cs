@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+// High level game interface. Manages game state agnostic of graphics/animation etc.
 public class Pentago : MonoBehaviour
 {
     public GameState state;

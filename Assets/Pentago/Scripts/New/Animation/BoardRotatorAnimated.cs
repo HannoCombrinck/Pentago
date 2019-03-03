@@ -31,4 +31,9 @@ public class BoardRotatorAnimated : MonoBehaviour, IBoardRotator
         //Debug.Log("BoardRotatorAnimated: Attempting animated counterclockwise rotation on: " + gameObject.name);
         animationApplier.ApplyTo(transform, Quaternion.Euler(0.0f, yawOffset, 0.0f), "RotateCCW");
     }
+
+    public bool IsBusyRotating()
+    {
+        return animationApplier.IsAnimationInProgress();
+    }
 }

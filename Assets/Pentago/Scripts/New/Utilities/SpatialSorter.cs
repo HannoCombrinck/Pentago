@@ -27,10 +27,10 @@ public class SpatialSorter<SpatialComponentType> : MonoBehaviour
         var xRange = (xMax - xMin) * 2.0f; // * 2.0f to prevent edge cases, albeit a bit excessive
         spatialComponentIndexComparer = new SpatialComponentIndexComparer(xRange);
 
-        SortSpatials();
+        Sort();
     }
 
-    public void SortSpatials()
+    public void Sort()
     {
         sortedSpatials.Sort(spatialComponentIndexComparer);
     }

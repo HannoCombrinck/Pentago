@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-// Initialize and sort Space components with regards to their world space positions
+// Initialize and sort Space components with regards to their world space positions.
 public class SpaceSorter : SpatialSorter<Space>
 {
     public Pentago game;
@@ -17,5 +17,10 @@ public class SpaceSorter : SpatialSorter<Space>
             sortedSpatials[i].spaceIndex = i;
             sortedSpatials[i].game = game;
         }
+    }
+
+    public void OnSpaceIndicesChanged()
+    {
+        Sort();
     }
 }

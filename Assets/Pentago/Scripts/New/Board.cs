@@ -6,6 +6,14 @@ public class Board : MonoBehaviour
     public int boardIndex;
     public Pentago game { get; set; }
 
+    private IBoardRotator rotator;
+
+    private void Awake()
+    {
+        rotator = GetComponent<IBoardRotator>();
+        Debug.Assert(rotator != null);
+    }
+
     public void RotateBoard(ActionRotateBoard.DIRECTION direction)
     {
         StartCoroutine(AnimateBoardThenExecuteRotateAction(direction));
@@ -13,9 +21,16 @@ public class Board : MonoBehaviour
 
     IEnumerator AnimateBoardThenExecuteRotateAction(ActionRotateBoard.DIRECTION direction)
     {
-        // TODO: Play animation and re-sort spaces
-        // CONTINUE HERE
-        yield return new WaitForSeconds(2.0f);
+        rotator.RotateClockwise();
+
+        while (rotator.IsBusyRotating())
+        {
+            yield return null; //new WaitForSeconds(0.0f);
+        }
+
+        // TODO: Re-sort space indices - how to access SpaceSorter from here?
+
+
         game.ExecuteAction(new ActionRotateBoard(boardIndex, direction));
     }
 }
