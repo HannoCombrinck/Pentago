@@ -13,10 +13,8 @@ public class ClickableSpace : MonoBehaviour, IClickable
 
     public void OnLeftClick()
     {
-        //Debug.Log("Player " + space.game.state.currentPlayer.ToString() + " clicked space " + gameObject.name + ", space state: " + space.state.ToString());
-
-        boardManager.PlaceMarble(space.spaceIndex);
-        //space.PlaceMarble();
+        if (space.state == CommonTypes.SPACE_STATE.UNOCCUPIED)
+            boardManager.PlaceMarble(space.spaceIndex);
     }
 
     public void OnRightClick()
@@ -26,13 +24,13 @@ public class ClickableSpace : MonoBehaviour, IClickable
 
     public void OnMousePointerEnter()
     {
-        //Debug.Log("Mouse entered space " + gameObject.name);
-        //TODO: preview placement
+        if (space.state == CommonTypes.SPACE_STATE.UNOCCUPIED)
+            boardManager.PlaceMarbleShowPreview(space.spaceIndex);
     }
 
     public void OnMousePointerExit()
     {
-        //Debug.Log("Mouse left space " + gameObject.name);
-        //TODO: remove placement preview
+        if (space.state == CommonTypes.SPACE_STATE.UNOCCUPIED)
+            boardManager.PlaceMarbleHidePreview();
     }
 }

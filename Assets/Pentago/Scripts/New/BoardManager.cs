@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 // Initialize and manage the board visual.
@@ -7,6 +8,12 @@ public class BoardManager : MonoBehaviour
 {
     [Tooltip("Reference to the Pentago game manager component.")]
     public Game game;
+    [Tooltip("Prefab to use as Player 1's marble.")]
+    public GameObject player1MarblePrefab;
+    [Tooltip("Prefab to use as Player 2's marble.")]
+    public GameObject player2MarblePrefab;
+    [Tooltip("Visually how high above the space to place marble prefabs.")]
+    public float marbleHeightOffset;
 
     private QuadrantManager quadrants;
     private SpaceManager spaces;
@@ -16,47 +23,79 @@ public class BoardManager : MonoBehaviour
         Debug.Assert(game != null, "Game component required.");
         quadrants = GetComponent<QuadrantManager>();
         spaces = GetComponent<SpaceManager>();
+
+        /////
+        // TEMP 
+        game.onNewGameStarted += ApplyGameStateToVisuals;
+        game.onActionExecuted += ApplyGameStateToVisuals;
+        /////
     }
 
-    private void Update()
+    private void Start()
     {
-        
+        ApplyGameStateToVisuals();
     }
 
     // Change the visuals to represent the game state as stored in Game.state.
-    public void ApplyGameState()
+    public void ApplyGameStateToVisuals()
     {
         // TODO
-
+        spaces.UpdateAll();
     }
 
-    // Visually places a marble in the game world and executes a ActionPlaceMarble action on the Game.
+    // Visually place a marble in the game world and execute a ActionPlaceMarble action on the Game.
     public void PlaceMarble(int spaceIndex)
     {
-        // Update visuals to represent action visually
-        // TODO
+        var action = new ActionPlaceMarble(spaceIndex);
+        if (!game.IsValidAction(action))
+        {
+            Debug.Log(game.state.currentPlayer.ToString() + " attempted an invalid move. Cannot place a marble on " + spaceIndex + " at this time.");
+            return;
+        }
+
+        ////////
+        //TODO: VISUAL ANIMATION GOES HERE
+        var marblePrefab = game.state.currentPlayer == CommonTypes.PLAYER.PLAYER1 ? player1MarblePrefab : player2MarblePrefab;
         var space = spaces.Get(spaceIndex);
+        var marble = Instantiate(marblePrefab, space.transform.position + Vector3.up * marbleHeightOffset, Quaternion.identity);
+        space.AddMarble(game.state.currentPlayer, marble);
+        ////////
 
         // Execute action to update abstract game representation
-        game.ExecuteAction(new ActionPlaceMarble(spaceIndex));
+        game.ExecuteAction(action);
     }
 
-    // Visually rotates the quadrant in the game world and executes a ActionRotateQuadrant action on the Game.
+    // Show a visual preview of what it would look like if a marble were placed.
+    public void PlaceMarbleShowPreview(int spaceIndex)
+    {
+        //TODO:
+    }
+
+    // Hide the visual preview of a marble placement.
+    public void PlaceMarbleHidePreview()
+    {
+        //TODO:
+    }
+
+    // Visually rotate the quadrant in the game world and execute a ActionRotateQuadrant action on the Game.
     public void RotateQuadrant(int quadrantIndex, CommonTypes.ROTATE_DIRECTION direction)
     {
-        // Update visuals to represent action visually
-        // TODO run coroutine to do animation first then execute the game action
-        var quadrant = quadrants.Get(quadrantIndex);
-        //StartCoroutine(AnimateQuadrantThenExecuteAction(quadrant, direction));
+        var action = new ActionRotateQuadrant(quadrantIndex, direction);
+        if (!game.IsValidAction(action))
+        {
+            Debug.Log(game.state.currentPlayer.ToString() + " attempted invalid move. Cannot rotate quadrant " + quadrantIndex + " " + direction.ToString() + " at this time.");
+            return;
+        }
 
-        // Execute action to update abstract game representation
-        game.ExecuteAction(new ActionRotateQuadrant(quadrantIndex, direction));
+        var quadrant = quadrants.Get(quadrantIndex);
+        StartCoroutine(AnimateQuadrant(quadrant, direction, () => game.ExecuteAction(action)));
     }
 
-    private IEnumerator AnimateQuadrantThenExecuteAction(Quadrant quadrant, CommonTypes.ROTATE_DIRECTION direction)
+    // TODO: Add comment
+    private IEnumerator AnimateQuadrant(Quadrant quadrant, CommonTypes.ROTATE_DIRECTION direction, Action onFinished)
     {
-        yield return null;
-
+        ////////
+        //TODO: VISUAL ANIMATION GOES HERE
         /*switch (direction)
         {
             case CommonTypes.ROTATE_DIRECTION.CLOCKWISE:
@@ -73,8 +112,9 @@ public class BoardManager : MonoBehaviour
         }
 
         // TODO: Re-sort space indices - how to access SpaceSorter from here?
-
-
-        game.ExecuteAction(new ActionRotateQuadrant(quadrantIndex, direction));*/
+        */
+        ////////
+        yield return null;
+        onFinished();
     }
 }

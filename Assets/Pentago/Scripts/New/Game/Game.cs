@@ -5,7 +5,6 @@ using UnityEngine;
 public class Game : MonoBehaviour
 {
     public State state;
-    public Settings settings; // TODO: Temp
 
     #region Game events
     public Action onNewGameStarted;
@@ -34,15 +33,20 @@ public class Game : MonoBehaviour
         action.Execute(state);
         onActionExecuted?.Invoke();
 
-        if (GetWinState() != CommonTypes.WIN_STATE.IN_PROGRESS)
-            onGameWon?.Invoke();
-
         AdvanceGameState();
         return true;
     }
     
     public void AdvanceGameState()
     {
+        var winState = CheckBoardState();
+        if (winState != CommonTypes.WIN_STATE.IN_PROGRESS)
+        {
+            state.winState = winState;
+            onGameWon?.Invoke();
+            return;
+        }
+
         if (state.nextMove == CommonTypes.MOVE_TYPE.PLACE_MARBLE)
         {
             state.nextMove = CommonTypes.MOVE_TYPE.ROTATE_QUADRANT;
@@ -55,13 +59,14 @@ public class Game : MonoBehaviour
         onGameStateAdvanced?.Invoke();
     }
 
-    private bool IsValidAction(IAction action)
+    public bool IsValidAction(IAction action)
     {
         // TODO: Implement this
         return true;
     }
 
-    private CommonTypes.WIN_STATE GetWinState()
+    // Check the current state of the board and return the appropriate WIN_STATE.
+    private CommonTypes.WIN_STATE CheckBoardState()
     {
         // TODO: Implement this
         return CommonTypes.WIN_STATE.IN_PROGRESS;

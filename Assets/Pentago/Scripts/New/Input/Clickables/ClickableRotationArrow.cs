@@ -14,7 +14,6 @@ public class ClickableRotationArrow : MonoBehaviour, IClickable
     public void OnLeftClick()
     {
         boardManager.RotateQuadrant(quadrant.quadrantIndex, direction);
-        //quadrant.RotateQuadrant(direction);
     }
 
     public void OnRightClick()

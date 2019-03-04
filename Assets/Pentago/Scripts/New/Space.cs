@@ -12,12 +12,13 @@ public class Space : MonoBehaviour
     void Start()
     {
         Debug.Assert(game.state != null);
-        Debug.Assert(game.settings != null);
     }
 
     void Update()
     {
-        if (state != game.state.spaceState[spaceIndex])
+
+        // TODO: This should move somewhere else
+        /*if (state != game.state.spaceState[spaceIndex])
         {
             state = game.state.spaceState[spaceIndex];
             //Debug.Log("Space " + gameObject.name + " has changed stated");
@@ -47,6 +48,23 @@ public class Space : MonoBehaviour
             }
 
             // TODO: Fire event (space state changed to reflect new game state)
-        }
+        }*/
+    }
+
+    public void AddMarble(CommonTypes.PLAYER player, GameObject marble)
+    {
+        currentMarble = marble;
+        currentMarble.transform.SetParent(transform);
+        state = player == CommonTypes.PLAYER.PLAYER1 ? CommonTypes.SPACE_STATE.OCCUPIED_PLAYER1 : CommonTypes.SPACE_STATE.OCCUPIED_PLAYER2;
+    }
+
+    public void RemoveMarble()
+    {
+        if (currentMarble == null)
+            return;
+            
+        Destroy(currentMarble);
+        currentMarble = null;
+        state = CommonTypes.SPACE_STATE.UNOCCUPIED;
     }
 }

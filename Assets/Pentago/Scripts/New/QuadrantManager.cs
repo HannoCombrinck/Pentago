@@ -12,7 +12,6 @@ public class QuadrantManager : SpatialSorter<Quadrant>
         base.Awake();
 
         Debug.Assert(game.state != null);
-        Debug.Assert(game.settings != null);
 
         for (int i = 0; i < sortedSpatials.Count; i++)
         {
