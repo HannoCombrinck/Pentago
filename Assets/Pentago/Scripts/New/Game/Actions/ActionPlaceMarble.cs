@@ -19,10 +19,10 @@ public class ActionPlaceMarble : IAction
         switch (gameState.currentPlayer)
         {
             case CommonTypes.PLAYER.PLAYER1:
-                gameState.spaceState[spaceIndex] = CommonTypes.SPACE_STATE.OCCUPIED_PLAYER1;
+                gameState.spaces[spaceIndex] = CommonTypes.SPACE_STATE.OCCUPIED_PLAYER1;
                 break;
             case CommonTypes.PLAYER.PLAYER2:
-                gameState.spaceState[spaceIndex] = CommonTypes.SPACE_STATE.OCCUPIED_PLAYER2;
+                gameState.spaces[spaceIndex] = CommonTypes.SPACE_STATE.OCCUPIED_PLAYER2;
                 break;
         }
     }

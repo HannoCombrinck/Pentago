@@ -34,7 +34,7 @@ public class SpaceManager : SpatialSorter<Space>
         {
             sortedSpatials[i].RemoveMarble();
 
-            switch (game.state.spaceState[i])
+            switch (game.state.spaces[i])
             {
                 case CommonTypes.SPACE_STATE.OCCUPIED_PLAYER1:
                     sortedSpatials[i].AddMarble(CommonTypes.PLAYER.PLAYER1, Instantiate(boardManager.player1MarblePrefab, sortedSpatials[i].transform.position + Vector3.up * boardManager.marbleHeightOffset, Quaternion.identity));

@@ -17,7 +17,7 @@ public class ActionRotateQuadrant : IAction
 
     public void Execute(State gameState)
     {
-        var quadrantIndexToBoardIndexMapper = new SpaceIndexMapper(ref gameState.spaceState, quadrantIndex);
+        var quadrantIndexToBoardIndexMapper = new SpaceIndexMapper(ref gameState.spaces, quadrantIndex);
 
         if (rotateDirection == CommonTypes.ROTATE_DIRECTION.CLOCKWISE)
             SquareMatrixRotater.Rotate90DegreesClockwise(quadrantIndexToBoardIndexMapper);
