@@ -32,6 +32,7 @@ public class SpaceManager : SpatialSorter<Space>
         // TODO: Find a better way to implement this - shouldn't be instantiating prefabs here and have convoluted logic for checkin Space state etc.
         for (int i = 0; i < sortedSpatials.Count; i++)
         {
+            sortedSpatials[i].spaceIndex = i;
             sortedSpatials[i].RemoveMarble();
 
             switch (game.state.spaces[i])

@@ -96,7 +96,8 @@ public class BoardManager : MonoBehaviour
     {
         ////////
         //TODO: VISUAL ANIMATION GOES HERE
-        /*switch (direction)
+        var rotator = quadrant.GetComponent<IQuadrantRotator>();
+        switch (direction)
         {
             case CommonTypes.ROTATE_DIRECTION.CLOCKWISE:
                 rotator.RotateClockwise();
@@ -107,12 +108,8 @@ public class BoardManager : MonoBehaviour
         }
 
         while (rotator.IsBusyRotating())
-        {
             yield return null; //new WaitForSeconds(0.0f);
-        }
-
-        // TODO: Re-sort space indices - how to access SpaceSorter from here?
-        */
+        
         ////////
         yield return null;
         onFinished();
