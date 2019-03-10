@@ -60,6 +60,46 @@ ModelImporter:
     100108: TR_007
     100110: TR_008
     100112: TopLeft1
+    100114: QuadrantBottomLeft
+    100116: QuadrantBottomRight
+    100118: QuadrantTopLeft
+    100120: QuadrantTopRight
+    100122: SpaceBottomLeft
+    100124: SpaceBottomLeft_001
+    100126: SpaceBottomLeft_002
+    100128: SpaceBottomLeft_003
+    100130: SpaceBottomLeft_004
+    100132: SpaceBottomLeft_005
+    100134: SpaceBottomLeft_006
+    100136: SpaceBottomLeft_007
+    100138: SpaceBottomLeft_008
+    100140: SpaceBottomRight
+    100142: SpaceBottomRight_001
+    100144: SpaceBottomRight_002
+    100146: SpaceBottomRight_003
+    100148: SpaceBottomRight_004
+    100150: SpaceBottomRight_005
+    100152: SpaceBottomRight_006
+    100154: SpaceBottomRight_007
+    100156: SpaceBottomRight_008
+    100158: SpaceTopLeft
+    100160: SpaceTopLeft_001
+    100162: SpaceTopLeft_002
+    100164: SpaceTopLeft_003
+    100166: SpaceTopLeft_004
+    100168: SpaceTopLeft_005
+    100170: SpaceTopLeft_006
+    100172: SpaceTopLeft_007
+    100174: SpaceTopLeft_008
+    100176: SpaceTopRight
+    100178: SpaceTopRight_001
+    100180: SpaceTopRight_002
+    100182: SpaceTopRight_003
+    100184: SpaceTopRight_004
+    100186: SpaceTopRight_005
+    100188: SpaceTopRight_006
+    100190: SpaceTopRight_007
+    100192: SpaceTopRight_008
     400000: //RootNode
     400002: Cube
     400004: Cube_005
@@ -117,6 +157,46 @@ ModelImporter:
     400108: TR_007
     400110: TR_008
     400112: TopLeft1
+    400114: QuadrantBottomLeft
+    400116: QuadrantBottomRight
+    400118: QuadrantTopLeft
+    400120: QuadrantTopRight
+    400122: SpaceBottomLeft
+    400124: SpaceBottomLeft_001
+    400126: SpaceBottomLeft_002
+    400128: SpaceBottomLeft_003
+    400130: SpaceBottomLeft_004
+    400132: SpaceBottomLeft_005
+    400134: SpaceBottomLeft_006
+    400136: SpaceBottomLeft_007
+    400138: SpaceBottomLeft_008
+    400140: SpaceBottomRight
+    400142: SpaceBottomRight_001
+    400144: SpaceBottomRight_002
+    400146: SpaceBottomRight_003
+    400148: SpaceBottomRight_004
+    400150: SpaceBottomRight_005
+    400152: SpaceBottomRight_006
+    400154: SpaceBottomRight_007
+    400156: SpaceBottomRight_008
+    400158: SpaceTopLeft
+    400160: SpaceTopLeft_001
+    400162: SpaceTopLeft_002
+    400164: SpaceTopLeft_003
+    400166: SpaceTopLeft_004
+    400168: SpaceTopLeft_005
+    400170: SpaceTopLeft_006
+    400172: SpaceTopLeft_007
+    400174: SpaceTopLeft_008
+    400176: SpaceTopRight
+    400178: SpaceTopRight_001
+    400180: SpaceTopRight_002
+    400182: SpaceTopRight_003
+    400184: SpaceTopRight_004
+    400186: SpaceTopRight_005
+    400188: SpaceTopRight_006
+    400190: SpaceTopRight_007
+    400192: SpaceTopRight_008
     2300000: Cube
     2300002: Cube_005
     2300004: Cube_006
@@ -173,6 +253,46 @@ ModelImporter:
     2300106: TR_007
     2300108: TR_008
     2300110: TopLeft1
+    2300112: QuadrantBottomLeft
+    2300114: QuadrantBottomRight
+    2300116: QuadrantTopLeft
+    2300118: QuadrantTopRight
+    2300120: SpaceBottomLeft
+    2300122: SpaceBottomLeft_001
+    2300124: SpaceBottomLeft_002
+    2300126: SpaceBottomLeft_003
+    2300128: SpaceBottomLeft_004
+    2300130: SpaceBottomLeft_005
+    2300132: SpaceBottomLeft_006
+    2300134: SpaceBottomLeft_007
+    2300136: SpaceBottomLeft_008
+    2300138: SpaceBottomRight
+    2300140: SpaceBottomRight_001
+    2300142: SpaceBottomRight_002
+    2300144: SpaceBottomRight_003
+    2300146: SpaceBottomRight_004
+    2300148: SpaceBottomRight_005
+    2300150: SpaceBottomRight_006
+    2300152: SpaceBottomRight_007
+    2300154: SpaceBottomRight_008
+    2300156: SpaceTopLeft
+    2300158: SpaceTopLeft_001
+    2300160: SpaceTopLeft_002
+    2300162: SpaceTopLeft_003
+    2300164: SpaceTopLeft_004
+    2300166: SpaceTopLeft_005
+    2300168: SpaceTopLeft_006
+    2300170: SpaceTopLeft_007
+    2300172: SpaceTopLeft_008
+    2300174: SpaceTopRight
+    2300176: SpaceTopRight_001
+    2300178: SpaceTopRight_002
+    2300180: SpaceTopRight_003
+    2300182: SpaceTopRight_004
+    2300184: SpaceTopRight_005
+    2300186: SpaceTopRight_006
+    2300188: SpaceTopRight_007
+    2300190: SpaceTopRight_008
     3300000: Cube
     3300002: Cube_005
     3300004: Cube_006
@@ -229,6 +349,46 @@ ModelImporter:
     3300106: TR_007
     3300108: TR_008
     3300110: TopLeft1
+    3300112: QuadrantBottomLeft
+    3300114: QuadrantBottomRight
+    3300116: QuadrantTopLeft
+    3300118: QuadrantTopRight
+    3300120: SpaceBottomLeft
+    3300122: SpaceBottomLeft_001
+    3300124: SpaceBottomLeft_002
+    3300126: SpaceBottomLeft_003
+    3300128: SpaceBottomLeft_004
+    3300130: SpaceBottomLeft_005
+    3300132: SpaceBottomLeft_006
+    3300134: SpaceBottomLeft_007
+    3300136: SpaceBottomLeft_008
+    3300138: SpaceBottomRight
+    3300140: SpaceBottomRight_001
+    3300142: SpaceBottomRight_002
+    3300144: SpaceBottomRight_003
+    3300146: SpaceBottomRight_004
+    3300148: SpaceBottomRight_005
+    3300150: SpaceBottomRight_006
+    3300152: SpaceBottomRight_007
+    3300154: SpaceBottomRight_008
+    3300156: SpaceTopLeft
+    3300158: SpaceTopLeft_001
+    3300160: SpaceTopLeft_002
+    3300162: SpaceTopLeft_003
+    3300164: SpaceTopLeft_004
+    3300166: SpaceTopLeft_005
+    3300168: SpaceTopLeft_006
+    3300170: SpaceTopLeft_007
+    3300172: SpaceTopLeft_008
+    3300174: SpaceTopRight
+    3300176: SpaceTopRight_001
+    3300178: SpaceTopRight_002
+    3300180: SpaceTopRight_003
+    3300182: SpaceTopRight_004
+    3300184: SpaceTopRight_005
+    3300186: SpaceTopRight_006
+    3300188: SpaceTopRight_007
+    3300190: SpaceTopRight_008
     4300000: Cube_007
     4300002: Cube_005
     4300004: Cube_009
@@ -285,6 +445,46 @@ ModelImporter:
     4300106: TL_007
     4300108: TL_008
     4300110: TopLeft1
+    4300112: QuadrantBottomLeft
+    4300114: SpaceBottomLeft_001
+    4300116: SpaceBottomLeft_002
+    4300118: SpaceBottomLeft_003
+    4300120: SpaceBottomLeft_004
+    4300122: SpaceBottomLeft_005
+    4300124: SpaceBottomLeft_006
+    4300126: SpaceBottomLeft_007
+    4300128: SpaceBottomLeft_008
+    4300130: SpaceBottomLeft
+    4300132: QuadrantTopRight
+    4300134: SpaceTopRight_001
+    4300136: SpaceTopRight
+    4300138: SpaceTopRight_002
+    4300140: SpaceTopRight_003
+    4300142: SpaceTopRight_004
+    4300144: SpaceTopRight_005
+    4300146: SpaceTopRight_006
+    4300148: SpaceTopRight_007
+    4300150: SpaceTopRight_008
+    4300152: QuadrantTopLeft
+    4300154: SpaceTopLeft_001
+    4300156: SpaceTopLeft
+    4300158: SpaceTopLeft_002
+    4300160: SpaceTopLeft_003
+    4300162: SpaceTopLeft_004
+    4300164: SpaceTopLeft_005
+    4300166: SpaceTopLeft_006
+    4300168: SpaceTopLeft_007
+    4300170: SpaceTopLeft_008
+    4300172: QuadrantBottomRight
+    4300174: SpaceBottomRight_001
+    4300176: SpaceBottomRight
+    4300178: SpaceBottomRight_002
+    4300180: SpaceBottomRight_003
+    4300182: SpaceBottomRight_004
+    4300184: SpaceBottomRight_005
+    4300186: SpaceBottomRight_006
+    4300188: SpaceBottomRight_007
+    4300190: SpaceBottomRight_008
     6400000: BL
     6400002: BL_001
     6400004: BL_002
@@ -327,6 +527,46 @@ ModelImporter:
     6400078: TR_007
     6400080: TR_008
     6400082: TopLeft1
+    6400084: QuadrantBottomLeft
+    6400086: QuadrantBottomRight
+    6400088: QuadrantTopLeft
+    6400090: QuadrantTopRight
+    6400092: SpaceBottomLeft
+    6400094: SpaceBottomLeft_001
+    6400096: SpaceBottomLeft_002
+    6400098: SpaceBottomLeft_003
+    6400100: SpaceBottomLeft_004
+    6400102: SpaceBottomLeft_005
+    6400104: SpaceBottomLeft_006
+    6400106: SpaceBottomLeft_007
+    6400108: SpaceBottomLeft_008
+    6400110: SpaceBottomRight
+    6400112: SpaceBottomRight_001
+    6400114: SpaceBottomRight_002
+    6400116: SpaceBottomRight_003
+    6400118: SpaceBottomRight_004
+    6400120: SpaceBottomRight_005
+    6400122: SpaceBottomRight_006
+    6400124: SpaceBottomRight_007
+    6400126: SpaceBottomRight_008
+    6400128: SpaceTopLeft
+    6400130: SpaceTopLeft_001
+    6400132: SpaceTopLeft_002
+    6400134: SpaceTopLeft_003
+    6400136: SpaceTopLeft_004
+    6400138: SpaceTopLeft_005
+    6400140: SpaceTopLeft_006
+    6400142: SpaceTopLeft_007
+    6400144: SpaceTopLeft_008
+    6400146: SpaceTopRight
+    6400148: SpaceTopRight_001
+    6400150: SpaceTopRight_002
+    6400152: SpaceTopRight_003
+    6400154: SpaceTopRight_004
+    6400156: SpaceTopRight_005
+    6400158: SpaceTopRight_006
+    6400160: SpaceTopRight_007
+    6400162: SpaceTopRight_008
     7400000: Default Take
     9500000: //RootNode
     2186277476908879412: ImportLogs
@@ -352,8 +592,7 @@ ModelImporter:
     resampleCurves: 0
     optimizeGameObjects: 0
     motionNodeName: Cube
-    rigImportErrors: "Avatar creation failed:\n\tCannot find root motion transform
-      'Cube'.\n"
+    rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
