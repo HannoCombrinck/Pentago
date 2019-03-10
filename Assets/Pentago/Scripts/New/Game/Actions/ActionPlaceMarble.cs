@@ -1,4 +1,6 @@
 ﻿
+using UnityEngine;
+
 public class ActionPlaceMarble : IAction
 {
     public ActionPlaceMarble(int spaceIndex)
@@ -15,12 +17,23 @@ public class ActionPlaceMarble : IAction
 
     public bool IsValid(State gameState)
     {
+        if (gameState.nextMove != CommonTypes.MOVE_TYPE.PLACE_MARBLE)
+            return false;
+
+        if (gameState.spaces[spaceIndex] != CommonTypes.SPACE_STATE.UNOCCUPIED)
+            return false;
+
         return true;
     }
 
     public void Execute(State gameState)
     {
-        // TODO: Finish implementation
+        if (!IsValid(gameState))
+        {
+            Debug.Log("ActionPlaceMarble: " + gameState.currentPlayer.ToString() + " attempted to illegaly place a marble on space " + spaceIndex);
+            return;
+        }
+
         switch (gameState.currentPlayer)
         {
             case CommonTypes.PLAYER.PLAYER1:

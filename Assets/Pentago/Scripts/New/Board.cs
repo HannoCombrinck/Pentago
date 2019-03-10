@@ -55,10 +55,8 @@ public class Board : MonoBehaviour
 
         var action = new ActionPlaceMarble(spaceIndex);
 
-        //action.IsValid(game.state);
         if (!game.IsValidAction(action))
         {
-            Debug.Log(game.state.currentPlayer.ToString() + " attempted an invalid move. Cannot place a marble on " + spaceIndex + " at this time.");
             actionInProgress = false;
             yield break;
         }
@@ -109,7 +107,6 @@ public class Board : MonoBehaviour
 
         if (!game.IsValidAction(action))
         {
-            Debug.Log(game.state.currentPlayer.ToString() + " attempted invalid move. Cannot rotate quadrant " + quadrantIndex + " " + direction.ToString() + " at this time.");
             actionInProgress = false;
             yield break;
         }

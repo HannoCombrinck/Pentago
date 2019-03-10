@@ -12,7 +12,10 @@ public class Game : MonoBehaviour
     public Action onGameWon;
     public Action onActionExecuted;
     public Action onGameStateAdvanced;
+    public Action onIllegalMove;
     #endregion
+
+    private IEvaluator evaluator = new EvaluatorSimple();
 
     void Awake()
     {
@@ -30,8 +33,11 @@ public class Game : MonoBehaviour
     // If the given action is valid then execute it and advance the game state.
     public bool ExecuteAction(IAction action)
     {
-        if (!IsValidAction(action))
+        if (!action.IsValid(state))
+        {
+            Debug.LogError("This should never happen.");
             return false;
+        }
 
         action.Execute(state);
         onActionExecuted?.Invoke();
@@ -43,11 +49,16 @@ public class Game : MonoBehaviour
     // Determines the next move, next player and win state and sets the game state to reflect these new values.
     public void AdvanceGameState()
     {
-        var winState = CheckBoardState();
+        var winState = evaluator.Evaluate(state);
         if (winState != CommonTypes.WIN_STATE.IN_PROGRESS)
         {
             state.winState = winState;
             onGameWon?.Invoke();
+            Debug.Log(state.currentPlayer.ToString() + " won the game!");
+
+            foreach (int i in evaluator.GetWinningRow())
+                Debug.Log("Winning index: " + i);
+
             return;
         }
 
@@ -63,17 +74,15 @@ public class Game : MonoBehaviour
         onGameStateAdvanced?.Invoke();
     }
 
-    // Checks if action is a valid move in the current game state.
+    // Checks if the given action is a valid action to apply to the current state of the game.
     public bool IsValidAction(IAction action)
     {
-        // TODO: Implement this
+        if (!action.IsValid(state))
+        {
+            Debug.Log(state.currentPlayer.ToString() + " attempted an illegal move.");
+            onIllegalMove?.Invoke();
+            return false;
+        }
         return true;
-    }
-
-    // Check the current state of the board and return the appropriate WIN_STATE.
-    private CommonTypes.WIN_STATE CheckBoardState()
-    {
-        // TODO: Implement this
-        return CommonTypes.WIN_STATE.IN_PROGRESS;
     }
 }

@@ -1,4 +1,6 @@
 ﻿
+using UnityEngine;
+
 public class ActionRotateQuadrant : IAction
 {
     private int quadrantIndex;
@@ -12,16 +14,25 @@ public class ActionRotateQuadrant : IAction
 
     public string GetDescription()
     {
-        return quadrantIndex + " quadrant rotated " + rotateDirection.ToString();
+        return "Quadrant " + quadrantIndex + " rotated " + rotateDirection.ToString();
     }
 
     public bool IsValid(State gameState)
     {
+        if (gameState.nextMove != CommonTypes.MOVE_TYPE.ROTATE_QUADRANT)
+            return false;
+
         return true;
     }
 
     public void Execute(State gameState)
     {
+        if (!IsValid(gameState))
+        {
+            Debug.Log("ActionRotateQuadrant: " + gameState.currentPlayer.ToString() + " attempted to illegaly rotate quadrant " + quadrantIndex + " " + rotateDirection.ToString());
+            return;
+        }
+
         var quadrantIndexToBoardIndexMapper = new SpaceIndexMapper(ref gameState.spaces, quadrantIndex);
 
         if (rotateDirection == CommonTypes.ROTATE_DIRECTION.CLOCKWISE)
