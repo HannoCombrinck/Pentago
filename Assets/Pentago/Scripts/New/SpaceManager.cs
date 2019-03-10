@@ -19,10 +19,7 @@ public class SpaceManager : SpatialSorter<Space>
         Debug.Assert(game.state != null); // TEMP TO BE REMOVED
 
         for (int i = 0; i < sortedSpatials.Count; i++)
-        {
             sortedSpatials[i].spaceIndex = i;
-            sortedSpatials[i].game = game;
-        }
     }
 
     public void UpdateAll()

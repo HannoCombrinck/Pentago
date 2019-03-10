@@ -14,9 +14,6 @@ public class QuadrantManager : SpatialSorter<Quadrant>
         Debug.Assert(game.state != null);
 
         for (int i = 0; i < sortedSpatials.Count; i++)
-        {
             sortedSpatials[i].quadrantIndex = i;
-            sortedSpatials[i].game = game;
-        }
     }
 }

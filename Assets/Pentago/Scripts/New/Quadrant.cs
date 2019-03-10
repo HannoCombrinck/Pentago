@@ -1,16 +1,8 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
+// Represents a visual board Quadrant that can be rotated.
+// Mapping from visual quadrant to quadrant index in Game state.
 public class Quadrant : MonoBehaviour
 {
     public int quadrantIndex;
-    public Game game { get; set; }
-
-    private IQuadrantRotator rotator;
-
-    private void Awake()
-    {
-        rotator = GetComponent<IQuadrantRotator>();
-        Debug.Assert(rotator != null);
-    }
 }

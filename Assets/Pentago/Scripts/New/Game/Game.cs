@@ -4,6 +4,7 @@ using UnityEngine;
 // High level game interface. Manages game state agnostic of graphics/animation etc.
 public class Game : MonoBehaviour
 {
+    // Reference to the game state instance.
     public State state;
 
     #region Game events
@@ -19,12 +20,14 @@ public class Game : MonoBehaviour
         state.ResetState();
     }
 
+    // Start a new game by resetting the game state.
     public void StartNewGame()
     {
         state.ResetState();
         onNewGameStarted?.Invoke();
     }
 
+    // If the given action is valid then execute it and advance the game state.
     public bool ExecuteAction(IAction action)
     {
         if (!IsValidAction(action))
@@ -37,6 +40,7 @@ public class Game : MonoBehaviour
         return true;
     }
     
+    // Determines the next move, next player and win state and sets the game state to reflect these new values.
     public void AdvanceGameState()
     {
         var winState = CheckBoardState();
@@ -59,6 +63,7 @@ public class Game : MonoBehaviour
         onGameStateAdvanced?.Invoke();
     }
 
+    // Checks if action is a valid move in the current game state.
     public bool IsValidAction(IAction action)
     {
         // TODO: Implement this
