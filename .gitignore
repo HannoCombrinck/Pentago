@@ -37,6 +37,7 @@ sysinfo.txt
 *.unitypackage
 
 *.blend1
+*.blend1.meta
 
 *.*~
 ..gitignore.un~
