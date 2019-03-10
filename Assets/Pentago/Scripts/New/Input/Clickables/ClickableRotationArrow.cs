@@ -2,7 +2,7 @@
 
 public class ClickableRotationArrow : MonoBehaviour, IClickable
 {
-    public BoardManager boardManager;
+    public Board boardManager;
     public Quadrant quadrant;
     public CommonTypes.ROTATE_DIRECTION direction;
 

@@ -2,7 +2,7 @@
 
 public class ClickableSpace : MonoBehaviour, IClickable
 {
-    public BoardManager boardManager;
+    public Board board;
     private Space space;
 
     void Awake()
@@ -14,23 +14,22 @@ public class ClickableSpace : MonoBehaviour, IClickable
     public void OnLeftClick()
     {
         if (space.state == CommonTypes.SPACE_STATE.UNOCCUPIED)
-            boardManager.PlaceMarble(space.spaceIndex);
+            board.PlaceMarble(space.spaceIndex);
     }
 
     public void OnRightClick()
     {
-        //Debug.Log("Space right clicked " + gameObject.name);
     }
 
     public void OnMousePointerEnter()
     {
         if (space.state == CommonTypes.SPACE_STATE.UNOCCUPIED)
-            boardManager.PlaceMarbleShowPreview(space.spaceIndex);
+            board.PlaceMarbleShowPreview(space.spaceIndex);
     }
 
     public void OnMousePointerExit()
     {
         if (space.state == CommonTypes.SPACE_STATE.UNOCCUPIED)
-            boardManager.PlaceMarbleHidePreview();
+            board.PlaceMarbleHidePreview();
     }
 }

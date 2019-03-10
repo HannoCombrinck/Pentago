@@ -15,6 +15,11 @@ public class ActionRotateQuadrant : IAction
         return quadrantIndex + " quadrant rotated " + rotateDirection.ToString();
     }
 
+    public bool IsValid(State gameState)
+    {
+        return true;
+    }
+
     public void Execute(State gameState)
     {
         var quadrantIndexToBoardIndexMapper = new SpaceIndexMapper(ref gameState.spaces, quadrantIndex);

@@ -13,6 +13,11 @@ public class ActionPlaceMarble : IAction
         return "Marble placed on space " + spaceIndex;
     }
 
+    public bool IsValid(State gameState)
+    {
+        return true;
+    }
+
     public void Execute(State gameState)
     {
         // TODO: Finish implementation

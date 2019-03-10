@@ -4,25 +4,20 @@
 // are descendants of this GameObject.
 public class SpaceManager : SpatialSorter<Space>
 {
-    [Tooltip("TEMPORARY TO BE REMOVED")]
-    public Game game;
-
-    private BoardManager boardManager;
+    private Board boardManager;
 
     protected override void Awake()
     {
         base.Awake();
 
-        boardManager = GetComponent<BoardManager>();
+        boardManager = GetComponent<Board>();
         Debug.Assert(boardManager != null);
-
-        Debug.Assert(game.state != null); // TEMP TO BE REMOVED
 
         for (int i = 0; i < sortedSpatials.Count; i++)
             sortedSpatials[i].spaceIndex = i;
     }
 
-    public void UpdateAll()
+    public void UpdateAll(State gameState)
     {
         Sort();
 
@@ -32,7 +27,7 @@ public class SpaceManager : SpatialSorter<Space>
             sortedSpatials[i].spaceIndex = i;
             sortedSpatials[i].RemoveMarble();
 
-            switch (game.state.spaces[i])
+            switch (gameState.spaces[i])
             {
                 case CommonTypes.SPACE_STATE.OCCUPIED_PLAYER1:
                     sortedSpatials[i].AddMarble(CommonTypes.PLAYER.PLAYER1, Instantiate(boardManager.player1MarblePrefab, sortedSpatials[i].transform.position + Vector3.up * boardManager.marbleHeightOffset, Quaternion.identity));
