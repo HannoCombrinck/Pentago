@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class EvaluatorSimple : IEvaluator
 {
-    private const int winningRowLength = 5;
+    private const int winningLineLength = 5;
     private const int boardWidth = 6;
     private const int boardIndexMax = 35;
 
     private State gameState;
-    private readonly int[] winningRowIndices = new int[5];
+    private readonly int[] lastLineIndices = new int[5];
 
     private System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
 
@@ -25,23 +25,21 @@ public class EvaluatorSimple : IEvaluator
                 var currentSpaceState = this.gameState.spaces[GetSpaceIndex(row, col)];
                 if (currentSpaceState != CommonTypes.SPACE_STATE.UNOCCUPIED)
                 {
-                    var currentPlayerWin = currentSpaceState == CommonTypes.SPACE_STATE.OCCUPIED_PLAYER1 ? CommonTypes.WIN_STATE.PLAYER1_WON : CommonTypes.WIN_STATE.PLAYER2_WON;
-
                     // Check horizontal row
-                    if (CountSpaces(currentSpaceState, 1, 0, row, col) >= winningRowLength)
-                        return currentPlayerWin;
+                    if (CountConsecutiveSpaces(row, col, 1, 0) >= winningLineLength)
+                        return GetWinState(currentSpaceState);
 
                     // Check vertical row
-                    if (CountSpaces(currentSpaceState, 0, 1, row, col) >= winningRowLength)
-                        return currentPlayerWin;
+                    if (CountConsecutiveSpaces(row, col, 0, 1) >= winningLineLength)
+                        return GetWinState(currentSpaceState);
 
                     // Check first diagonal row
-                    if (CountSpaces(currentSpaceState, 1, 1, row, col) >= winningRowLength)
-                        return currentPlayerWin;
+                    if (CountConsecutiveSpaces(row, col, 1, 1) >= winningLineLength)
+                        return GetWinState(currentSpaceState);
 
                     // Check second diagonal row
-                    if (CountSpaces(currentSpaceState, 1, -1, row, col) >= winningRowLength)
-                        return currentPlayerWin;
+                    if (CountConsecutiveSpaces(row, col, 1, -1) >= winningLineLength)
+                        return GetWinState(currentSpaceState);
                 }
             }
         }
@@ -52,42 +50,38 @@ public class EvaluatorSimple : IEvaluator
         return CommonTypes.WIN_STATE.IN_PROGRESS;
     }
 
-    public int[] GetWinningRow()
+    public int[] GetLastEvaluatedLine()
     {
-        return winningRowIndices;
+        return lastLineIndices;
     }
 
-    private int CountSpaces(CommonTypes.SPACE_STATE spaceState, int rowDelta, int colDelta, int row, int col)
+    private int CountConsecutiveSpaces(int fromRow, int fromCol, int rowDirection, int colDirection)
     {
-        int spaceIndex = GetSpaceIndex(row - rowDelta, col - colDelta);
+        var lineType = gameState.spaces[GetSpaceIndex(fromRow, fromCol)];
 
-        while (IsValidIndex(spaceIndex) && gameState.spaces[spaceIndex] == spaceState)
+        // Move backward through line to find the first space matching lineType
+        int spaceIndex = GetSpaceIndex(fromRow - rowDirection, fromCol - colDirection);
+        while (IsValidIndex(spaceIndex) && gameState.spaces[spaceIndex] == lineType)
         {
-            row -= rowDelta;
-            col -= colDelta;
-            spaceIndex = GetSpaceIndex(row - rowDelta, col - colDelta);
+            fromRow -= rowDirection;
+            fromCol -= colDirection;
+            spaceIndex = GetSpaceIndex(fromRow - rowDirection, fromCol - colDirection);
         }
 
-        int count = 0;
-        _CountSpaces(spaceState, rowDelta, colDelta, row, col, ref count);
-        return count;
-    }
+        // Move forward through line and count consecutive spaces that match lineType
+        int consecutiveCount = 1;
+        lastLineIndices[consecutiveCount - 1] = GetSpaceIndex(fromRow, fromCol);
+        spaceIndex = GetSpaceIndex(fromRow + rowDirection, fromCol + colDirection);
+        while (IsValidIndex(spaceIndex) && gameState.spaces[spaceIndex] == lineType && consecutiveCount < 5)
+        {
+            consecutiveCount++;
+            lastLineIndices[consecutiveCount - 1] = spaceIndex;
+            fromRow += rowDirection;
+            fromCol += colDirection;
+            spaceIndex = GetSpaceIndex(fromRow + rowDirection, fromCol + colDirection);
+        }
 
-    private void _CountSpaces(CommonTypes.SPACE_STATE spaceState, int rowDelta, int colDelta, int row, int col, ref int count)
-    {
-        int spaceIndex = GetSpaceIndex(row, col);
-        if (!IsValidIndex(spaceIndex))
-            return;
-
-        winningRowIndices[count++] = spaceIndex;
-
-        if (count > winningRowLength)
-            return;
-
-        if (gameState.spaces[spaceIndex] == spaceState)
-            _CountSpaces(spaceState, rowDelta, colDelta, row + rowDelta, col + colDelta, ref count);
-
-        return;
+        return consecutiveCount;
     }
 
     private int GetSpaceIndex(int row, int col)
@@ -101,4 +95,10 @@ public class EvaluatorSimple : IEvaluator
             return false;
         return true;
     }
+
+    private CommonTypes.WIN_STATE GetWinState(CommonTypes.SPACE_STATE spaceState)
+    {
+        return spaceState == CommonTypes.SPACE_STATE.OCCUPIED_PLAYER1 ? CommonTypes.WIN_STATE.PLAYER1_WON : CommonTypes.WIN_STATE.PLAYER2_WON;
+    }
+
 }

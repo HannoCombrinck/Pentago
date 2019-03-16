@@ -7,13 +7,14 @@ public class Game : MonoBehaviour
     // Reference to the game state instance.
     public State state;
 
-    #region Game events
+    // Game events
+    // {
     public Action onNewGameStarted;
     public Action onGameWon;
     public Action onActionExecuted;
     public Action onGameStateAdvanced;
     public Action onIllegalMove;
-    #endregion
+    // }
 
     private IEvaluator evaluator = new EvaluatorSimple();
 
@@ -56,8 +57,9 @@ public class Game : MonoBehaviour
             onGameWon?.Invoke();
             Debug.Log(state.currentPlayer.ToString() + " won the game!");
 
-            foreach (int i in evaluator.GetWinningRow())
-                Debug.Log("Winning index: " + i);
+            int indexNumber = 0;
+            foreach (int index in evaluator.GetLastEvaluatedLine())
+                Debug.Log("Winning line index " + (++indexNumber) + ": " + index);
 
             return;
         }
