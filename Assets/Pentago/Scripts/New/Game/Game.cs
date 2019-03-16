@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using static CommonTypes;
 
 // High level game interface. Manages game state agnostic of graphics/animation etc.
 public class Game : MonoBehaviour
@@ -48,10 +49,10 @@ public class Game : MonoBehaviour
     }
     
     // Determines the next move, next player and win state and sets the game state to reflect these new values.
-    public void AdvanceGameState()
+    private void AdvanceGameState()
     {
         var winState = evaluator.Evaluate(state);
-        if (winState != CommonTypes.WIN_STATE.IN_PROGRESS)
+        if (winState != WIN_STATE.IN_PROGRESS)
         {
             state.winState = winState;
             onGameWon?.Invoke();
@@ -64,14 +65,14 @@ public class Game : MonoBehaviour
             return;
         }
 
-        if (state.nextMove == CommonTypes.MOVE_TYPE.PLACE_MARBLE)
+        if (state.nextMove == MOVE_TYPE.PLACE_MARBLE)
         {
-            state.nextMove = CommonTypes.MOVE_TYPE.ROTATE_QUADRANT;
+            state.nextMove = MOVE_TYPE.ROTATE_QUADRANT;
             return;
         }
 
-        state.nextMove = CommonTypes.MOVE_TYPE.PLACE_MARBLE;
-        state.currentPlayer = state.currentPlayer == CommonTypes.PLAYER.PLAYER1 ? CommonTypes.PLAYER.PLAYER2 : CommonTypes.PLAYER.PLAYER1;
+        state.nextMove = MOVE_TYPE.PLACE_MARBLE;
+        state.currentPlayer = state.currentPlayer == PLAYER.PLAYER1 ? PLAYER.PLAYER2 : PLAYER.PLAYER1;
 
         onGameStateAdvanced?.Invoke();
     }

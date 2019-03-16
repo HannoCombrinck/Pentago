@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
+using static CommonTypes;
 
 public class ClickableRotationArrow : MonoBehaviour, IClickable
 {
     public Board boardManager;
     public Quadrant quadrant;
-    public CommonTypes.ROTATE_DIRECTION direction;
+    public ROTATE_DIRECTION direction;
 
     void Awake()
     {

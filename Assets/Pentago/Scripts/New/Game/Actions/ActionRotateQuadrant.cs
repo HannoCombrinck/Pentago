@@ -1,12 +1,13 @@
 ﻿
 using UnityEngine;
+using static CommonTypes;
 
 public class ActionRotateQuadrant : IAction
 {
     private int quadrantIndex;
-    private CommonTypes.ROTATE_DIRECTION rotateDirection;
+    private ROTATE_DIRECTION rotateDirection;
 
-    public ActionRotateQuadrant(int quadrantIndex, CommonTypes.ROTATE_DIRECTION rotateDirection)
+    public ActionRotateQuadrant(int quadrantIndex, ROTATE_DIRECTION rotateDirection)
     {
         this.quadrantIndex = quadrantIndex;
         this.rotateDirection = rotateDirection;
@@ -19,7 +20,7 @@ public class ActionRotateQuadrant : IAction
 
     public bool IsValid(State gameState)
     {
-        if (gameState.nextMove != CommonTypes.MOVE_TYPE.ROTATE_QUADRANT)
+        if (gameState.nextMove != MOVE_TYPE.ROTATE_QUADRANT)
             return false;
 
         return true;
@@ -35,20 +36,20 @@ public class ActionRotateQuadrant : IAction
 
         var quadrantIndexToBoardIndexMapper = new SpaceIndexMapper(ref gameState.spaces, quadrantIndex);
 
-        if (rotateDirection == CommonTypes.ROTATE_DIRECTION.CLOCKWISE)
+        if (rotateDirection == ROTATE_DIRECTION.CLOCKWISE)
             SquareMatrixRotater.Rotate90DegreesClockwise(quadrantIndexToBoardIndexMapper);
-        else if (rotateDirection == CommonTypes.ROTATE_DIRECTION.COUNTERCLOCKWISE)
+        else if (rotateDirection == ROTATE_DIRECTION.COUNTERCLOCKWISE)
             SquareMatrixRotater.Rotate90DegreesCounterclockwise(quadrantIndexToBoardIndexMapper);
     }
 
     // Maps quadrant space indices (row and column in 3x3 matrix) to board space indices (single index in flat array of size 36 representing 6x6 matrix).
-    private class SpaceIndexMapper : ISquareMatrix<CommonTypes.SPACE_STATE>
+    private class SpaceIndexMapper : ISquareMatrix<SPACE_STATE>
     {
-        private CommonTypes.SPACE_STATE[] spaceState;
+        private SPACE_STATE[] spaceState;
         private int quadrantRow;
         private int quadrantCol;
 
-        public SpaceIndexMapper(ref CommonTypes.SPACE_STATE[] spaceState, int quadrantIndex)
+        public SpaceIndexMapper(ref SPACE_STATE[] spaceState, int quadrantIndex)
         {
             quadrantRow = quadrantIndex / 2;
             quadrantCol = quadrantIndex % 2;
@@ -60,7 +61,7 @@ public class ActionRotateQuadrant : IAction
             return 3;
         }
 
-        public ref CommonTypes.SPACE_STATE At(int row, int col)
+        public ref SPACE_STATE At(int row, int col)
         {
             var boardRow = row + (quadrantRow * GetSize());
             var boardCol = col + (quadrantCol * GetSize());

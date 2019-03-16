@@ -1,5 +1,6 @@
 ﻿
 using UnityEngine;
+using static CommonTypes;
 
 public class EvaluatorSimple : IEvaluator
 {
@@ -12,7 +13,7 @@ public class EvaluatorSimple : IEvaluator
 
     private System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
 
-    public CommonTypes.WIN_STATE Evaluate(State gameState)
+    public WIN_STATE Evaluate(State gameState)
     {
         this.gameState = gameState;
 
@@ -23,7 +24,7 @@ public class EvaluatorSimple : IEvaluator
             for (int col = 0; col < boardWidth; col++)
             {
                 var currentSpaceState = this.gameState.spaces[GetSpaceIndex(row, col)];
-                if (currentSpaceState != CommonTypes.SPACE_STATE.UNOCCUPIED)
+                if (currentSpaceState != SPACE_STATE.UNOCCUPIED)
                 {
                     // Check horizontal row
                     if (CountConsecutiveSpaces(row, col, 1, 0) >= winningLineLength)
@@ -45,9 +46,9 @@ public class EvaluatorSimple : IEvaluator
         }
 
         timer.Stop();
-        Debug.Log("EvaluatorSimple took " + timer.ElapsedMilliseconds + "ms to evaluate the current board state.");
+        //Debug.Log("EvaluatorSimple took " + timer.ElapsedMilliseconds + "ms to evaluate the current board state.");
 
-        return CommonTypes.WIN_STATE.IN_PROGRESS;
+        return WIN_STATE.IN_PROGRESS;
     }
 
     public int[] GetLastEvaluatedLine()
@@ -96,9 +97,9 @@ public class EvaluatorSimple : IEvaluator
         return true;
     }
 
-    private CommonTypes.WIN_STATE GetWinState(CommonTypes.SPACE_STATE spaceState)
+    private WIN_STATE GetWinState(SPACE_STATE spaceState)
     {
-        return spaceState == CommonTypes.SPACE_STATE.OCCUPIED_PLAYER1 ? CommonTypes.WIN_STATE.PLAYER1_WON : CommonTypes.WIN_STATE.PLAYER2_WON;
+        return spaceState == SPACE_STATE.OCCUPIED_PLAYER1 ? WIN_STATE.PLAYER1_WON : WIN_STATE.PLAYER2_WON;
     }
 
 }

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using static CommonTypes;
 
 // Initialize and manage all space visuals (i.e. GameObjects with Space component attached) that 
 // are descendants of this GameObject.
@@ -29,11 +30,11 @@ public class SpaceManager : SpatialSorter<Space>
 
             switch (gameState.spaces[i])
             {
-                case CommonTypes.SPACE_STATE.OCCUPIED_PLAYER1:
-                    sortedSpatials[i].AddMarble(CommonTypes.PLAYER.PLAYER1, Instantiate(boardManager.player1MarblePrefab, sortedSpatials[i].transform.position + Vector3.up * boardManager.marbleHeightOffset, Quaternion.identity));
+                case SPACE_STATE.OCCUPIED_PLAYER1:
+                    sortedSpatials[i].AddMarble(PLAYER.PLAYER1, Instantiate(boardManager.player1MarblePrefab, sortedSpatials[i].transform.position + Vector3.up * boardManager.marbleHeightOffset, Quaternion.identity));
                     break;
-                case CommonTypes.SPACE_STATE.OCCUPIED_PLAYER2:
-                    sortedSpatials[i].AddMarble(CommonTypes.PLAYER.PLAYER2, Instantiate(boardManager.player2MarblePrefab, sortedSpatials[i].transform.position + Vector3.up * boardManager.marbleHeightOffset, Quaternion.identity));
+                case SPACE_STATE.OCCUPIED_PLAYER2:
+                    sortedSpatials[i].AddMarble(PLAYER.PLAYER2, Instantiate(boardManager.player2MarblePrefab, sortedSpatials[i].transform.position + Vector3.up * boardManager.marbleHeightOffset, Quaternion.identity));
                     break;
             }
         }

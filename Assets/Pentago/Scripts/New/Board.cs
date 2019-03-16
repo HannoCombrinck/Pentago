@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
+using static CommonTypes;
 
 // Initialize and manage the board visual.
 [RequireComponent(typeof(QuadrantManager), typeof(SpaceManager))]
@@ -71,7 +71,7 @@ public class Board : MonoBehaviour
     private IEnumerator AnimatePlaceMarble(int spaceIndex)
     {
         // TODO: Animate marble placement instead of just instantly placing it
-        var marblePrefab = game.state.currentPlayer == CommonTypes.PLAYER.PLAYER1 ? player1MarblePrefab : player2MarblePrefab;
+        var marblePrefab = game.state.currentPlayer == PLAYER.PLAYER1 ? player1MarblePrefab : player2MarblePrefab;
         var space = spaces.Get(spaceIndex);
         var marble = Instantiate(marblePrefab, space.transform.position + Vector3.up * marbleHeightOffset, Quaternion.identity);
         space.AddMarble(game.state.currentPlayer, marble);
@@ -91,7 +91,7 @@ public class Board : MonoBehaviour
     }
 
     // Visually rotate the quadrant in the game world and execute a ActionRotateQuadrant action on the Game.
-    public void RotateQuadrant(int quadrantIndex, CommonTypes.ROTATE_DIRECTION direction)
+    public void RotateQuadrant(int quadrantIndex, ROTATE_DIRECTION direction)
     {
         if (actionInProgress)
             return;
@@ -99,7 +99,7 @@ public class Board : MonoBehaviour
         StartCoroutine(DoRotateQuadrant(quadrantIndex, direction));
     }
 
-    private IEnumerator DoRotateQuadrant(int quadrantIndex, CommonTypes.ROTATE_DIRECTION direction)
+    private IEnumerator DoRotateQuadrant(int quadrantIndex, ROTATE_DIRECTION direction)
     {
         actionInProgress = true;
 
@@ -119,16 +119,16 @@ public class Board : MonoBehaviour
     }
 
     // Visually roatate quadrant 
-    private IEnumerator AnimateRotateQuadrant(int quadrantIndex, CommonTypes.ROTATE_DIRECTION direction)
+    private IEnumerator AnimateRotateQuadrant(int quadrantIndex, ROTATE_DIRECTION direction)
     {
         var quadrantRotator = quadrants.Get(quadrantIndex).GetComponent<IQuadrantRotator>();
 
         switch (direction)
         {
-            case CommonTypes.ROTATE_DIRECTION.CLOCKWISE:
+            case ROTATE_DIRECTION.CLOCKWISE:
                 quadrantRotator.RotateClockwise();
                 break;
-            case CommonTypes.ROTATE_DIRECTION.COUNTERCLOCKWISE:
+            case ROTATE_DIRECTION.COUNTERCLOCKWISE:
                 quadrantRotator.RotateCounterClockwise();
                 break;
         }

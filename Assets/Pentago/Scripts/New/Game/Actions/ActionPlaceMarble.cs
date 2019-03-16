@@ -1,5 +1,6 @@
 ﻿
 using UnityEngine;
+using static CommonTypes;
 
 public class ActionPlaceMarble : IAction
 {
@@ -17,10 +18,10 @@ public class ActionPlaceMarble : IAction
 
     public bool IsValid(State gameState)
     {
-        if (gameState.nextMove != CommonTypes.MOVE_TYPE.PLACE_MARBLE)
+        if (gameState.nextMove != MOVE_TYPE.PLACE_MARBLE)
             return false;
 
-        if (gameState.spaces[spaceIndex] != CommonTypes.SPACE_STATE.UNOCCUPIED)
+        if (gameState.spaces[spaceIndex] != SPACE_STATE.UNOCCUPIED)
             return false;
 
         return true;
@@ -36,11 +37,11 @@ public class ActionPlaceMarble : IAction
 
         switch (gameState.currentPlayer)
         {
-            case CommonTypes.PLAYER.PLAYER1:
-                gameState.spaces[spaceIndex] = CommonTypes.SPACE_STATE.OCCUPIED_PLAYER1;
+            case PLAYER.PLAYER1:
+                gameState.spaces[spaceIndex] = SPACE_STATE.OCCUPIED_PLAYER1;
                 break;
-            case CommonTypes.PLAYER.PLAYER2:
-                gameState.spaces[spaceIndex] = CommonTypes.SPACE_STATE.OCCUPIED_PLAYER2;
+            case PLAYER.PLAYER2:
+                gameState.spaces[spaceIndex] = SPACE_STATE.OCCUPIED_PLAYER2;
                 break;
         }
     }

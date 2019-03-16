@@ -1,20 +1,21 @@
 ﻿using UnityEngine;
+using static CommonTypes;
 
 [CreateAssetMenu]
 public class State : ScriptableObject
 {
     public void ResetState()
     {
-        currentPlayer = CommonTypes.PLAYER.PLAYER1;
-        winState = CommonTypes.WIN_STATE.IN_PROGRESS;
-        nextMove = CommonTypes.MOVE_TYPE.PLACE_MARBLE;
+        currentPlayer = PLAYER.PLAYER1;
+        winState = WIN_STATE.IN_PROGRESS;
+        nextMove = MOVE_TYPE.PLACE_MARBLE;
 
         for (int i = 0; i < spaces.Length; i++)
-            spaces[i] = CommonTypes.SPACE_STATE.UNOCCUPIED;
+            spaces[i] = SPACE_STATE.UNOCCUPIED;
     }
 
-    public CommonTypes.WIN_STATE winState = CommonTypes.WIN_STATE.IN_PROGRESS;
-    public CommonTypes.PLAYER currentPlayer = CommonTypes.PLAYER.PLAYER1;
-    public CommonTypes.MOVE_TYPE nextMove = CommonTypes.MOVE_TYPE.PLACE_MARBLE;
-    public CommonTypes.SPACE_STATE[] spaces = new CommonTypes.SPACE_STATE[36];
+    public WIN_STATE winState = WIN_STATE.IN_PROGRESS;
+    public PLAYER currentPlayer = PLAYER.PLAYER1;
+    public MOVE_TYPE nextMove = MOVE_TYPE.PLACE_MARBLE;
+    public SPACE_STATE[] spaces = new SPACE_STATE[36];
 }

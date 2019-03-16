@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+// TODO: Refactor so this isn't a MonoBehaviour - Let SpaceManager and QuadrantManager use a simplified 
+// version of the sorter to manage Space's and Quadrant's
+
 // Search for spatial component descendents of type SpatialComponentType and sort them according to their world
 // space positions in the xz plane. Maintain and expose this sorted list.
 public class SpatialSorter<SpatialComponentType> : MonoBehaviour

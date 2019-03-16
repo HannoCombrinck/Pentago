@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using static CommonTypes;
 
 public class ClickableSpace : MonoBehaviour, IClickable
 {
@@ -13,7 +14,7 @@ public class ClickableSpace : MonoBehaviour, IClickable
 
     public void OnLeftClick()
     {
-        if (space.state == CommonTypes.SPACE_STATE.UNOCCUPIED)
+        if (space.state == SPACE_STATE.UNOCCUPIED)
             board.PlaceMarble(space.spaceIndex);
     }
 
@@ -23,13 +24,13 @@ public class ClickableSpace : MonoBehaviour, IClickable
 
     public void OnMousePointerEnter()
     {
-        if (space.state == CommonTypes.SPACE_STATE.UNOCCUPIED)
+        if (space.state == SPACE_STATE.UNOCCUPIED)
             board.PlaceMarbleShowPreview(space.spaceIndex);
     }
 
     public void OnMousePointerExit()
     {
-        if (space.state == CommonTypes.SPACE_STATE.UNOCCUPIED)
+        if (space.state == SPACE_STATE.UNOCCUPIED)
             board.PlaceMarbleHidePreview();
     }
 }
