@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using static Game;
+using static IGame;
 
 // Represents a visual Space where a Marble can be placed.
 // Holds index to map to Game state.

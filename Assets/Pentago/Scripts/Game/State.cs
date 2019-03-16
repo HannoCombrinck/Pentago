@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
-using static Game;
+using static IGame;
 
-[CreateAssetMenu]
-public class State : ScriptableObject
+public class State : MonoBehaviour
 {
+    public WIN_STATE winState = WIN_STATE.IN_PROGRESS;
+    public PLAYER currentPlayer = PLAYER.PLAYER1;
+    public MOVE_TYPE nextMove = MOVE_TYPE.PLACE_MARBLE;
+    public SPACE_STATE[] spaces = new SPACE_STATE[36];
+
     public void ResetState()
     {
         currentPlayer = PLAYER.PLAYER1;
@@ -13,9 +17,4 @@ public class State : ScriptableObject
         for (int i = 0; i < spaces.Length; i++)
             spaces[i] = SPACE_STATE.UNOCCUPIED;
     }
-
-    public WIN_STATE winState = WIN_STATE.IN_PROGRESS;
-    public PLAYER currentPlayer = PLAYER.PLAYER1;
-    public MOVE_TYPE nextMove = MOVE_TYPE.PLACE_MARBLE;
-    public SPACE_STATE[] spaces = new SPACE_STATE[36];
 }

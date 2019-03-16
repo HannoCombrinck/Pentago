@@ -1,6 +1,6 @@
 ﻿
 interface IEvaluator
 {
-    Game.WIN_STATE Evaluate(State gameState);
+    IGame.WIN_STATE Evaluate(State state);
     int[] GetLastEvaluatedLine();
 }

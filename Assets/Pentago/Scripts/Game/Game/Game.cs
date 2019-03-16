@@ -1,75 +1,34 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-// High level game interface. Manages game state agnostic of graphics/animation etc.
-public class Game : MonoBehaviour
+[RequireComponent(typeof(State))]
+public class Game : IGame
 {
-    public enum PLAYER
-    {
-        PLAYER1,
-        PLAYER2
-    }
-
-    public enum WIN_STATE
-    {
-        IN_PROGRESS,
-        PLAYER1_WON,
-        PLAYER2_WON
-    }
-
-    public enum MOVE_TYPE
-    {
-        PLACE_MARBLE,
-        ROTATE_QUADRANT
-    }
-
-    public enum ROTATE_DIRECTION
-    {
-        CLOCKWISE,
-        COUNTERCLOCKWISE
-    };
-
-    public enum SPACE_STATE
-    {
-        UNOCCUPIED,
-        OCCUPIED_PLAYER1,
-        OCCUPIED_PLAYER2,
-    }
-
-    // Reference to the game state instance.
-    public State state;
-
-    // Game events
-    // {
-    public Action onNewGameStarted;
-    public Action onGameWon;
-    public Action onActionExecuted;
-    public Action onGameStateAdvanced;
-    public Action onIllegalMove;
-    // }
-
+    private State state;
     private IEvaluator evaluator = new EvaluatorSimple();
 
     void Awake()
     {
-        Debug.Assert(state != null, "Game state reference is required.");
+        state = GetComponent<State>();
         state.ResetState();
     }
 
-    // Start a new game by resetting the game state.
-    public void StartNewGame()
+    public override State GetState()
+    {
+        return state;
+    }
+
+    public override void StartNewGame()
     {
         state.ResetState();
         onNewGameStarted?.Invoke();
     }
 
-    // If the given action is valid then execute it and advance the game state.
-    public bool ExecuteAction(IAction action)
+    public override bool ExecuteAction(IAction action)
     {
         if (!action.IsValid(state))
         {
             Debug.Log(state.currentPlayer.ToString() + " attempted an illegal move.");
-            onIllegalMove?.Invoke();
+            onIllegalActionAttempted?.Invoke();
             return false;
         }
 

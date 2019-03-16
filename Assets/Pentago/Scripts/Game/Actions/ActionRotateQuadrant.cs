@@ -1,6 +1,6 @@
 ﻿
 using UnityEngine;
-using static Game;
+using static IGame;
 
 public class ActionRotateQuadrant : IAction
 {

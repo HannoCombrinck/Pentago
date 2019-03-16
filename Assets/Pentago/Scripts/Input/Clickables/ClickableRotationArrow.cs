@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using static Game;
+using static IGame;
 
 // Clicking on a rotation arrow attempts to rotate the Quadrant it is connected to.
 public class ClickableRotationArrow : MonoBehaviour, IClickable

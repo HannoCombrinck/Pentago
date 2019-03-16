@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using static Game;
+using static IGame;
 
 // Initialize and manage all space visuals (i.e. GameObjects with Space component attached) that 
 // are descendants of this GameObject.

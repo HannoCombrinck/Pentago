@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using static Game;
+using static IGame;
 
 // Clicking on a Space attempts to place a marble on that Space.
 public class ClickableSpace : MonoBehaviour, IClickable

@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
-using static Game;
+using static IGame;
 
 // Initialize and manage the board visual.
 [RequireComponent(typeof(QuadrantManager), typeof(SpaceManager))]
 public class Board : MonoBehaviour
 {
-    [Tooltip("Reference to the Pentago game manager component.")]
-    public Game game;
+    [Tooltip("Reference to the game interface.")]
+    public IGame game;
     [Tooltip("Prefab to use as Player 1's marble.")]
     public GameObject player1MarblePrefab;
     [Tooltip("Prefab to use as Player 2's marble.")]
@@ -44,7 +44,7 @@ public class Board : MonoBehaviour
     // Change the visuals to represent the game state as stored in Game state.
     public void ApplyGameStateToVisuals()
     {
-        spaces.UpdateAll(game.state);
+        spaces.UpdateAll(game.GetState());
     }
 
     // Attempt to visually place a marble in the game world and execute a ActionPlaceMarble action on the Game state.
@@ -62,9 +62,9 @@ public class Board : MonoBehaviour
 
         var action = new ActionPlaceMarble(spaceIndex);
 
-        if (!action.IsValid(game.state))
+        if (!action.IsValid(game.GetState()))
         {
-            Debug.Log(game.state.currentPlayer.ToString() + " attempted to illegaly place a marble.");
+            Debug.Log(game.GetState().currentPlayer.ToString() + " attempted to illegaly place a marble.");
             onIllegalMarblePlacement?.Invoke();
         }
         else
@@ -82,10 +82,10 @@ public class Board : MonoBehaviour
         // TODO: Animate marble placement instead of just instantly placing it
         //       Move logic to Space component - just pass reference to the marble to be placed from here.
         //       Placement/Animation should be initiated from Space
-        var marblePrefab = game.state.currentPlayer == PLAYER.PLAYER1 ? player1MarblePrefab : player2MarblePrefab;
+        var marblePrefab = game.GetState().currentPlayer == PLAYER.PLAYER1 ? player1MarblePrefab : player2MarblePrefab;
         var space = spaces.Get(spaceIndex);
         var marble = Instantiate(marblePrefab, space.transform.position + Vector3.up * marbleHeightOffset, Quaternion.identity);
-        space.AddMarble(game.state.currentPlayer, marble);
+        space.AddMarble(game.GetState().currentPlayer, marble);
         yield return null;
     }
 
@@ -116,9 +116,9 @@ public class Board : MonoBehaviour
 
         var action = new ActionRotateQuadrant(quadrantIndex, direction);
 
-        if (!action.IsValid(game.state))
+        if (!action.IsValid(game.GetState()))
         {
-            Debug.Log(game.state.currentPlayer.ToString() + " attempted to illegaly rotate a quadrant.");
+            Debug.Log(game.GetState().currentPlayer.ToString() + " attempted to illegaly rotate a quadrant.");
             onIllegalQuadrantRotation?.Invoke();
         }
         else

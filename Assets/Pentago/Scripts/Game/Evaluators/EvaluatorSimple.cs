@@ -1,6 +1,6 @@
 ﻿
 using UnityEngine;
-using static Game;
+using static IGame;
 
 public class EvaluatorSimple : IEvaluator
 {
@@ -13,9 +13,9 @@ public class EvaluatorSimple : IEvaluator
 
     private System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
 
-    public WIN_STATE Evaluate(State gameState)
+    public WIN_STATE Evaluate(State state)
     {
-        this.gameState = gameState;
+        gameState = state;
 
         timer.Start();
 
@@ -23,7 +23,7 @@ public class EvaluatorSimple : IEvaluator
         {
             for (int col = 0; col < boardWidth; col++)
             {
-                var currentSpaceState = this.gameState.spaces[GetSpaceIndex(row, col)];
+                var currentSpaceState = gameState.spaces[GetSpaceIndex(row, col)];
                 if (currentSpaceState != SPACE_STATE.UNOCCUPIED)
                 {
                     // Check horizontal row
