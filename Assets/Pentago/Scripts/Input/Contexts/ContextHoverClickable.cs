@@ -8,7 +8,7 @@ public class ContextHoverClickable : IInputContext
     {
         if (!handler.mousePointer.overClickable)
         {
-            handler.SwitchContext(GetComponent<ContextIdle>());
+            handler.SwitchContext(GetComponent<ContextDefault>());
             return;
         }
 

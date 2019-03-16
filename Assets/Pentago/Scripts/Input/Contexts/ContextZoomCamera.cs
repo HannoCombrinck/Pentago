@@ -9,7 +9,7 @@ public class ContextZoomCamera : IInputContext
     {
         if (Input.GetMouseButtonUp(1)) // Right mouse button
         {
-            handler.SwitchContext(GetComponent<ContextIdle>());
+            handler.SwitchContext(GetComponent<ContextDefault>());
             return;
         }
 

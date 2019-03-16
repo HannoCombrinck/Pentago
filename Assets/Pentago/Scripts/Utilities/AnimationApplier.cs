@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 
-/* This AnimationApplier provides and interface to apply an animation of the attached animator to another GameObject
- */
+// This AnimationApplier provides and interface to apply an animation of the attached animator to another GameObject
 public class AnimationApplier : MonoBehaviour
 {
     [Tooltip("The animated GameObject/Node/Transform/Bone that will be used to animate another object.")]

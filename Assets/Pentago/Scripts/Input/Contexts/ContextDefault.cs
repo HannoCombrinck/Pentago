@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class ContextIdle : IInputContext
+public class ContextDefault : IInputContext
 {
     public override void OnHandleInput()
     {
