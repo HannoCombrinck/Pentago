@@ -13,7 +13,6 @@ public class InputHandler : MonoBehaviour
     void Awake()
     {
         Debug.Assert(activeContext != null);
-
         mousePointer = GetComponent<MousePointer>();
         Debug.Assert(mousePointer != null);
         mouseMovement = GetComponent<MouseMovement>();

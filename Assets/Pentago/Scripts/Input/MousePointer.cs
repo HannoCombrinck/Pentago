@@ -25,14 +25,7 @@ public class MousePointer : MonoBehaviour
             return;
         }
 
-        var newClickable = hitInfo.collider.gameObject.GetComponent<IClickable>();
-        overClickable = newClickable != null;
-        if (!overClickable)
-        {
-            clickable = null;
-            return;
-        }
-
-        clickable = newClickable;
+        clickable = hitInfo.collider.gameObject.GetComponent<IClickable>();
+        overClickable = clickable != null;
     }
 }

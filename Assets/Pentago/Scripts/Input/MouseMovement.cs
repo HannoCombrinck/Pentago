@@ -3,7 +3,6 @@
 public class MouseMovement : MonoBehaviour
 {
     public bool mouseMoved;
-    //public Vector2 
     private Vector3 previousMousePosition;
 
     void Start()
