@@ -42,18 +42,20 @@ public class Game : IGame
     // Determines the next move, next player and win state and sets the game state to reflect these new values.
     private void AdvanceGameState()
     {
-        var winState = evaluator.Evaluate(state);
-        if (winState != WIN_STATE.IN_PROGRESS)
+        state.winState = evaluator.Evaluate(state);
+        switch (state.winState)
         {
-            state.winState = winState;
-            onGameWon?.Invoke();
-            Debug.Log(state.currentPlayer.ToString() + " won the game!");
-
-            int indexNumber = 0;
-            foreach (int index in evaluator.GetLastEvaluatedLine())
-                Debug.Log("Winning line index " + (++indexNumber) + ": " + index);
-
-            return;
+            case WIN_STATE.IN_PROGRESS:
+                break;
+            case WIN_STATE.TIE:
+                HandleTie();
+                return;
+            case WIN_STATE.PLAYER1_WON:
+                HandlePlayerWin();
+                return;
+            case WIN_STATE.PLAYER2_WON:
+                HandlePlayerWin();
+                return;
         }
 
         if (state.nextMove == MOVE_TYPE.PLACE_MARBLE)
@@ -66,5 +68,22 @@ public class Game : IGame
         state.currentPlayer = state.currentPlayer == PLAYER.PLAYER1 ? PLAYER.PLAYER2 : PLAYER.PLAYER1;
 
         onGameStateAdvanced?.Invoke();
+    }
+
+    private void HandlePlayerWin()
+    {
+        onGameWon?.Invoke();
+        Debug.Log(state.currentPlayer.ToString() + " won the game!");
+
+        int indexNumber = 0;
+        foreach (int index in evaluator.GetLastEvaluatedLine())
+            Debug.Log("Winning line index " + (++indexNumber) + ": " + index);
+
+    }
+
+    private void HandleTie()
+    {
+        onGameTie?.Invoke();
+        Debug.Log("Tied the game!");
     }
 }

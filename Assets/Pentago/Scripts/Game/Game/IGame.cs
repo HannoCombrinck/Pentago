@@ -12,6 +12,7 @@ public abstract class IGame : MonoBehaviour
     public enum WIN_STATE
     {
         IN_PROGRESS,
+        TIE,
         PLAYER1_WON,
         PLAYER2_WON
     }
@@ -39,6 +40,7 @@ public abstract class IGame : MonoBehaviour
     // {
     public Action onNewGameStarted;
     public Action onGameWon;
+    public Action onGameTie;
     public Action onActionExecuted;
     public Action onGameStateAdvanced;
     public Action onIllegalActionAttempted;
