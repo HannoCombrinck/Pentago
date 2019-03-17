@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
 using static IGame;
 
-// Initialize and manage all space visuals (i.e. GameObjects with Space component attached) that 
-// are descendants of this GameObject.
-public class SpaceManager : SpatialSorter<Space>
+// Initialize and control interacitons with all descendant Space's.
+public class SpaceController : SpatialSorter<Space>
 {
     private Board boardManager;
 

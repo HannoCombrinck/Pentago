@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 
-// Initialize and manage all quadrant visuals (i.e. GameObjects with Quadrant component attached) that 
-// are descendants of this GameObject.
-public class QuadrantManager : SpatialSorter<Quadrant>
+// Initialize and control interacitons with all descendant Quadrant's.
+public class QuadrantController : SpatialSorter<Quadrant>
 {
     protected override void Awake()
     {

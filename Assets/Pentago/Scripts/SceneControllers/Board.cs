@@ -4,7 +4,7 @@ using UnityEngine;
 using static IGame;
 
 // Initialize and manage the board GameObject.
-[RequireComponent(typeof(QuadrantManager), typeof(SpaceManager))]
+[RequireComponent(typeof(QuadrantController), typeof(SpaceController))]
 public class Board : MonoBehaviour
 {
     [Tooltip("Reference to the game interface.")]
@@ -23,14 +23,14 @@ public class Board : MonoBehaviour
     // }
 
     private bool actionInProgress = false;
-    private QuadrantManager quadrants;
-    private SpaceManager spaces;
+    private QuadrantController quadrants;
+    private SpaceController spaces;
 
     private void Awake()
     {
         Debug.Assert(game != null, "Game component required.");
-        quadrants = GetComponent<QuadrantManager>();
-        spaces = GetComponent<SpaceManager>();
+        quadrants = GetComponent<QuadrantController>();
+        spaces = GetComponent<SpaceController>();
 
         game.onNewGameStarted += ApplyGameStateToVisuals;
         game.onActionExecuted += ApplyGameStateToVisuals;
