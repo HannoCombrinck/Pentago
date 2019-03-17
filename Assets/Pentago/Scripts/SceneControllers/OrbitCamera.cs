@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 
+// TODO: Add ICameraController interface for OrbitCamera to implement
+
 public class OrbitCamera : MonoBehaviour
 {
     public GameObject orbitObject;

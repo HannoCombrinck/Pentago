@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using static IGame;
 
-// Initialize and manage the board visual.
+// Initialize and manage the board GameObject.
 [RequireComponent(typeof(QuadrantManager), typeof(SpaceManager))]
 public class Board : MonoBehaviour
 {

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(InputHandler))]
 public abstract class IInputContext : MonoBehaviour
 {
     protected InputHandler handler;
@@ -7,7 +8,6 @@ public abstract class IInputContext : MonoBehaviour
     protected virtual void Awake()
     {
         handler = GetComponent<InputHandler>();
-        Debug.Assert(handler != null);
     }
 
     // Called every Update() while the context is the active context.
