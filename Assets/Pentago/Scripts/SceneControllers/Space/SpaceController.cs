@@ -1,39 +1,47 @@
-﻿using UnityEngine;
+﻿
+using System.Collections.Generic;
+using UnityEngine;
 using static IGame;
 
 // Initialize and control interacitons with all descendant Space's.
-public class SpaceController : SpatialSorter<Space>
+public class SpaceController : MonoBehaviour
 {
+    public List<Space> sortedSpaces;
+    public Space this[int key] => sortedSpaces[key];
+    public int Count => sortedSpaces.Count;
+
+    private SpatialSorter<Space> spaceSorter;
     private Board boardManager;
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
-
         boardManager = GetComponent<Board>();
         Debug.Assert(boardManager != null);
 
-        for (int i = 0; i < sortedSpatials.Count; i++)
-            sortedSpatials[i].spaceIndex = i;
+        var spacesToSort = GetComponentsInChildren<Space>();
+        spaceSorter = new SpatialSorter<Space>(spacesToSort, ref sortedSpaces);
+
+        for (int i = 0; i < sortedSpaces.Count; i++)
+            sortedSpaces[i].spaceIndex = i;
     }
 
     public void UpdateAll(State gameState)
     {
-        Sort();
+        spaceSorter.Sort();
 
         // TODO: Find a better way to implement this - shouldn't be instantiating prefabs here and have convoluted logic for checkin Space state etc.
-        for (int i = 0; i < sortedSpatials.Count; i++)
+        for (int i = 0; i < sortedSpaces.Count; i++)
         {
-            sortedSpatials[i].spaceIndex = i;
-            sortedSpatials[i].RemoveMarble();
+            sortedSpaces[i].spaceIndex = i;
+            sortedSpaces[i].RemoveMarble();
 
             switch (gameState.spaces[i])
             {
                 case SPACE_STATE.OCCUPIED_PLAYER1:
-                    sortedSpatials[i].AddMarble(PLAYER.PLAYER1, Instantiate(boardManager.player1MarblePrefab, sortedSpatials[i].transform.position + Vector3.up * boardManager.marbleHeightOffset, Quaternion.identity));
+                    sortedSpaces[i].AddMarble(PLAYER.PLAYER1, Instantiate(boardManager.player1MarblePrefab, sortedSpaces[i].transform.position + Vector3.up * boardManager.marbleHeightOffset, Quaternion.identity));
                     break;
                 case SPACE_STATE.OCCUPIED_PLAYER2:
-                    sortedSpatials[i].AddMarble(PLAYER.PLAYER2, Instantiate(boardManager.player2MarblePrefab, sortedSpatials[i].transform.position + Vector3.up * boardManager.marbleHeightOffset, Quaternion.identity));
+                    sortedSpaces[i].AddMarble(PLAYER.PLAYER2, Instantiate(boardManager.player2MarblePrefab, sortedSpaces[i].transform.position + Vector3.up * boardManager.marbleHeightOffset, Quaternion.identity));
                     break;
             }
         }
@@ -41,6 +49,6 @@ public class SpaceController : SpatialSorter<Space>
 
     public void OnSpaceIndicesChanged()
     {
-        Sort();
+        spaceSorter.Sort();
     }
 }

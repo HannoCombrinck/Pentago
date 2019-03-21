@@ -83,7 +83,7 @@ public class Board : MonoBehaviour
         //       Move logic to Space component - just pass reference to the marble to be placed from here.
         //       Placement/Animation should be initiated from Space
         var marblePrefab = game.GetState().currentPlayer == PLAYER.PLAYER1 ? player1MarblePrefab : player2MarblePrefab;
-        var space = spaces.Get(spaceIndex);
+        var space = spaces[spaceIndex];
         var marble = Instantiate(marblePrefab, space.transform.position + Vector3.up * marbleHeightOffset, Quaternion.identity);
         space.AddMarble(game.GetState().currentPlayer, marble);
         yield return null;
@@ -134,7 +134,7 @@ public class Board : MonoBehaviour
     // Visually roatate quadrant 
     private IEnumerator RotateQuadrantVisual(int quadrantIndex, ROTATE_DIRECTION direction)
     {
-        var quadrantRotator = quadrants.Get(quadrantIndex).GetComponent<IQuadrantRotator>();
+        var quadrantRotator = quadrants[quadrantIndex].GetComponent<IQuadrantRotator>();
 
         switch (direction)
         {

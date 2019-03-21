@@ -36,7 +36,7 @@ public abstract class IGame : MonoBehaviour
         OCCUPIED_PLAYER2,
     }
 
-    // Game events that can be subscribed to.
+    // Game events.
     // {
     public Action onNewGameStarted;
     public Action onGameWon;

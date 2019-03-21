@@ -1,13 +1,21 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 // Initialize and control interacitons with all descendant Quadrant's.
-public class QuadrantController : SpatialSorter<Quadrant>
+public class QuadrantController : MonoBehaviour
 {
-    protected override void Awake()
-    {
-        base.Awake();
+    public List<Quadrant> sortedQuadrants;
+    public Quadrant this[int key] => sortedQuadrants[key];
+    public int Count => sortedQuadrants.Count;
 
-        for (int i = 0; i < sortedSpatials.Count; i++)
-            sortedSpatials[i].quadrantIndex = i;
+    private SpatialSorter<Quadrant> quadrantSorter;
+
+    private void Awake()
+    {
+        var quadrantsToSort = GetComponentsInChildren<Quadrant>();
+        quadrantSorter = new SpatialSorter<Quadrant>(quadrantsToSort, ref sortedQuadrants);
+
+        for (int i = 0; i < sortedQuadrants.Count; i++)
+            sortedQuadrants[i].quadrantIndex = i;
     }
 }

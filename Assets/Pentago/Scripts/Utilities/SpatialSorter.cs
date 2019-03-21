@@ -1,25 +1,23 @@
-﻿using System.Collections.Generic;
+﻿
+using System.Collections.Generic;
 using UnityEngine;
 
-// TODO: Refactor so this isn't a MonoBehaviour - Let SpaceManager and QuadrantManager use a simplified 
-// version of the sorter to manage Space's and Quadrant's
-
-// Search for spatial component descendents of type SpatialComponentType and sort them according to their world
-// space positions in the xz plane. Maintain and expose this sorted list.
-public class SpatialSorter<SpatialComponentType> : MonoBehaviour
+// Sort a List of GameObjects (with attached SpatialComponent) according to their world space positions in the xz plane.
+public class SpatialSorter<SpatialComponentType>
     where SpatialComponentType : Component
 {
-    public List<SpatialComponentType> sortedSpatials = new List<SpatialComponentType>();
+    private List<SpatialComponentType> sortedSpatials;
+    private SpatialComponentIndexComparer spatialComponentIndexComparer;
 
-    protected virtual void Awake()
+    public SpatialSorter(SpatialComponentType[] spatials, ref List<SpatialComponentType> sortedSpatials)
     {
+        this.sortedSpatials = sortedSpatials;
         var xMin = float.MaxValue;
         var xMax = float.MinValue;
 
-        var spatials = GetComponentsInChildren<SpatialComponentType>();
         foreach (var spatialComponent in spatials)
         {
-            sortedSpatials.Add(spatialComponent);
+            this.sortedSpatials.Add(spatialComponent);
 
             if (spatialComponent.gameObject.transform.position.x < xMin)
                 xMin = spatialComponent.gameObject.transform.position.x;
@@ -36,11 +34,6 @@ public class SpatialSorter<SpatialComponentType> : MonoBehaviour
     public void Sort()
     {
         sortedSpatials.Sort(spatialComponentIndexComparer);
-    }
-
-    public SpatialComponentType Get(int index)
-    {
-        return sortedSpatials[index];
     }
 
     // Comparer to sorts spatial components from top left to bottom right based on world space positions in xz plane.
@@ -60,5 +53,5 @@ public class SpatialSorter<SpatialComponentType> : MonoBehaviour
             return xIndex < yIndex ? -1 : 1;
         }
     }
-    private SpatialComponentIndexComparer spatialComponentIndexComparer;
+   
 }
