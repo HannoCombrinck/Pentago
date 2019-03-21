@@ -79,12 +79,13 @@ public class Board : MonoBehaviour
 
     private IEnumerator PlaceMarbleVisual(int spaceIndex)
     {
-        // TODO: Animate marble placement instead of just instantly placing it
-        //       Move logic to Space component - just pass reference to the marble to be placed from here.
-        //       Placement/Animation should be initiated from Space
-        var marblePrefab = game.GetState().currentPlayer == PLAYER.PLAYER1 ? player1MarblePrefab : player2MarblePrefab;
         var space = spaces[spaceIndex];
+        var marblePrefab = game.GetState().currentPlayer == PLAYER.PLAYER1 ? player1MarblePrefab : player2MarblePrefab;
+        //////////
+        // For now just instantiate the marble at its destination position.
+        // Marble can be instantiated somewhere else and animated to its destination position on the Space.
         var marble = Instantiate(marblePrefab, space.transform.position + Vector3.up * marbleHeightOffset, Quaternion.identity);
+        //////////
         space.AddMarble(game.GetState().currentPlayer, marble);
         yield return null;
     }

@@ -17,13 +17,14 @@ public class Space : MonoBehaviour
         state = player == PLAYER.PLAYER1 ? SPACE_STATE.OCCUPIED_PLAYER1 : SPACE_STATE.OCCUPIED_PLAYER2;
     }
 
-    public void RemoveMarble()
+    public GameObject RemoveMarble()
     {
         if (currentMarble == null)
-            return;
+            return null;
             
-        Destroy(currentMarble);
+        var temp = currentMarble;
         currentMarble = null;
         state = SPACE_STATE.UNOCCUPIED;
+        return temp;
     }
 }

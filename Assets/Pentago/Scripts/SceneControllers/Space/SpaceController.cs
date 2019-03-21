@@ -11,12 +11,12 @@ public class SpaceController : MonoBehaviour
     public int Count => sortedSpaces.Count;
 
     private SpatialSorter<Space> spaceSorter;
-    private Board boardManager;
+    private Board board;
 
     private void Awake()
     {
-        boardManager = GetComponent<Board>();
-        Debug.Assert(boardManager != null);
+        board = GetComponent<Board>();
+        Debug.Assert(board != null);
 
         var spacesToSort = GetComponentsInChildren<Space>();
         spaceSorter = new SpatialSorter<Space>(spacesToSort, ref sortedSpaces);
@@ -33,15 +33,16 @@ public class SpaceController : MonoBehaviour
         for (int i = 0; i < sortedSpaces.Count; i++)
         {
             sortedSpaces[i].spaceIndex = i;
-            sortedSpaces[i].RemoveMarble();
+            var removedMarble = sortedSpaces[i].RemoveMarble();
+            Destroy(removedMarble);
 
             switch (gameState.spaces[i])
             {
                 case SPACE_STATE.OCCUPIED_PLAYER1:
-                    sortedSpaces[i].AddMarble(PLAYER.PLAYER1, Instantiate(boardManager.player1MarblePrefab, sortedSpaces[i].transform.position + Vector3.up * boardManager.marbleHeightOffset, Quaternion.identity));
+                    sortedSpaces[i].AddMarble(PLAYER.PLAYER1, Instantiate(board.player1MarblePrefab, sortedSpaces[i].transform.position + Vector3.up * board.marbleHeightOffset, Quaternion.identity));
                     break;
                 case SPACE_STATE.OCCUPIED_PLAYER2:
-                    sortedSpaces[i].AddMarble(PLAYER.PLAYER2, Instantiate(boardManager.player2MarblePrefab, sortedSpaces[i].transform.position + Vector3.up * boardManager.marbleHeightOffset, Quaternion.identity));
+                    sortedSpaces[i].AddMarble(PLAYER.PLAYER2, Instantiate(board.player2MarblePrefab, sortedSpaces[i].transform.position + Vector3.up * board.marbleHeightOffset, Quaternion.identity));
                     break;
             }
         }

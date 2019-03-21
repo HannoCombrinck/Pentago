@@ -4,10 +4,6 @@ using static IGame;
 
 public class EvaluatorSimple : IEvaluator
 {
-    private const int winningLineLength = 5;
-    private const int boardWidth = 6;
-    private const int spaceCount = 36;
-
     private State gameState;
     private readonly int[] lastLineIndices = new int[winningLineLength];
 

@@ -36,6 +36,10 @@ public abstract class IGame : MonoBehaviour
         OCCUPIED_PLAYER2,
     }
 
+    public const int winningLineLength = 5;
+    public const int boardWidth = 6;
+    public const int spaceCount = 36;
+
     // Game events.
     // {
     public Action onNewGameStarted;
