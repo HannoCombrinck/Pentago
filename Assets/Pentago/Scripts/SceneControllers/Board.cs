@@ -71,6 +71,12 @@ public class Board : MonoBehaviour
     {
         Debug.Log("Game ended: " + game.GetState().winState.ToString());
         gameInProgress = false;
+
+        if (game.GetState().winState == WIN_STATE.PLAYER1_WON || game.GetState().winState == WIN_STATE.PLAYER2_WON)
+        {
+//          game.GetState().winningLine
+            Debug.Log("**Highlighting winning line of Marbles**");
+        }
     }
 
     // Change the visuals to represent the game state as stored in Game state.
@@ -101,11 +107,11 @@ public class Board : MonoBehaviour
         {
             Debug.Log(game.GetState().currentPlayer.ToString() + " attempted to illegaly place a marble.");
             onIllegalMarblePlacement?.Invoke();
+            actionInProgress = false;
+            yield break;
         }
-        else
-        {
-            yield return StartCoroutine(PlaceMarbleVisual(spaceIndex));
-        }
+
+        yield return StartCoroutine(PlaceMarbleVisual(spaceIndex));
 
         game.ExecuteAction(action);
 
@@ -165,11 +171,11 @@ public class Board : MonoBehaviour
         {
             Debug.Log(game.GetState().currentPlayer.ToString() + " attempted to illegaly rotate a quadrant.");
             onIllegalQuadrantRotation?.Invoke();
+            actionInProgress = false;
+            yield break;
         }
-        else
-        {
-            yield return StartCoroutine(RotateQuadrantVisual(quadrantIndex, direction));
-        }
+
+        yield return StartCoroutine(RotateQuadrantVisual(quadrantIndex, direction));
 
         game.ExecuteAction(action);
 

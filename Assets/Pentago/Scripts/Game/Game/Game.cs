@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [RequireComponent(typeof(State))]
 public class Game : IGame
@@ -72,13 +73,14 @@ public class Game : IGame
 
     private void HandlePlayerWin()
     {
+        Array.Copy(evaluator.GetLastEvaluatedLine(), state.winningLine, 5);
         onGameWon?.Invoke();
+
         Debug.Log(state.currentPlayer.ToString() + " won the game!");
 
-        int indexNumber = 0;
+        /*int indexNumber = 0;
         foreach (int index in evaluator.GetLastEvaluatedLine())
-            Debug.Log("Winning line index " + (++indexNumber) + ": " + index);
-
+            Debug.Log("Winning line index " + (++indexNumber) + ": " + index);*/
     }
 
     private void HandleTie()
