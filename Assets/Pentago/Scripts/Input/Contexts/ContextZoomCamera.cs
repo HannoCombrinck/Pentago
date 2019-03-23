@@ -2,7 +2,7 @@
 
 public class ContextZoomCamera : IInputContext
 {
-    public OrbitCamera cameraController;
+    public ICameraController cameraController;
     public float mouseSensitivityZoom = 0.25f;
 
     public override void OnHandleInput()

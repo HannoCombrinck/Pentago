@@ -25,12 +25,12 @@ public class Game : IGame
 
     public override bool ExecuteAction(IAction action)
     {
-        if (!action.IsValid(state))
+        /*if (!action.IsValid(state))
         {
             Debug.Log(state.currentPlayer.ToString() + " attempted an illegal move.");
             onIllegalActionAttempted?.Invoke();
             return false;
-        }
+        }*/
 
         action.Execute(state);
         onActionExecuted?.Invoke();

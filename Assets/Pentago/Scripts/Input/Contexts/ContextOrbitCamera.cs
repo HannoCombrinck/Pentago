@@ -2,7 +2,7 @@
 
 public class ContextOrbitCamera : IInputContext
 {
-    public OrbitCamera cameraController;
+    public ICameraController cameraController;
     public float mouseSensitivityX = 5f;
     public float mouseSensitivityY = 5f;
 

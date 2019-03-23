@@ -79,15 +79,15 @@ public class EvaluatorSimple : IEvaluator
 
         // Move forward through line and count consecutive spaces that match lineType
         int consecutiveCount = 1;
-        lastLineIndices[consecutiveCount - 1] = GetSpaceIndex(fromRow, fromCol);
+        lastLineIndices[0] = GetSpaceIndex(fromRow, fromCol);
         nextRow = fromRow + rowDirection;
         nextCol = fromCol + colDirection;
         spaceIndex = GetSpaceIndex(nextRow, nextCol);
 
         while (IsWithinBounds(nextRow, nextCol) && gameState.spaces[spaceIndex] == lineType && consecutiveCount < winningLineLength)
         {
+            lastLineIndices[consecutiveCount] = spaceIndex;
             consecutiveCount++;
-            lastLineIndices[consecutiveCount - 1] = spaceIndex;
             fromRow += rowDirection;
             fromCol += colDirection;
             nextRow = fromRow + rowDirection;

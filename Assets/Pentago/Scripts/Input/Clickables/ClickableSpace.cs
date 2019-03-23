@@ -15,8 +15,11 @@ public class ClickableSpace : MonoBehaviour, IClickable
 
     public void OnLeftClick()
     {
-        if (space.state == SPACE_STATE.UNOCCUPIED)
-            board.PlaceMarble(space.spaceIndex);
+        if (space.state != SPACE_STATE.UNOCCUPIED)
+            return;
+
+        board.PlaceMarbleHidePreview();
+        board.PlaceMarble(space.spaceIndex);
     }
 
     public void OnRightClick()
@@ -25,13 +28,17 @@ public class ClickableSpace : MonoBehaviour, IClickable
 
     public void OnMousePointerEnter()
     {
-        if (space.state == SPACE_STATE.UNOCCUPIED)
-            board.PlaceMarbleShowPreview(space.spaceIndex);
+        if (space.state != SPACE_STATE.UNOCCUPIED)
+            return;
+
+        if (board.game.GetState().nextMove != MOVE_TYPE.PLACE_MARBLE)
+            return;
+
+        board.PlaceMarbleShowPreview(space.spaceIndex);
     }
 
     public void OnMousePointerExit()
     {
-        if (space.state == SPACE_STATE.UNOCCUPIED)
-            board.PlaceMarbleHidePreview();
+        board.PlaceMarbleHidePreview();
     }
 }

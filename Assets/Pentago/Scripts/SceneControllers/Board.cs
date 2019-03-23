@@ -11,10 +11,14 @@ public class Board : MonoBehaviour
     public IGame game;
     [Tooltip("Prefab to use as Player 1's marble.")]
     public GameObject player1MarblePrefab;
+    [Tooltip("Prefab to use as preivew placement of Player 1's marble.")]
+    public GameObject player1MarblePreviewPrefab;
     [Tooltip("Prefab to use as Player 2's marble.")]
     public GameObject player2MarblePrefab;
-    [Tooltip("Visually how high above the space to place marble prefabs.")]
-    public float marbleHeightOffset;
+    [Tooltip("Prefab to use as preivew placement of Player 2's marble.")]
+    public GameObject player2MarblePreviewPrefab;
+    [Tooltip("Marble visual offset from space. In other words, the marble's position will be the space's position + marbleVisualOffset.")]
+    public Vector3 marbleVisualOffset = Vector3.up * 0.3f;
 
     // Board events
     // {
@@ -23,22 +27,50 @@ public class Board : MonoBehaviour
     // }
 
     private bool actionInProgress = false;
+    //private bool gameInProgress = false;
+    private bool gameInProgress = true;
+    private GameObject player1MarblePreview;
+    private GameObject player2MarblePreview;
+    private GameObject currentMarblePreview;
     private QuadrantController quadrants;
     private SpaceController spaces;
 
     private void Awake()
     {
         Debug.Assert(game != null, "Game component required.");
+        Debug.Assert(player1MarblePrefab != null, "Prefab required.");
+        Debug.Assert(player1MarblePreviewPrefab != null, "Prefab required.");
+        Debug.Assert(player2MarblePrefab != null, "Prefab required.");
+        Debug.Assert(player2MarblePreviewPrefab != null, "Prefab required.");
+
+        player1MarblePreview = Instantiate(player1MarblePreviewPrefab);
+        player1MarblePreview.SetActive(false);
+        player2MarblePreview = Instantiate(player2MarblePreviewPrefab);
+        player2MarblePreview.SetActive(false);
+
         quadrants = GetComponent<QuadrantController>();
         spaces = GetComponent<SpaceController>();
 
-        game.onNewGameStarted += ApplyGameStateToVisuals;
+        game.onNewGameStarted += OnGameStarted;
         game.onActionExecuted += ApplyGameStateToVisuals;
+        game.onGameWon += OnGameEnded;
     }
 
     private void Start()
     {
         ApplyGameStateToVisuals();
+    }
+
+    public void OnGameStarted()
+    {
+        gameInProgress = true;
+        ApplyGameStateToVisuals();
+    }
+
+    public void OnGameEnded()
+    {
+        Debug.Log("Game ended: " + game.GetState().winState.ToString());
+        gameInProgress = false;
     }
 
     // Change the visuals to represent the game state as stored in Game state.
@@ -50,6 +82,9 @@ public class Board : MonoBehaviour
     // Attempt to visually place a marble in the game world and execute a ActionPlaceMarble action on the Game state.
     public void PlaceMarble(int spaceIndex)
     {
+        if (!gameInProgress)
+            return;
+
         if (actionInProgress)
             return;
 
@@ -84,7 +119,7 @@ public class Board : MonoBehaviour
         //////////
         // For now just instantiate the marble at its destination position.
         // Marble can be instantiated somewhere else and animated to its destination position on the Space.
-        var marble = Instantiate(marblePrefab, space.transform.position + Vector3.up * marbleHeightOffset, Quaternion.identity);
+        var marble = Instantiate(marblePrefab, space.transform.position + marbleVisualOffset, Quaternion.identity);
         //////////
         space.AddMarble(game.GetState().currentPlayer, marble);
         yield return null;
@@ -93,18 +128,27 @@ public class Board : MonoBehaviour
     // Show a visual preview of what it would look like if a marble were placed.
     public void PlaceMarbleShowPreview(int spaceIndex)
     {
-        //TODO:
+        if (!gameInProgress)
+            return;
+
+        currentMarblePreview?.SetActive(false);
+        currentMarblePreview = game.GetState().currentPlayer == PLAYER.PLAYER1 ? player1MarblePreview : player2MarblePreview;
+        currentMarblePreview.transform.position = spaces[spaceIndex].transform.position + marbleVisualOffset;
+        currentMarblePreview.SetActive(true);
     }
 
     // Hide the visual preview of a marble placement.
     public void PlaceMarbleHidePreview()
     {
-        //TODO:
+        currentMarblePreview?.SetActive(false);
     }
 
     // Visually rotate the quadrant in the game world and execute a ActionRotateQuadrant action on the Game.
     public void RotateQuadrant(int quadrantIndex, ROTATE_DIRECTION direction)
     {
+        if (!gameInProgress)
+            return;
+
         if (actionInProgress)
             return;
 

@@ -29,20 +29,21 @@ public class SpaceController : MonoBehaviour
     {
         spaceSorter.Sort();
 
-        // TODO: Find a better way to implement this - shouldn't be instantiating prefabs here and have convoluted logic for checkin Space state etc.
+        // TODO: Find a better way to implement this - shouldn't be instantiating prefabs and checking Space state here.
         for (int i = 0; i < sortedSpaces.Count; i++)
         {
             sortedSpaces[i].spaceIndex = i;
             var removedMarble = sortedSpaces[i].RemoveMarble();
+            // TODO: Possibly animate the "deletion/removal" of the marble instead of just destroying.
             Destroy(removedMarble);
 
             switch (gameState.spaces[i])
             {
                 case SPACE_STATE.OCCUPIED_PLAYER1:
-                    sortedSpaces[i].AddMarble(PLAYER.PLAYER1, Instantiate(board.player1MarblePrefab, sortedSpaces[i].transform.position + Vector3.up * board.marbleHeightOffset, Quaternion.identity));
+                    sortedSpaces[i].AddMarble(PLAYER.PLAYER1, Instantiate(board.player1MarblePrefab, sortedSpaces[i].transform.position + board.marbleVisualOffset, Quaternion.identity));
                     break;
                 case SPACE_STATE.OCCUPIED_PLAYER2:
-                    sortedSpaces[i].AddMarble(PLAYER.PLAYER2, Instantiate(board.player2MarblePrefab, sortedSpaces[i].transform.position + Vector3.up * board.marbleHeightOffset, Quaternion.identity));
+                    sortedSpaces[i].AddMarble(PLAYER.PLAYER2, Instantiate(board.player2MarblePrefab, sortedSpaces[i].transform.position + board.marbleVisualOffset, Quaternion.identity));
                     break;
             }
         }

@@ -47,7 +47,7 @@ public abstract class IGame : MonoBehaviour
     public Action onGameTie;
     public Action onActionExecuted;
     public Action onGameStateAdvanced;
-    public Action onIllegalActionAttempted;
+    //public Action onIllegalActionAttempted;
     // }
 
     // Get the current game state.

@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 
-// TODO: Add ICameraController interface for OrbitCamera to implement
-
-public class OrbitCamera : MonoBehaviour
+public class OrbitCamera : ICameraController
 {
     public GameObject orbitObject;
     public float distance = 10f;
@@ -30,21 +28,26 @@ public class OrbitCamera : MonoBehaviour
         UpdateCameraTransform();
     }
 
-    public void Yaw(float angle)
+    public override Camera GetCamera()
+    {
+        return attachedCamera;
+    }
+
+    public override void Yaw(float angle)
     {
         yaw += angle;
         yaw = ClampAngle(yaw, minYaw, maxYaw);
         UpdateRotation();
     }
 
-    public void Pitch(float angle)
+    public override void Pitch(float angle)
     {
         pitch -= angle;
         pitch = ClampAngle(pitch, minPitch, maxPitch);
         UpdateRotation();
     }
 
-    public void Zoom(float deltaDistance)
+    public override void Zoom(float deltaDistance)
     {
         distance -= deltaDistance;
     }
@@ -52,11 +55,6 @@ public class OrbitCamera : MonoBehaviour
     private void UpdateRotation()
     {
         rotation = Quaternion.AngleAxis(yaw, Vector3.up) * Quaternion.AngleAxis(pitch, Vector3.right);
-    }
-
-    public Camera GetCamera()
-    {
-        return attachedCamera;
     }
 
     private void UpdateCameraTransform()
