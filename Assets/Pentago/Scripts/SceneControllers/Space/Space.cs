@@ -10,6 +10,11 @@ public class Space : MonoBehaviour
 
     private GameObject currentMarble;
 
+    public GameObject GetMarble()
+    {
+        return currentMarble;
+    }
+
     public void AddMarble(PLAYER player, GameObject marble)
     {
         currentMarble = marble;

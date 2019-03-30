@@ -4,12 +4,9 @@ public class MousePointer : MonoBehaviour
 {
     //public LayerMask clickableLayer;
     public float maxPointerDistance = 100.0f;
-    public bool overClickable;
-
-    [HideInInspector]
-    public IClickable clickable;
-    [HideInInspector]
-    public Ray ray;
+    public bool overClickable { get; private set; }
+    public IClickable clickable { get; private set; }
+    public Ray ray { get; private set; }
     [HideInInspector]
     public RaycastHit hitInfo;
     

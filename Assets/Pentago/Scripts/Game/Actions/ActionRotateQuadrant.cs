@@ -7,6 +7,8 @@ public class ActionRotateQuadrant : IAction
     private int quadrantIndex;
     private ROTATE_DIRECTION rotateDirection;
 
+    private QuadrantMatrix quadrantMatrix = new QuadrantMatrix();
+
     public ActionRotateQuadrant(int quadrantIndex, ROTATE_DIRECTION rotateDirection)
     {
         this.quadrantIndex = quadrantIndex;
@@ -33,8 +35,8 @@ public class ActionRotateQuadrant : IAction
             Debug.Log("ActionRotateQuadrant: " + gameState.currentPlayer.ToString() + " attempted to illegaly rotate quadrant " + quadrantIndex + " " + rotateDirection.ToString());
             return;
         }
-
-        var quadrantMatrix = new QuadrantMatrix(ref gameState.spaces, quadrantIndex);
+        
+        quadrantMatrix.SetQuadrant(ref gameState.spaces, quadrantIndex);
 
         if (rotateDirection == ROTATE_DIRECTION.CLOCKWISE)
             SquareMatrixRotater.Rotate90DegreesClockwise(quadrantMatrix);
@@ -49,7 +51,7 @@ public class ActionRotateQuadrant : IAction
         private int quadrantRow;
         private int quadrantCol;
 
-        public QuadrantMatrix(ref SPACE_STATE[] spaceState, int quadrantIndex)
+        public void SetQuadrant(ref SPACE_STATE[] spaceState, int quadrantIndex)
         {
             quadrantRow = quadrantIndex / 2;
             quadrantCol = quadrantIndex % 2;

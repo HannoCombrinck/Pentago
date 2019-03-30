@@ -20,13 +20,11 @@ public class QuadrantRotatorAnimated : MonoBehaviour, IQuadrantRotator
 
     public void RotateClockwise()
     {
-        //Debug.Log("QuadrantRotatorAnimated: Attempting animated clockwise rotation on: " + gameObject.name);
         animationApplier.ApplyTo(transform, Quaternion.Euler(0.0f, yawOffset, 0.0f), "RotateCW");
     }
 
     public void RotateCounterClockwise()
     {
-        //Debug.Log("QuadrantRotatorAnimated: Attempting animated counterclockwise rotation on: " + gameObject.name);
         animationApplier.ApplyTo(transform, Quaternion.Euler(0.0f, yawOffset, 0.0f), "RotateCCW");
     }
 

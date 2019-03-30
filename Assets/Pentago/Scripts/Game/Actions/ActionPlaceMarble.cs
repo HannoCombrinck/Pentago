@@ -4,12 +4,12 @@ using static IGame;
 
 public class ActionPlaceMarble : IAction
 {
+    public int spaceIndex;
+
     public ActionPlaceMarble(int spaceIndex)
     {
         this.spaceIndex = spaceIndex;
     }
-
-    public int spaceIndex;
 
     public string GetDescription()
     {

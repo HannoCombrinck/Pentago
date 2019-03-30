@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using static IGame;
 
@@ -73,16 +74,7 @@ public class Board : MonoBehaviour
         gameInProgress = false;
 
         if (game.GetState().winState == WIN_STATE.PLAYER1_WON || game.GetState().winState == WIN_STATE.PLAYER2_WON)
-        {
-//          game.GetState().winningLine
-            Debug.Log("**Highlighting winning line of Marbles**");
-        }
-    }
-
-    // Change the visuals to represent the game state as stored in Game state.
-    public void ApplyGameStateToVisuals()
-    {
-        spaces.UpdateAll(game.GetState());
+            StartCoroutine(HighlightWinningLine(game.GetState().winningLine));
     }
 
     // Attempt to visually place a marble in the game world and execute a ActionPlaceMarble action on the Game state.
@@ -95,6 +87,76 @@ public class Board : MonoBehaviour
             return;
 
         StartCoroutine(PlaceMarbleCoroutine(spaceIndex));
+    }
+
+    // Show a visual preview of what it would look like if a marble were placed.
+    public void PlaceMarbleShowPreview(int spaceIndex)
+    {
+        if (!gameInProgress)
+            return;
+
+        currentMarblePreview?.SetActive(false);
+        currentMarblePreview = game.GetState().currentPlayer == PLAYER.PLAYER1 ? player1MarblePreview : player2MarblePreview;
+        currentMarblePreview.transform.position = spaces[spaceIndex].transform.position + marbleVisualOffset;
+        currentMarblePreview.SetActive(true);
+    }
+
+    // Hide the visual preview of a marble placement.
+    public void PlaceMarbleHidePreview()
+    {
+        currentMarblePreview?.SetActive(false);
+    }
+
+    // Attempt to visually rotate the quadrant in the game world and execute a ActionRotateQuadrant action on the Game.
+    public void RotateQuadrant(int quadrantIndex, ROTATE_DIRECTION direction)
+    {
+        if (!gameInProgress)
+            return;
+
+        if (actionInProgress)
+            return;
+
+        StartCoroutine(RotateQuadrantCoroutine(quadrantIndex, direction));
+    }
+
+    private struct HighlightedMarble
+    {
+        public Transform currentTransform;
+        public Vector3 originalPosition;
+        public Vector3 originalScale;
+        public Material material;
+    };
+
+    private IEnumerator HighlightWinningLine(int[] winningLine)
+    {
+        List<HighlightedMarble> winningMarbleTransforms = new List<HighlightedMarble>();
+        foreach (var i in winningLine)
+        {
+            spaces[i].GetMarble().GetComponent<Renderer>().material = Instantiate(spaces[i].GetMarble().GetComponent<Renderer>().material);
+            var m = new HighlightedMarble();
+            m.currentTransform = spaces[i].GetMarble().transform;
+            m.originalPosition = spaces[i].GetMarble().transform.position;
+            m.originalScale = spaces[i].GetMarble().transform.localScale;
+            m.material = spaces[i].GetMarble().GetComponent<Renderer>().material;
+            winningMarbleTransforms.Add(m);
+        }
+
+        float time = 0.0f;
+        float scaleFactor = 1.0f;
+        while (!gameInProgress)
+        {
+            scaleFactor = Mathf.Sin(time*4.0f) * 0.2f + 1.0f;
+
+            foreach (var m in winningMarbleTransforms)
+            {
+                m.currentTransform.localScale = m.originalScale * scaleFactor;
+                m.material.SetColor("_Color", Color.white);
+                m.material.SetVector("_EmissionColor", Color.white * 1.5f);
+            }
+
+            time += Time.deltaTime;
+            yield return null;
+        }
     }
 
     private IEnumerator PlaceMarbleCoroutine(int spaceIndex)
@@ -129,36 +191,6 @@ public class Board : MonoBehaviour
         //////////
         space.AddMarble(game.GetState().currentPlayer, marble);
         yield return null;
-    }
-
-    // Show a visual preview of what it would look like if a marble were placed.
-    public void PlaceMarbleShowPreview(int spaceIndex)
-    {
-        if (!gameInProgress)
-            return;
-
-        currentMarblePreview?.SetActive(false);
-        currentMarblePreview = game.GetState().currentPlayer == PLAYER.PLAYER1 ? player1MarblePreview : player2MarblePreview;
-        currentMarblePreview.transform.position = spaces[spaceIndex].transform.position + marbleVisualOffset;
-        currentMarblePreview.SetActive(true);
-    }
-
-    // Hide the visual preview of a marble placement.
-    public void PlaceMarbleHidePreview()
-    {
-        currentMarblePreview?.SetActive(false);
-    }
-
-    // Visually rotate the quadrant in the game world and execute a ActionRotateQuadrant action on the Game.
-    public void RotateQuadrant(int quadrantIndex, ROTATE_DIRECTION direction)
-    {
-        if (!gameInProgress)
-            return;
-
-        if (actionInProgress)
-            return;
-
-        StartCoroutine(RotateQuadrantCoroutine(quadrantIndex, direction));
     }
 
     private IEnumerator RotateQuadrantCoroutine(int quadrantIndex, ROTATE_DIRECTION direction)
@@ -199,5 +231,11 @@ public class Board : MonoBehaviour
 
         while (quadrantRotator.IsBusyRotating())
             yield return null;
+    }
+
+    // Change the visuals to represent the game state as stored in Game state.
+    private void ApplyGameStateToVisuals()
+    {
+        spaces.UpdateAll(game.GetState());
     }
 }

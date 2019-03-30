@@ -3,10 +3,8 @@
 public class InputHandler : MonoBehaviour
 {
     public IInputContext activeContext;
-    [HideInInspector]
-    public MousePointer mousePointer;
-    [HideInInspector]
-    public MouseMovement mouseMovement;
+    public MousePointer mousePointer { get; private set; }
+    public MouseMovement mouseMovement { get; private set; }
 
     private IInputContext contextToSwitchTo;
 
