@@ -70,7 +70,7 @@ public class Board : MonoBehaviour
 
     public void OnGameEnded()
     {
-        Debug.Log("Game ended: " + game.GetState().winState.ToString());
+//      Debug.Log("Game ended: " + game.GetState().winState.ToString());
         gameInProgress = false;
 
         if (game.GetState().winState == WIN_STATE.PLAYER1_WON || game.GetState().winState == WIN_STATE.PLAYER2_WON)
