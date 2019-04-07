@@ -80,6 +80,8 @@ public class Board : MonoBehaviour
     // Attempt to visually place a marble in the game world and execute a ActionPlaceMarble action on the Game state.
     public void PlaceMarble(int spaceIndex)
     {
+        // Local player tried to place marble - network notification should happen from here
+
         if (!gameInProgress)
             return;
 
