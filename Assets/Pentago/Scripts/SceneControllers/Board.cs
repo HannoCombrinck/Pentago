@@ -28,8 +28,7 @@ public class Board : MonoBehaviour
     // }
 
     private bool actionInProgress = false;
-    //private bool gameInProgress = false;
-    private bool gameInProgress = true;
+    private bool gameInProgress = false;
     private GameObject player1MarblePreview;
     private GameObject player2MarblePreview;
     private GameObject currentMarblePreview;
@@ -60,6 +59,14 @@ public class Board : MonoBehaviour
     private void Start()
     {
         ApplyGameStateToVisuals();
+    }
+
+    private void OnGUI()
+    {
+        if (GUI.Button(new Rect(10, 10, 100, 25), "New Game")) 
+            game.StartNewGame();
+        if (GUI.Button(new Rect(10, 40, 100, 25), "Exit Game"))
+            Debug.Log("Exit game");
     }
 
     public void OnGameStarted()
