@@ -3,26 +3,42 @@ using UnityEngine.Networking;
 using static IGame;
 
 #pragma warning disable CS0618 // Type or member is obsolete
-public class NetworkPlayer : NetworkBehaviour
+public class PlayerNetwork : NetworkBehaviour, IPlayer
 #pragma warning restore CS0618 // Type or member is obsolete
 {
-    public NetworkPlayerList playerList = null;
-
-    // TODO: Don't use SyncVar, rather use a network Command to change the name
-    #pragma warning disable CS0618 // Type or member is obsolete
-    [SyncVar] // TODO: Why isn't hook working?
-    #pragma warning restore CS0618 // Type or member is obsolete
+    [Tooltip("The board this player is playing on.")]
+    public Board board;
+    [Tooltip("The player's name.")]
     public string playerName;
+    [Tooltip("Player 1 or Player 2.")]
+    public PLAYER playerID;
+    [Tooltip("True if it is this player's turn to play.")]
+    public bool turnToPlay = false;
+    [Tooltip("Asset used to keep track of players on the network.")]
+    public PlayerNetworkList playerList = null;
 
     private void Awake()
     {
+        Debug.Assert(board != null, "Board reference required.");
         Debug.Assert(playerList != null, "NetworkPlayerList reference required.");
-        Debug.Log("Player Awake()");
+        Debug.Log("PlayerNetwork Awake()");
     }
 
     private void Start()
     {
         playerList.AddPlayer(this);
+    }
+
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        Debug.Log("Player: OnStartClient: " + playerName + " (Called on server after Awake() but before Start().)");
+    }
+
+    public override void OnStartLocalPlayer()
+    {
+        base.OnStartLocalPlayer();
+        Debug.Log("Player: OnStartLocalPlayer: " + playerName + " (Called on client that owns player after Awake() but before Start().");
     }
 
     private void Update()
@@ -39,6 +55,42 @@ public class NetworkPlayer : NetworkBehaviour
         {
             CmdRotateQuadrant(2, ROTATE_DIRECTION.CLOCKWISE);
         }
+    }
+
+    public void OnDestroy()
+    {
+        Debug.Log("Player OnDestroy(): " + playerName);
+        playerList.RemovePlayer(this);
+    }
+
+    public string GetName()
+    {
+        return playerName;
+    }
+
+    public PLAYER GetPlayerID()
+    {
+        return playerID;
+    }
+
+    public void PlaceMarble(int spaceIndex)
+    {
+        board.PlaceMarble(this, spaceIndex);
+    }
+
+    public void RotateQuadrant(int quadrantIndex, IGame.ROTATE_DIRECTION direction)
+    {
+        board.RotateQuadrant(this, quadrantIndex, direction);
+    }
+
+    public void StartTurn()
+    {
+        turnToPlay = true;
+    }
+
+    public void EndTurn()
+    {
+        turnToPlay = false;
     }
 
 
@@ -80,22 +132,5 @@ public class NetworkPlayer : NetworkBehaviour
     }
 
 #pragma warning restore CS0618 // The current networking API is deprecated - suppress this deprecation warning 
-    
-    public override void OnStartClient()
-    {
-        base.OnStartClient();
-        Debug.Log("Player: OnStartClient: " + playerName + " (Called on server after Awake() but before Start().)");
-    }
 
-    public override void OnStartLocalPlayer()
-    {
-        base.OnStartLocalPlayer();
-        Debug.Log("Player: OnStartLocalPlayer: " + playerName + " (Called on client that owns player after Awake() but before Start().");
-    }
-
-    public void OnDestroy()
-    {
-        Debug.Log("Player OnDestroy(): " + playerName);
-        playerList.RemovePlayer(this);
-    }
 }

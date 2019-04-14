@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public class IMatch : MonoBehaviour
+﻿public interface IMatch
 {
 
 }

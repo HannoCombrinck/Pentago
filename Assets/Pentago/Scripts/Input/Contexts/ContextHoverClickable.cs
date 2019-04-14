@@ -18,9 +18,9 @@ public class ContextHoverClickable : IInputContext
             SetClickable(handler.mousePointer.clickable);
 
         if (Input.GetMouseButtonDown(0)) // Left mouse button
-            clickable.OnLeftClick();
+            clickable.LeftClick(null);
         if (Input.GetMouseButtonDown(1)) // Right mouse button
-            clickable.OnRightClick();
+            clickable.RightClick(null);
     }
 
     public override void OnEnter()
@@ -37,12 +37,12 @@ public class ContextHoverClickable : IInputContext
     {
         DeselectClickable();
         clickable = newClickable;
-        clickable.OnMousePointerEnter();
+        clickable.MousePointerEnter(null);
     }
 
     private void DeselectClickable()
     {
-        clickable?.OnMousePointerExit();
+        clickable?.MousePointerExit(null);
         clickable = null;
     }
 

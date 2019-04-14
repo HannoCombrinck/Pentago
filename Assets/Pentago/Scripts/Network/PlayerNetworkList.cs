@@ -2,12 +2,12 @@
 using UnityEngine;
 
 [CreateAssetMenu]
-public class NetworkPlayerList : ScriptableObject
+public class PlayerNetworkList : ScriptableObject
 {
-    public NetworkPlayer localPlayer;
-    public List<NetworkPlayer> remotePlayers;
+    public PlayerNetwork localPlayer;
+    public List<PlayerNetwork> remotePlayers;
 
-    public delegate void PlayerListEvent(NetworkPlayer player);
+    public delegate void PlayerListEvent(PlayerNetwork player);
     public PlayerListEvent onPlayerAdded;
     public PlayerListEvent onPlayerRemoved;
 
@@ -17,7 +17,7 @@ public class NetworkPlayerList : ScriptableObject
         remotePlayers.Clear();
     }
 
-    public void AddPlayer(NetworkPlayer player)
+    public void AddPlayer(PlayerNetwork player)
     {
         if (player.isLocalPlayer)
         {
@@ -33,7 +33,7 @@ public class NetworkPlayerList : ScriptableObject
         onPlayerAdded?.Invoke(player);
     }
 
-    public void RemovePlayer(NetworkPlayer player)
+    public void RemovePlayer(PlayerNetwork player)
     {
         onPlayerRemoved?.Invoke(player);
 

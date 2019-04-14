@@ -2,11 +2,11 @@
 using UnityEngine.Networking;
 
 #pragma warning disable CS0618 // The current networking API is deprecated - suppress this deprecation warning 
-public class NetworkMatch : NetworkBehaviour
+public class MatchNetwork : NetworkBehaviour, IMatch
 #pragma warning restore CS0618 // The current networking API is deprecated - suppress this deprecation warning
 {
     public PentagoNetworkManager network;
-    public NetworkPlayerList playerList = null;
+    public PlayerNetworkList playerList = null;
     public string localPlayerName;
 
     private void Awake()
@@ -24,7 +24,7 @@ public class NetworkMatch : NetworkBehaviour
         playerList.Clear();
     }
 
-    private void OnPlayerAdded(NetworkPlayer player)
+    private void OnPlayerAdded(PlayerNetwork player)
     {
         if (player.isLocalPlayer)
             player.playerName = localPlayerName;
@@ -33,7 +33,7 @@ public class NetworkMatch : NetworkBehaviour
         Debug.Log("NetworkMatch OnPlayerAdded(): " + player.playerName + "(" + networkLocation + ")");
     }
 
-    private void OnPlayerRemoved(NetworkPlayer player)
+    private void OnPlayerRemoved(PlayerNetwork player)
     {
         var networkLocation = player.isLocalPlayer ? "Local" : "Remote";
         Debug.Log("NetworkMatch OnPlayerRemoved(): " + player.playerName + "(" + networkLocation + ")");

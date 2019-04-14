@@ -13,7 +13,7 @@ public class PentagoNetworkManager : NetworkManager
         Debug.Log("OnClientConnect");
         Debug.Log("---Player Controllers---");
         foreach (var pc in conn.playerControllers)
-            Debug.Log("GameObject: " + pc.gameObject.name + ", Player name: " + pc.gameObject.GetComponent<NetworkPlayer>().playerName);
+            Debug.Log("GameObject: " + pc.gameObject.name + ", Player name: " + pc.gameObject.GetComponent<PlayerNetwork>().playerName);
         Debug.Log("------------------------");
     }
 

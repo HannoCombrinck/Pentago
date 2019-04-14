@@ -13,20 +13,22 @@ public class ClickableRotationArrow : MonoBehaviour, IClickable
         Debug.Assert(quadrant != null);
     }
 
-    public void OnLeftClick()
+    public void LeftClick(IPlayer player)
     {
-        board.RotateQuadrant(quadrant.quadrantIndex, direction);
+        player.RotateQuadrant(quadrant.quadrantIndex, direction);
+
+        //board.RotateQuadrant(quadrant.quadrantIndex, direction);
     }
 
-    public void OnRightClick()
-    {
-    }
-
-    public void OnMousePointerEnter()
+    public void RightClick(IPlayer player)
     {
     }
 
-    public void OnMousePointerExit()
+    public void MousePointerEnter(IPlayer player)
+    {
+    }
+
+    public void MousePointerExit(IPlayer player)
     {
     }
 }
