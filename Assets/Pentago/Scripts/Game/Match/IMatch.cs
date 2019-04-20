@@ -1,4 +1,5 @@
-﻿public interface IMatch
+﻿
+public interface IMatch
 {
-
+    void Begin();
 }

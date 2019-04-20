@@ -9,8 +9,6 @@ public class PlayerLocal : MonoBehaviour, IPlayer
     public string playerName;
     [Tooltip("Player 1 or Player 2.")]
     public PLAYER playerID;
-    [Tooltip("True if it is this player's turn to play.")]
-    public bool turnToPlay = false;
 
     private void Awake()
     {
@@ -27,23 +25,13 @@ public class PlayerLocal : MonoBehaviour, IPlayer
         return playerID;
     }
 
-    public void PlaceMarble(int spaceIndex)
+    public void ExecutePlaceMarble(int spaceIndex)
     {
         board.PlaceMarble(this, spaceIndex);
     }
 
-    public void RotateQuadrant(int quadrantIndex, ROTATE_DIRECTION direction)
+    public void ExecuteRotateQuadrant(int quadrantIndex, ROTATE_DIRECTION direction)
     {
         board.RotateQuadrant(this, quadrantIndex, direction);
-    }
-
-    public void StartTurn()
-    {
-        turnToPlay = true;
-    }
-
-    public void EndTurn()
-    {
-        turnToPlay = false;
     }
 }

@@ -12,12 +12,6 @@ public class QuadrantRotatorAnimated : MonoBehaviour, IQuadrantRotator
         Debug.Assert(animationApplier);
     }
 
-	void Update ()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-            RotateCounterClockwise();
-	}
-
     public void RotateClockwise()
     {
         animationApplier.ApplyTo(transform, Quaternion.Euler(0.0f, yawOffset, 0.0f), "RotateCW");

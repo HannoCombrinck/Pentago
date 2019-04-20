@@ -4,7 +4,13 @@ using static IGame;
 // Clicking on a Space attempts to place a marble on that Space.
 public class ClickableSpace : MonoBehaviour, IClickable
 {
-    public Board board;
+    public delegate void InputEvent(int spaceIndex);
+    public static InputEvent onClick;
+    public static InputEvent onMouseEnter;
+    public static InputEvent onMouseExit;
+
+    public Board board; // TEMP 
+
     private Space space;
 
     void Awake()
@@ -13,34 +19,41 @@ public class ClickableSpace : MonoBehaviour, IClickable
         Debug.Assert(space != null);
     }
 
-    public void LeftClick(IPlayer player)
+    public void LeftClick()
     {
         if (space.state != SPACE_STATE.UNOCCUPIED)
             return;
 
-        player.PlaceMarble(space.spaceIndex);
+        onClick?.Invoke(space.spaceIndex);
 
-        //board.PlaceMarbleHidePreview();
-        //board.PlaceMarble(space.spaceIndex);
+        // TODO: Remove this
+        board.PlaceMarbleHidePreview();
+        board.PlaceMarble(null, space.spaceIndex);
+        //
     }
 
-    public void RightClick(IPlayer player)
+    public void RightClick()
     {
     }
 
-    public void MousePointerEnter(IPlayer player)
+    public void MousePointerEnter()
     {
         if (space.state != SPACE_STATE.UNOCCUPIED)
             return;
 
+        onMouseEnter?.Invoke(space.spaceIndex);
+
+        // TODO: Remove this
         if (board.game.GetState().nextMove != MOVE_TYPE.PLACE_MARBLE)
             return;
         
-        board.PlaceMarbleShowPreview(player, space.spaceIndex);
+        board.PlaceMarbleShowPreview(space.spaceIndex);
     }
 
-    public void MousePointerExit(IPlayer player)
+    public void MousePointerExit()
     {
+        onMouseExit?.Invoke(space.spaceIndex);
+
         board.PlaceMarbleHidePreview();
     }
 }

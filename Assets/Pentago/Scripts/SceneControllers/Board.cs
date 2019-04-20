@@ -61,14 +61,6 @@ public class Board : MonoBehaviour
         ApplyGameStateToVisuals();
     }
 
-    private void OnGUI()
-    {
-        if (GUI.Button(new Rect(10, 10, 100, 25), "New Game")) 
-            game.StartNewGame();
-        if (GUI.Button(new Rect(10, 40, 100, 25), "Exit Game"))
-            Debug.Log("Exit game");
-    }
-
     public void OnGameStarted()
     {
         gameInProgress = true;
@@ -87,6 +79,8 @@ public class Board : MonoBehaviour
     // Attempt to visually place a marble in the game world and execute a ActionPlaceMarble action on the Game state.
     public void PlaceMarble(IPlayer player, int spaceIndex)
     {
+        Debug.Assert(player != null, "Reference to player that is attempting the move is required.");
+
         if (!gameInProgress)
             return;
 
@@ -97,7 +91,7 @@ public class Board : MonoBehaviour
     }
 
     // Show a visual preview of what it would look like if a marble were placed.
-    public void PlaceMarbleShowPreview(IPlayer player, int spaceIndex)
+    public void PlaceMarbleShowPreview(int spaceIndex)
     {
         if (!gameInProgress)
             return;
@@ -117,6 +111,8 @@ public class Board : MonoBehaviour
     // Attempt to visually rotate the quadrant in the game world and execute a ActionRotateQuadrant action on the Game.
     public void RotateQuadrant(IPlayer player, int quadrantIndex, ROTATE_DIRECTION direction)
     {
+        Debug.Assert(player != null, "Reference to player that is attempting the move is required.");
+
         if (!gameInProgress)
             return;
 

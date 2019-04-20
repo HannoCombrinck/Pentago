@@ -24,6 +24,11 @@ public class MatchNetwork : NetworkBehaviour, IMatch
         playerList.Clear();
     }
 
+    public void Begin()
+    {
+        Debug.Log("Network match started");
+    }
+
     private void OnPlayerAdded(PlayerNetwork player)
     {
         if (player.isLocalPlayer)
@@ -37,10 +42,5 @@ public class MatchNetwork : NetworkBehaviour, IMatch
     {
         var networkLocation = player.isLocalPlayer ? "Local" : "Remote";
         Debug.Log("NetworkMatch OnPlayerRemoved(): " + player.playerName + "(" + networkLocation + ")");
-    }
-
-    private void OnGUI()
-    {
-        localPlayerName = GUI.TextField(new Rect(120, 10, 200, 25), localPlayerName, 20);
     }
 }

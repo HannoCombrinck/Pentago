@@ -29,6 +29,7 @@ public class SpaceController : MonoBehaviour
     {
         spaceSorter.Sort();
 
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // TODO: Find a better way to implement this - shouldn't be instantiating prefabs and checking Space state here.
         for (int i = 0; i < sortedSpaces.Count; i++)
         {
@@ -47,6 +48,7 @@ public class SpaceController : MonoBehaviour
                     break;
             }
         }
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
 
     public void OnSpaceIndicesChanged()

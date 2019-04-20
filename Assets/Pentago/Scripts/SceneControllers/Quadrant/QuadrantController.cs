@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using static IGame;
 
 // Initialize and control interacitons with all descendant Quadrant's.
 public class QuadrantController : MonoBehaviour

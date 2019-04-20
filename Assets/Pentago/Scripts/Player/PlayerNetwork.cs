@@ -12,8 +12,6 @@ public class PlayerNetwork : NetworkBehaviour, IPlayer
     public string playerName;
     [Tooltip("Player 1 or Player 2.")]
     public PLAYER playerID;
-    [Tooltip("True if it is this player's turn to play.")]
-    public bool turnToPlay = false;
     [Tooltip("Asset used to keep track of players on the network.")]
     public PlayerNetworkList playerList = null;
 
@@ -47,11 +45,11 @@ public class PlayerNetwork : NetworkBehaviour, IPlayer
             return;
 
         // This code runs only on the machine that owns the player
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             CmdPlaceMarble(10);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        if (Input.GetKeyDown(KeyCode.W))
         {
             CmdRotateQuadrant(2, ROTATE_DIRECTION.CLOCKWISE);
         }
@@ -73,26 +71,15 @@ public class PlayerNetwork : NetworkBehaviour, IPlayer
         return playerID;
     }
 
-    public void PlaceMarble(int spaceIndex)
+    public void ExecutePlaceMarble(int spaceIndex)
     {
         board.PlaceMarble(this, spaceIndex);
     }
 
-    public void RotateQuadrant(int quadrantIndex, IGame.ROTATE_DIRECTION direction)
+    public void ExecuteRotateQuadrant(int quadrantIndex, IGame.ROTATE_DIRECTION direction)
     {
         board.RotateQuadrant(this, quadrantIndex, direction);
     }
-
-    public void StartTurn()
-    {
-        turnToPlay = true;
-    }
-
-    public void EndTurn()
-    {
-        turnToPlay = false;
-    }
-
 
 #pragma warning disable CS0618 // The current networking API is deprecated - suppress this deprecation warning 
 
