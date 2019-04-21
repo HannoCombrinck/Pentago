@@ -15,6 +15,7 @@ public class AnimationApplier : MonoBehaviour
     private Animator animator;
     private Transform objectBeingAnimated;
     private Transform previousParentOfObjectBeingAnimated;
+    private Transform previousParentOfThis;
     private Vector3 previousPosition;
     private Vector3 previousScale;
     private bool isAboutToStart = false;
@@ -100,7 +101,10 @@ public class AnimationApplier : MonoBehaviour
             previousScale = objectBeingAnimated.localScale;
 
         if (!ignoreParent)
+        {
+            previousParentOfThis = transform.parent;
             transform.SetParent(objectBeingAnimated.parent);
+        }
 
         previousParentOfObjectBeingAnimated = objectBeingAnimated.parent;
         objectBeingAnimated.SetParent(animatedBone);
@@ -111,7 +115,7 @@ public class AnimationApplier : MonoBehaviour
         objectBeingAnimated.SetParent(previousParentOfObjectBeingAnimated);
 
         if (!ignoreParent)
-            transform.SetParent(null);
+            transform.SetParent(previousParentOfThis);
 
         if (resetPosition)
             objectBeingAnimated.localPosition = previousPosition;

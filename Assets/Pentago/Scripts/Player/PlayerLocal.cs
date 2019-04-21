@@ -10,11 +10,6 @@ public class PlayerLocal : MonoBehaviour, IPlayer
     [Tooltip("Player 1 or Player 2.")]
     public PLAYER playerID;
 
-    private void Awake()
-    {
-        Debug.Assert(board != null, "Board reference required.");
-    }
-
     public string GetName()
     {
         return playerName;
@@ -27,11 +22,15 @@ public class PlayerLocal : MonoBehaviour, IPlayer
 
     public void ExecutePlaceMarble(int spaceIndex)
     {
+        Debug.Assert(board != null, "Board reference required.");
+
         board.PlaceMarble(this, spaceIndex);
     }
 
     public void ExecuteRotateQuadrant(int quadrantIndex, ROTATE_DIRECTION direction)
     {
+        Debug.Assert(board != null, "Board reference required.");
+
         board.RotateQuadrant(this, quadrantIndex, direction);
     }
 }

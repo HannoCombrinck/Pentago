@@ -12,7 +12,7 @@ public class PlayerNetwork : NetworkBehaviour, IPlayer
     public string playerName;
     [Tooltip("Player 1 or Player 2.")]
     public PLAYER playerID;
-    [Tooltip("Asset used to keep track of players on the network.")]
+    [Tooltip("Asset used to keep track of players on the network. The network player will add itself the list when it is instantiated.")]
     public PlayerNetworkList playerList = null;
 
     private void Awake()

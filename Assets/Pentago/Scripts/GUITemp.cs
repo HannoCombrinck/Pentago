@@ -3,6 +3,7 @@
 public class GUITemp : MonoBehaviour
 {
     public Game game;
+    public Board board;
     public PentagoNetworkManager networkManager;
     public string player1Name = "Player1 Name";
     public string player2Name = "Player2 Name";
@@ -12,6 +13,8 @@ public class GUITemp : MonoBehaviour
     private int player1TypeSelection = 0;
     private int player2TypeSelection = 0;
     MENU activeMenu = MENU.MAIN;
+
+    IMatch currentMatch;
 
     enum MENU
     {
@@ -38,7 +41,7 @@ public class GUITemp : MonoBehaviour
     {
         GUILayout.BeginHorizontal();
 
-        //GUIAlways();
+        GUIAlways();
 
         switch (activeMenu)
         {
@@ -96,7 +99,19 @@ public class GUITemp : MonoBehaviour
         player2Name = GUILayout.TextField(player2Name, 50);
 
         if (GUILayout.Button("Play"))
+        {
+            // TODO: Create Player prefabs based on type selection
+            var matchLocal = gameObject.AddComponent<MatchLocal>();
+            matchLocal.player1 = null;
+            matchLocal.game = game;
+            matchLocal.board = board;
+
+            currentMatch = matchLocal;
+            
+            //var player1 = Instantiate(humanPlayerPrefab);
+            //var player2 = Instantiate(humanPlayerPrefab);
             activeMenu = MENU.PLAYING;
+        }
 
         if (GUILayout.Button("Back"))
             activeMenu = MENU.MAIN;
