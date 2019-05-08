@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+// An InputContext handles the raw user input (mouse, keyboard etc.) in a given context/state of the game.
 [RequireComponent(typeof(InputHandler))]
 public abstract class IInputContext : MonoBehaviour
 {

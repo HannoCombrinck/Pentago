@@ -1,5 +1,5 @@
 ﻿
-// Interface for any object that can be clicked on with the mouse.
+// A Clickable is any object that the user can click on with the mouse.
 public interface IClickable
 {
     // Called when the left mouse button is clicked while pointing at this object.
