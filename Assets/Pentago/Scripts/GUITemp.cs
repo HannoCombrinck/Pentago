@@ -5,6 +5,7 @@ public class GUITemp : MonoBehaviour
     public Game game;
     public Board board;
     public PentagoNetworkManager networkManager;
+    public PlayerNetworkList networkPlayerList;
     public string player1Name = "Player1 Name";
     public string player2Name = "Player2 Name";
     public PLAYER_TYPE player1Type = PLAYER_TYPE.HUMAN;
@@ -35,6 +36,7 @@ public class GUITemp : MonoBehaviour
     {
         Debug.Assert(game != null, "Game reference required.");
         Debug.Assert(networkManager != null, "NetworkManager reference required.");
+        Debug.Assert(networkPlayerList != null, "NetworkPlayerList reference required.");
     }
 
     void OnGUI()
