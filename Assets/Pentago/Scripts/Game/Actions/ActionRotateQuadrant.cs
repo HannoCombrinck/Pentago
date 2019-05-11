@@ -67,7 +67,7 @@ public class ActionRotateQuadrant : IAction
         {
             var boardRow = row + (quadrantRow * GetSize());
             var boardCol = col + (quadrantCol * GetSize());
-            return ref spaceState[boardRow * 6 + boardCol];
+            return ref spaceState[boardRow * IGame.boardWidth + boardCol];
         }
     }
 }
