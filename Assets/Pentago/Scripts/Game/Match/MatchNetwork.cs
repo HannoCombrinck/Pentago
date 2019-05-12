@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Networking;
 
 #pragma warning disable CS0618 // The current networking API is deprecated - suppress this deprecation warning 
@@ -27,6 +28,21 @@ public class MatchNetwork : NetworkBehaviour, IMatch
     public void Begin()
     {
         Debug.Log("Network match started");
+        // TODO:
+    }
+
+    public void End()
+    {
+        Debug.Log("Network match ended");
+        gameObject.SetActive(false);
+    }
+
+    public List<IPlayer> GetPlayers()
+    {
+        return new List<IPlayer>(playerList.remotePlayers)
+        {
+            playerList.localPlayer
+        };
     }
 
     private void OnPlayerAdded(PlayerNetwork player)

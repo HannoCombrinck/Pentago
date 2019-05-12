@@ -20,13 +20,5 @@ public class State : MonoBehaviour
 
         for (int i = 0; i < spaces.Length; i++)
             spaces[i] = SPACE_STATE.UNOCCUPIED;
-
-
-        //////////////////////////////////////////////////
-        // TEMP
-        /*
-        for (int i = 0; i < 4; i++)
-            spaces[i] = SPACE_STATE.OCCUPIED_PLAYER1;
-        */
     }
 }

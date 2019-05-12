@@ -6,6 +6,11 @@ public class GUITemp : MonoBehaviour
     public Board board;
     public PentagoNetworkManager networkManager;
     public PlayerNetworkList networkPlayerList;
+    public GameObject match;
+    public GameObject playerLocalPrefab;
+
+    public GameObject player1;
+    public GameObject player2;
     public string player1Name = "Player1 Name";
     public string player2Name = "Player2 Name";
     public PLAYER_TYPE player1Type = PLAYER_TYPE.HUMAN;
@@ -16,6 +21,8 @@ public class GUITemp : MonoBehaviour
     MENU activeMenu = MENU.MAIN;
 
     IMatch currentMatch;
+
+    private bool gameFinished = false;
 
     enum MENU
     {
@@ -37,6 +44,9 @@ public class GUITemp : MonoBehaviour
         Debug.Assert(game != null, "Game reference required.");
         Debug.Assert(networkManager != null, "NetworkManager reference required.");
         Debug.Assert(networkPlayerList != null, "NetworkPlayerList reference required.");
+
+        game.onGameTie += OnGameFinished;
+        game.onGameWon += OnGameFinished;
     }
 
     void OnGUI()
@@ -102,16 +112,56 @@ public class GUITemp : MonoBehaviour
 
         if (GUILayout.Button("Play"))
         {
-            // TODO: Create Player prefabs based on type selection
-            var matchLocal = gameObject.AddComponent<MatchLocal>();
-            matchLocal.player1 = null;
+            // Setup players based on UI state
+            if (player1 != null)
+                Destroy(player1);
+
+            var p1 = Instantiate(playerLocalPrefab).GetComponent<PlayerLocal>();
+            player1 = p1.gameObject;
+            p1.playerID = IGame.PLAYER.PLAYER1;
+            p1.playerName = player1Name;
+            p1.board = board;
+            switch (player1Type) // TODO: Configure player controller (human or AI)
+            {
+                case PLAYER_TYPE.HUMAN:
+                    // TODO
+                    break;
+                case PLAYER_TYPE.AI:
+                    // TODO
+                    break;
+            }
+
+            if (player2 != null)
+                Destroy(player2);
+
+            var p2 = Instantiate(playerLocalPrefab).GetComponent<PlayerLocal>();
+            player2 = p2.gameObject;
+            p2.playerID = IGame.PLAYER.PLAYER2;
+            p2.playerName = player2Name;
+            p2.board = board;
+            switch (player2Type) // TODO: Configure player controller (human or AI)
+            {
+                case PLAYER_TYPE.HUMAN:
+                    // TODO
+                    break;
+                case PLAYER_TYPE.AI:
+                    // TODO
+                    break;
+            }
+
+            // Setup match based on players above and UI state about match
+            var matchLocal = match.GetComponentInChildren<MatchLocal>(true);
+            matchLocal.gameObject.SetActive(true);
+            Debug.Assert(matchLocal != null, "MatchLocal component required");
             matchLocal.game = game;
-            matchLocal.board = board;
+            matchLocal.board = board; // Is this necessary?
+            matchLocal.player1 = player1.gameObject.GetComponent<IPlayer>();
+            matchLocal.player2 = p2.gameObject.GetComponent<IPlayer>();
 
             currentMatch = matchLocal;
-            
-            //var player1 = Instantiate(humanPlayerPrefab);
-            //var player2 = Instantiate(humanPlayerPrefab);
+
+            // Transition to Playing state
+            currentMatch.Begin();
             activeMenu = MENU.PLAYING;
         }
 
@@ -145,12 +195,22 @@ public class GUITemp : MonoBehaviour
         GUILayout.EndVertical();
     }
 
+    public void OnGameFinished()
+    {
+        gameFinished = true;
+    }
+
     void GUIPlaying()
     {
         GUILayout.BeginVertical();
 
-        if (GUILayout.Button("Stop Game"))
+        if (GUILayout.Button("Stop Game") || gameFinished)
         {
+            Debug.Log("Ending game");
+
+            currentMatch.End();
+
+            Debug.Log("**Showing game result**");
             activeMenu = MENU.FINISHED;
         }
 
@@ -163,6 +223,12 @@ public class GUITemp : MonoBehaviour
 
         if (GUILayout.Button("Back To Main"))
         {
+            Debug.Log("**No longer showing game result**");
+
+            // TODO: Local players should be destroyed here
+
+            game.StartNewGame(); // TODO: Rather add a StopGame() - otherwise board can be manipulated even though there is no active match
+
             activeMenu = MENU.MAIN;
         }
 
