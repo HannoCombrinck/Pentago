@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.Networking.Match;
 
 #pragma warning disable CS0618 // The current networking API is deprecated - suppress this deprecation warning 
 public class MatchNetwork : NetworkBehaviour, IMatch
-#pragma warning restore CS0618 // The current networking API is deprecated - suppress this deprecation warning
 {
+    public IGame game;
+    public Board board;
     public PentagoNetworkManager network;
     public PlayerNetworkList playerList = null;
     public string localPlayerName;
@@ -45,6 +47,8 @@ public class MatchNetwork : NetworkBehaviour, IMatch
         };
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////////
+    // TODO: Move player management to lobby away from match?
     private void OnPlayerAdded(PlayerNetwork player)
     {
         if (player.isLocalPlayer)
@@ -59,4 +63,6 @@ public class MatchNetwork : NetworkBehaviour, IMatch
         var networkLocation = player.isLocalPlayer ? "Local" : "Remote";
         Debug.Log("NetworkMatch OnPlayerRemoved(): " + player.playerName + "(" + networkLocation + ")");
     }
+    /////////////////////////////////////////////////////////////////////////////////////////
 }
+#pragma warning restore CS0618 // The current networking API is deprecated - suppress this deprecation warning

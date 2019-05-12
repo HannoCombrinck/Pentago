@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.Networking.Match;
 
 public class GUITemp : MonoBehaviour
 {
@@ -13,6 +15,7 @@ public class GUITemp : MonoBehaviour
     public GameObject player2;
     public string player1Name = "Player1 Name";
     public string player2Name = "Player2 Name";
+    public string playerLocalName = "PlaerLocal Name";
     public PLAYER_TYPE player1Type = PLAYER_TYPE.HUMAN;
     public PLAYER_TYPE player2Type = PLAYER_TYPE.HUMAN;
 
@@ -29,8 +32,12 @@ public class GUITemp : MonoBehaviour
         MAIN,
         PREPARE_LOCAL_MATCH,
         PREPARE_NETWORK_MATCH,
-        PLAYING,
-        FINISHED
+        NETWORK_LOBBY_HOST,
+        NETWORK_LOBBY_CLIENT,
+        PLAYING_LOCAL_MATCH,
+        PLAYING_NETWORK_MATCH,
+        FINISHED_LOCAL_MATCH,
+        FINISHED_NETWORK_MATCH
     }
 
     public enum PLAYER_TYPE
@@ -47,8 +54,10 @@ public class GUITemp : MonoBehaviour
 
         game.onGameTie += OnGameFinished;
         game.onGameWon += OnGameFinished;
+        networkPlayerList.onPlayerAdded += OnNetworkPlayerAdded;
+        networkPlayerList.onPlayerRemoved += OnNetworkPlayerRemoved;
     }
-
+    
     void OnGUI()
     {
         GUILayout.BeginHorizontal();
@@ -66,11 +75,23 @@ public class GUITemp : MonoBehaviour
             case MENU.PREPARE_NETWORK_MATCH:
                 GUIPrepNetworkMatch();
                 break;
-            case MENU.PLAYING:
-                GUIPlaying();
+            case MENU.NETWORK_LOBBY_HOST:
+                GUINetworkLobbyHost();
                 break;
-            case MENU.FINISHED:
-                GUIFinished();
+            case MENU.NETWORK_LOBBY_CLIENT:
+                GUINetworkLobbyClient();
+                break;
+            case MENU.PLAYING_LOCAL_MATCH:
+                GUIPlayingLocal();
+                break;
+            case MENU.PLAYING_NETWORK_MATCH:
+                GUIPlayingNetwork();
+                break;
+            case MENU.FINISHED_LOCAL_MATCH:
+                GUIFinishedLocal();
+                break;
+            case MENU.FINISHED_NETWORK_MATCH:
+                GUIFinishedNetwork();
                 break;
         }
 
@@ -97,6 +118,14 @@ public class GUITemp : MonoBehaviour
         }
         if (GUILayout.Button("Network Match"))
         {
+            var matchNetwork = match.GetComponentInChildren<MatchNetwork>(true);
+            Debug.Assert(matchNetwork != null, "MatchNetword component required");
+            matchNetwork.gameObject.SetActive(true);
+            currentMatch = matchNetwork;
+            // Clients can now join network 
+
+            networkManager.gameObject.SetActive(true);
+
             activeMenu = MENU.PREPARE_NETWORK_MATCH;
         }
 
@@ -162,7 +191,7 @@ public class GUITemp : MonoBehaviour
 
             // Transition to Playing state
             currentMatch.Begin();
-            activeMenu = MENU.PLAYING;
+            activeMenu = MENU.PLAYING_LOCAL_MATCH;
         }
 
         if (GUILayout.Button("Back"))
@@ -183,14 +212,93 @@ public class GUITemp : MonoBehaviour
         GUILayout.EndVertical();
     }
 
+    public void OnNetworkPlayerAdded(PlayerNetwork player)
+    {
+        // TODO:
+
+    }
+
+    public void OnNetworkPlayerRemoved(PlayerNetwork player)
+    {
+        // TODO:
+    }
+
     void GUIPrepNetworkMatch()
     {
         GUILayout.BeginVertical();
 
+        if (GUILayout.Button("Host Network Game"))
+        {
+            // TODO: 
+            networkManager.StartHost();
+            activeMenu = MENU.NETWORK_LOBBY_HOST;
+        }
+
+        if (GUILayout.Button("Join Network Game"))
+        {
+            // TODO:
+            // continue here
+            activeMenu = MENU.NETWORK_LOBBY_CLIENT;
+        }
+
+        if (GUILayout.Button("Back"))
+            activeMenu = MENU.MAIN;
+
+        GUILayout.EndVertical();
+    }
+
+    private void GUINetworkLobbyHost()
+    {
+        GUILayout.BeginVertical();
+
+        // TODO: 
+        playerLocalName = GUILayout.TextField(playerLocalName, 50);
+
+        if (networkPlayerList.localPlayer != null)
+        {
+            if (networkPlayerList.localPlayer.playerName != playerLocalName)
+            {
+                networkPlayerList.localPlayer.playerName = playerLocalName;
+                Debug.Log("Local player name changed to: " + playerLocalName);
+            }
+
+            GUILayout.TextArea("Local player: " + networkPlayerList.localPlayer.playerName);
+            foreach (var remotePlayer in networkPlayerList.remotePlayers)
+            {
+                GUILayout.TextArea("Player: " + remotePlayer.playerName);
+            }
+        }
+
+        if (GUILayout.Button("Play"))
+        {
+            // TODO: Check if at least 2 players has been assigned to game
+            
+            // Setup match based on players above and UI state about match
+            var matchNetwork = match.GetComponentInChildren<MatchNetwork>();
+            matchNetwork.game = game;
+            matchNetwork.board = board; // Is this necessary?
+            //matchNetwork.player1 = player1.gameObject.GetComponent<IPlayer>();
+            currentMatch.Begin();
+
+            activeMenu = MENU.PLAYING_LOCAL_MATCH;
+        }
+
         if (GUILayout.Button("Back"))
         {
-            activeMenu = MENU.MAIN;
+            networkManager.StopHost();
+            activeMenu = MENU.PREPARE_NETWORK_MATCH;
         }
+
+        GUILayout.EndVertical();
+    }
+
+    private void GUINetworkLobbyClient()
+    {
+        GUILayout.BeginVertical();
+        // TODO: 
+
+        if (GUILayout.Button("Back"))
+            activeMenu = MENU.PREPARE_NETWORK_MATCH;
 
         GUILayout.EndVertical();
     }
@@ -200,32 +308,52 @@ public class GUITemp : MonoBehaviour
         gameFinished = true;
     }
 
-    void GUIPlaying()
+    void GUIPlayingLocal()
     {
         GUILayout.BeginVertical();
 
         if (GUILayout.Button("Stop Game") || gameFinished)
         {
-            Debug.Log("Ending game");
+            Debug.Log("Ending local game");
 
             currentMatch.End();
 
-            Debug.Log("**Showing game result**");
-            activeMenu = MENU.FINISHED;
+            Debug.Log("**Showing local game result**");
+            activeMenu = MENU.FINISHED_LOCAL_MATCH;
         }
 
         GUILayout.EndVertical();
     }
 
-    void GUIFinished()
+    void GUIPlayingNetwork()
+    {
+        GUILayout.BeginVertical();
+
+        if (GUILayout.Button("Stop Game") || gameFinished)
+        {
+            Debug.Log("Ending network game");
+
+            currentMatch.End();
+
+            Debug.Log("**Showing network game result**");
+            activeMenu = MENU.FINISHED_NETWORK_MATCH;
+        }
+
+        GUILayout.EndVertical();
+    }
+
+    void GUIFinishedLocal()
     {
         GUILayout.BeginVertical();
 
         if (GUILayout.Button("Back To Main"))
         {
-            Debug.Log("**No longer showing game result**");
+            Debug.Log("**No longer showing local game result**");
 
             // TODO: Local players should be destroyed here
+
+            // TODO: Is other network cleanup required here?
+            networkManager.gameObject.SetActive(false);
 
             game.StartNewGame(); // TODO: Rather add a StopGame() - otherwise board can be manipulated even though there is no active match
 
@@ -235,9 +363,27 @@ public class GUITemp : MonoBehaviour
         GUILayout.EndVertical();
     }
 
-    private void StartMatch()
+    void GUIFinishedNetwork()
     {
-        
+        GUILayout.BeginVertical();
+
+        if (GUILayout.Button("Back To Main"))
+        {
+            networkManager.StopHost();
+
+            Debug.Log("**No longer showing network game result**");
+
+            // TODO: Local players should be destroyed here
+
+            // TODO: Is other network cleanup required here?
+            networkManager.gameObject.SetActive(false);
+
+            game.StartNewGame(); // TODO: Rather add a StopGame() - otherwise board can be manipulated even though there is no active match
+
+            activeMenu = MENU.MAIN;
+        }
+
+        GUILayout.EndVertical();
     }
 
 }
