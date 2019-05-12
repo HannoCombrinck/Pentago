@@ -242,7 +242,11 @@ public class GUITemp : MonoBehaviour
         }
 
         if (GUILayout.Button("Back"))
+        {
+            networkManager.gameObject.SetActive(false);
+
             activeMenu = MENU.MAIN;
+        }
 
         GUILayout.EndVertical();
     }
