@@ -4,6 +4,9 @@ public class ContextDefault : IInputContext
 {
     public override void OnHandleInput()
     {
+        if (handler.mousePointer.overUI)
+            return;
+
         if (handler.mousePointer.overClickable)
         {
             handler.SwitchContext(GetComponent<ContextHoverClickable>());
