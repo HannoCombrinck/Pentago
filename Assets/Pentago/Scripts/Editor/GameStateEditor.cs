@@ -10,7 +10,7 @@ public class GameStateEditor : Editor
 
         GUI.enabled = true;
 
-        State state = target as State;
+        var state = target as State;
         if (GUILayout.Button("Reset"))
             state.ResetState();
     }

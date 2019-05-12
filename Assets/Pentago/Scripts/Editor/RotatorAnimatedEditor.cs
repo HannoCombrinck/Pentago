@@ -10,7 +10,7 @@ public class RotatorAnimatedEditor : Editor
 
         GUI.enabled = Application.isPlaying;
 
-        QuadrantRotatorAnimated rotater = target as QuadrantRotatorAnimated;
+        var rotater = target as QuadrantRotatorAnimated;
         if (GUILayout.Button("Clockwise"))
             rotater.RotateClockwise();
         if (GUILayout.Button("Counterclockwise"))

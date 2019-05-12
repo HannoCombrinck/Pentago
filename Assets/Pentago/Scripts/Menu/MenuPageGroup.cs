@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class MenuPageGroup : MonoBehaviour
+public class MenuPageGroup : IMenuPage
 {
-    public MenuPage InitialPage;
-    public MenuPage ActivePage;
+    public IMenuPage InitialPage;
+    public IMenuPage ActivePage;
 
-    private List<MenuPage> pages = new List<MenuPage>();
+    private List<IMenuPage> pages = new List<IMenuPage>();
 
     private void Awake()
     {
@@ -14,7 +14,7 @@ public class MenuPageGroup : MonoBehaviour
 
         foreach (Transform t in transform)
         {
-            var page = t.gameObject.GetComponent<MenuPage>();
+            var page = t.gameObject.GetComponent<IMenuPage>();
             if (page != null)
             {
                 pages.Add(page);
@@ -32,7 +32,7 @@ public class MenuPageGroup : MonoBehaviour
         ActivePage.gameObject.SetActive(true);
     }
     
-    public void SwitchToPage(MenuPage page)
+    public void SwitchToPage(IMenuPage page)
     {
         if (page == null)
             return;
