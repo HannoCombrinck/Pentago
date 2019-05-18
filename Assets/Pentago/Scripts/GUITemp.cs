@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.Networking.Match;
+using UnityEngine.Networking;
 
 public class GUITemp : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class GUITemp : MonoBehaviour
     public PlayerNetworkList networkPlayerList;
     public bool readyToStartNetworkMatch = false;
     public GameObject match;
+    public GameObject matchNetworkPrefab;
+    private MatchNetwork matchNetwork;
     public GameObject playerLocalPrefab;
 
     public GameObject player1;
@@ -119,7 +122,17 @@ public class GUITemp : MonoBehaviour
         }
         if (GUILayout.Button("Network Match"))
         {
-            var matchNetwork = match.GetComponentInChildren<MatchNetwork>(true);
+            //var matchNetwork = match.GetComponentInChildren<MatchNetwork>(true);
+
+            ///////////////////////////////////////////////////////////////
+            // TODO: NOT SURE HOW TO HANDLE THIS PART
+            // Setup match based on players above and UI state about match
+#pragma warning disable CS0618 // Type or member is obsolete
+            matchNetwork = Instantiate(matchNetworkPrefab).GetComponent<MatchNetwork>(); //match.GetComponentInChildren<MatchNetwork>();
+            NetworkServer.Spawn(matchNetwork.gameObject);
+#pragma warning restore CS0618 // Type or member is obsolete
+            ///////////////////////////////////////////////////////////////
+
             Debug.Assert(matchNetwork != null, "MatchNetword component required");
             matchNetwork.gameObject.SetActive(true);
             currentMatch = matchNetwork;
@@ -286,9 +299,8 @@ public class GUITemp : MonoBehaviour
             if (GUILayout.Button("Play"))
             {
                 // TODO: Check if at least 2 players has been assigned to game
+                Debug.Assert(matchNetwork != null, "matchNetwork should have been spawned already.");
 
-                // Setup match based on players above and UI state about match
-                var matchNetwork = match.GetComponentInChildren<MatchNetwork>();
                 matchNetwork.game = game;
                 matchNetwork.board = board; // Is this necessary?
                 //matchNetwork.player1 = player1;
