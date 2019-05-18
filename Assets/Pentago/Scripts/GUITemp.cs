@@ -8,6 +8,7 @@ public class GUITemp : MonoBehaviour
     public Board board;
     public PentagoNetworkManager networkManager;
     public PlayerNetworkList networkPlayerList;
+    public bool readyToStartNetworkMatch = false;
     public GameObject match;
     public GameObject playerLocalPrefab;
 
@@ -214,13 +215,22 @@ public class GUITemp : MonoBehaviour
 
     public void OnNetworkPlayerAdded(PlayerNetwork player)
     {
-        // TODO:
+        if (player1 == null)
+            player1 = player.gameObject;
+        else if (player2 == null)
+            player2 = player.gameObject;
 
+        readyToStartNetworkMatch = player1 != null && player2 != null;
     }
 
     public void OnNetworkPlayerRemoved(PlayerNetwork player)
     {
-        // TODO:
+        if (player1 == player.gameObject)
+            player1 = null;
+        else if (player2 == player.gameObject)
+            player2 = null;
+
+        readyToStartNetworkMatch = player1 != null && player2 != null;
     }
 
     void GUIPrepNetworkMatch()
@@ -229,15 +239,13 @@ public class GUITemp : MonoBehaviour
 
         if (GUILayout.Button("Host Network Game"))
         {
-            // TODO: 
             networkManager.StartHost();
             activeMenu = MENU.NETWORK_LOBBY_HOST;
         }
 
         if (GUILayout.Button("Join Network Game"))
         {
-            // TODO:
-            // continue here
+            networkManager.StartClient();
             activeMenu = MENU.NETWORK_LOBBY_CLIENT;
         }
 
@@ -273,18 +281,22 @@ public class GUITemp : MonoBehaviour
             }
         }
 
-        if (GUILayout.Button("Play"))
+        if (readyToStartNetworkMatch)
         {
-            // TODO: Check if at least 2 players has been assigned to game
-            
-            // Setup match based on players above and UI state about match
-            var matchNetwork = match.GetComponentInChildren<MatchNetwork>();
-            matchNetwork.game = game;
-            matchNetwork.board = board; // Is this necessary?
-            //matchNetwork.player1 = player1.gameObject.GetComponent<IPlayer>();
-            currentMatch.Begin();
+            if (GUILayout.Button("Play"))
+            {
+                // TODO: Check if at least 2 players has been assigned to game
 
-            activeMenu = MENU.PLAYING_LOCAL_MATCH;
+                // Setup match based on players above and UI state about match
+                var matchNetwork = match.GetComponentInChildren<MatchNetwork>();
+                matchNetwork.game = game;
+                matchNetwork.board = board; // Is this necessary?
+                //matchNetwork.player1 = player1;
+                //matchNetwork.player2 = player2;
+                currentMatch.Begin();
+
+                activeMenu = MENU.PLAYING_NETWORK_MATCH;
+            }
         }
 
         if (GUILayout.Button("Back"))
@@ -299,7 +311,25 @@ public class GUITemp : MonoBehaviour
     private void GUINetworkLobbyClient()
     {
         GUILayout.BeginVertical();
+
         // TODO: 
+        playerLocalName = GUILayout.TextField(playerLocalName, 50);
+
+        if (networkPlayerList.localPlayer != null)
+        {
+            if (networkPlayerList.localPlayer.playerName != playerLocalName)
+            {
+                networkPlayerList.localPlayer.playerName = playerLocalName;
+                Debug.Log("Local player name changed to: " + playerLocalName);
+            }
+
+            GUILayout.TextArea("Local player: " + networkPlayerList.localPlayer.playerName);
+            foreach (var remotePlayer in networkPlayerList.remotePlayers)
+            {
+                GUILayout.TextArea("Player: " + remotePlayer.playerName);
+            }
+        }
+
 
         if (GUILayout.Button("Back"))
             activeMenu = MENU.PREPARE_NETWORK_MATCH;

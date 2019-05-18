@@ -17,7 +17,7 @@ public class PlayerNetwork : NetworkBehaviour, IPlayer
 
     private void Awake()
     {
-        Debug.Assert(board != null, "Board reference required.");
+        //Debug.Assert(board != null, "Board reference required.");
         Debug.Assert(playerList != null, "NetworkPlayerList reference required.");
         Debug.Log("PlayerNetwork Awake()");
     }
@@ -73,11 +73,23 @@ public class PlayerNetwork : NetworkBehaviour, IPlayer
 
     public void ExecutePlaceMarble(int spaceIndex)
     {
+        if (board == null)
+        {
+            Debug.LogError("Board hasn't been assigned to network player yet.");
+            return;
+        }
+
         board.PlaceMarble(this, spaceIndex);
     }
 
     public void ExecuteRotateQuadrant(int quadrantIndex, IGame.ROTATE_DIRECTION direction)
     {
+        if (board == null)
+        {
+            Debug.LogError("Board hasn't been assigned to network player yet.");
+            return;
+        }
+
         board.RotateQuadrant(this, quadrantIndex, direction);
     }
 

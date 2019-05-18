@@ -38,7 +38,13 @@ public class MenuPageGroup : IMenuPage
             return;
 
         if (!pages.Contains(page))
+        {
+            var parentPageGroup = transform.parent.GetComponentInParent<MenuPageGroup>();
+            if (parentPageGroup != null)
+                parentPageGroup.SwitchToPage(page);
+
             return;
+        }
 
         ActivePage.gameObject.SetActive(false);
         ActivePage = page;

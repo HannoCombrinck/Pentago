@@ -8,9 +8,8 @@ public class MatchNetwork : NetworkBehaviour, IMatch
 {
     public IGame game;
     public Board board;
-    public PentagoNetworkManager network;
     public PlayerNetworkList playerList = null;
-    public string localPlayerName;
+    //public string localPlayerName;
 
     private void Awake()
     {
@@ -18,8 +17,8 @@ public class MatchNetwork : NetworkBehaviour, IMatch
         playerList.Clear();
 
         Debug.Log("NetworkMatch Awake()");
-        playerList.onPlayerAdded += OnPlayerAdded;
-        playerList.onPlayerRemoved += OnPlayerRemoved;
+        /*playerList.onPlayerAdded += OnPlayerAdded;
+        playerList.onPlayerRemoved += OnPlayerRemoved;*/
     }
 
     private void OnDestroy()
@@ -30,12 +29,37 @@ public class MatchNetwork : NetworkBehaviour, IMatch
     public void Begin()
     {
         Debug.Log("Network match started");
-        // TODO:
+        RpcBegin();
     }
 
     public void End()
     {
         Debug.Log("Network match ended");
+        gameObject.SetActive(false);
+    }
+
+    /*[Command]
+    void CmdBegin()
+    {
+        RpcBegin();
+    }*/
+    [ClientRpc]
+    void RpcBegin()
+    {
+        Debug.Log("Received rpc that network match has been started.");
+        // TODO: start game
+        game.StartNewGame();
+    }
+
+    [Command]
+    void CmdEnd()
+    {
+        RpcEnd();
+    }
+    [ClientRpc]
+    void RpcEnd()
+    {
+        Debug.Log("Received rpc that network match has been ended.");
         gameObject.SetActive(false);
     }
 
@@ -49,7 +73,7 @@ public class MatchNetwork : NetworkBehaviour, IMatch
 
     /////////////////////////////////////////////////////////////////////////////////////////
     // TODO: Move player management to lobby away from match?
-    private void OnPlayerAdded(PlayerNetwork player)
+    /*private void OnPlayerAdded(PlayerNetwork player)
     {
         if (player.isLocalPlayer)
             player.playerName = localPlayerName;
@@ -62,7 +86,7 @@ public class MatchNetwork : NetworkBehaviour, IMatch
     {
         var networkLocation = player.isLocalPlayer ? "Local" : "Remote";
         Debug.Log("NetworkMatch OnPlayerRemoved(): " + player.playerName + "(" + networkLocation + ")");
-    }
+    }*/
     /////////////////////////////////////////////////////////////////////////////////////////
 }
 #pragma warning restore CS0618 // The current networking API is deprecated - suppress this deprecation warning
