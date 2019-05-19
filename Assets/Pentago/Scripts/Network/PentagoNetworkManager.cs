@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿/*
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.Networking.Match;
@@ -157,3 +158,4 @@ public class PentagoNetworkManager : NetworkManager
 }
 
 #pragma warning restore CS0618 // The current networking API is deprecated - suppress this deprecation warning 
+*/
