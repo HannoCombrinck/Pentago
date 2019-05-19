@@ -1,13 +1,12 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.Networking.Match;
-using UnityEngine.Networking;
+using Mirror;
 
 public class GUITemp : MonoBehaviour
 {
     public Game game;
     public Board board;
-    public PentagoNetworkManager networkManager;
+    public NetworkManager networkManager;
     public PlayerNetworkList networkPlayerList;
     public bool readyToStartNetworkMatch = false;
     public GameObject match;
