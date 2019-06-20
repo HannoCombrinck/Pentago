@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
-using UnityEngine.Networking.Match;
+using Mirror;
 
-#pragma warning disable CS0618 // The current networking API is deprecated - suppress this deprecation warning 
 public class MatchNetwork : NetworkBehaviour, IMatch
 {
     public IGame game;
+    public IGame Game { get => game; set => game = value; }
+
     public Board board;
     public PlayerNetworkList playerList = null;
-    //public string localPlayerName;
 
     private void Awake()
     {
@@ -63,13 +62,15 @@ public class MatchNetwork : NetworkBehaviour, IMatch
         gameObject.SetActive(false);
     }
 
-    public List<IPlayer> GetPlayers()
+    /*public List<IPlayer> GetPlayers()
     {
         return new List<IPlayer>(playerList.remotePlayers)
         {
             playerList.localPlayer
         };
-    }
+    }*/
+
+
 
     /////////////////////////////////////////////////////////////////////////////////////////
     // TODO: Move player management to lobby away from match?
@@ -89,4 +90,3 @@ public class MatchNetwork : NetworkBehaviour, IMatch
     }*/
     /////////////////////////////////////////////////////////////////////////////////////////
 }
-#pragma warning restore CS0618 // The current networking API is deprecated - suppress this deprecation warning
