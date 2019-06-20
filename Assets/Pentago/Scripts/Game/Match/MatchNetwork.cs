@@ -2,12 +2,9 @@
 using UnityEngine;
 using Mirror;
 
-public class MatchNetwork : NetworkBehaviour, IMatch
+public class MatchNetwork : NetworkBehaviour
 {
-    public IGame game;
-    public IGame Game { get => game; set => game = value; }
-
-    public Board board;
+    public Match match;
     public PlayerNetworkList playerList = null;
 
     private void Awake()
@@ -46,8 +43,7 @@ public class MatchNetwork : NetworkBehaviour, IMatch
     void RpcBegin()
     {
         Debug.Log("Received rpc that network match has been started.");
-        // TODO: start game
-        game.StartNewGame();
+        match.Begin();
     }
 
     [Command]
@@ -59,18 +55,9 @@ public class MatchNetwork : NetworkBehaviour, IMatch
     void RpcEnd()
     {
         Debug.Log("Received rpc that network match has been ended.");
+        match.End();
         gameObject.SetActive(false);
     }
-
-    /*public List<IPlayer> GetPlayers()
-    {
-        return new List<IPlayer>(playerList.remotePlayers)
-        {
-            playerList.localPlayer
-        };
-    }*/
-
-
 
     /////////////////////////////////////////////////////////////////////////////////////////
     // TODO: Move player management to lobby away from match?

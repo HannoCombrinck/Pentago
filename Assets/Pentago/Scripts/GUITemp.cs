@@ -11,7 +11,7 @@ public class GUITemp : MonoBehaviour
     public bool readyToStartNetworkMatch = false;
     public GameObject match;
     public GameObject matchNetworkPrefab;
-    private MatchNetwork matchNetwork;
+    private MatchNetwork matchNetwork = null; 
     public GameObject playerLocalPrefab;
 
     public GameObject player1;
@@ -26,7 +26,7 @@ public class GUITemp : MonoBehaviour
     private int player2TypeSelection = 0;
     MENU activeMenu = MENU.MAIN;
 
-    IMatch currentMatch;
+    //IMatch currentMatch;
 
     private bool gameFinished = false;
 
@@ -124,7 +124,7 @@ public class GUITemp : MonoBehaviour
             var matchNetwork = match.GetComponentInChildren<MatchNetwork>(true);
             Debug.Assert(matchNetwork != null, "MatchNetword component required");
             //matchNetwork.gameObject.SetActive(true);
-            currentMatch = matchNetwork;
+            //currentMatch = matchNetwork;
             // Clients can now join network 
             networkManager.gameObject.SetActive(true);
 
@@ -184,15 +184,15 @@ public class GUITemp : MonoBehaviour
             var matchLocal = match.GetComponentInChildren<MatchLocal>(true);
             matchLocal.gameObject.SetActive(true);
             Debug.Assert(matchLocal != null, "MatchLocal component required");
-            matchLocal.game = game;
-            matchLocal.board = board; // Is this necessary?
-            matchLocal.player1 = player1.gameObject.GetComponent<IPlayer>();
-            matchLocal.player2 = p2.gameObject.GetComponent<IPlayer>();
+            matchLocal.match.game = game;
+            matchLocal.match.board = board; // Is this necessary?
+            matchLocal.match.player1 = player1.gameObject.GetComponent<IPlayer>();
+            matchLocal.match.player2 = p2.gameObject.GetComponent<IPlayer>();
 
-            currentMatch = matchLocal;
+            //currentMatch = matchLocal;
 
             // Transition to Playing state
-            currentMatch.Begin();
+            //currentMatch.Begin();
             activeMenu = MENU.PLAYING_LOCAL_MATCH;
         }
 
@@ -289,11 +289,11 @@ public class GUITemp : MonoBehaviour
                 // TODO: Check if at least 2 players has been assigned to game
                 Debug.Assert(matchNetwork != null, "matchNetwork should have been spawned already.");
 
-                matchNetwork.game = game;
-                matchNetwork.board = board; // Is this necessary?
+                matchNetwork.match.game = game;
+                matchNetwork.match.board = board; // Is this necessary?
                 //matchNetwork.player1 = player1;
                 //matchNetwork.player2 = player2;
-                currentMatch.Begin();
+                //currentMatch.Begin();
 
                 activeMenu = MENU.PLAYING_NETWORK_MATCH;
             }
@@ -350,7 +350,7 @@ public class GUITemp : MonoBehaviour
         {
             Debug.Log("Ending local game");
 
-            currentMatch.End();
+            //currentMatch.End();
 
             Debug.Log("**Showing local game result**");
             activeMenu = MENU.FINISHED_LOCAL_MATCH;
@@ -367,7 +367,7 @@ public class GUITemp : MonoBehaviour
         {
             Debug.Log("Ending network game");
 
-            currentMatch.End();
+            //currentMatch.End();
 
             Debug.Log("**Showing network game result**");
             activeMenu = MENU.FINISHED_NETWORK_MATCH;
