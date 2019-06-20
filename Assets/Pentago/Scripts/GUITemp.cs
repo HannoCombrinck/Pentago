@@ -121,22 +121,11 @@ public class GUITemp : MonoBehaviour
         }
         if (GUILayout.Button("Network Match"))
         {
-            //var matchNetwork = match.GetComponentInChildren<MatchNetwork>(true);
-
-            ///////////////////////////////////////////////////////////////
-            // TODO: NOT SURE HOW TO HANDLE THIS PART
-            // Setup match based on players above and UI state about match
-#pragma warning disable CS0618 // Type or member is obsolete
-            matchNetwork = Instantiate(matchNetworkPrefab).GetComponent<MatchNetwork>(); //match.GetComponentInChildren<MatchNetwork>();
-            NetworkServer.Spawn(matchNetwork.gameObject);
-#pragma warning restore CS0618 // Type or member is obsolete
-            ///////////////////////////////////////////////////////////////
-
+            var matchNetwork = match.GetComponentInChildren<MatchNetwork>(true);
             Debug.Assert(matchNetwork != null, "MatchNetword component required");
-            matchNetwork.gameObject.SetActive(true);
+            //matchNetwork.gameObject.SetActive(true);
             currentMatch = matchNetwork;
             // Clients can now join network 
-
             networkManager.gameObject.SetActive(true);
 
             activeMenu = MENU.PREPARE_NETWORK_MATCH;
