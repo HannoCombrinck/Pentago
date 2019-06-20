@@ -71,24 +71,12 @@ public class PlayerNetwork : NetworkBehaviour, IPlayer
 
     public void ExecutePlaceMarble(int spaceIndex)
     {
-        if (board == null)
-        {
-            Debug.LogError("Board hasn't been assigned to network player yet.");
-            return;
-        }
-
-        board.PlaceMarble(this, spaceIndex);
+        CmdPlaceMarble(spaceIndex);
     }
 
     public void ExecuteRotateQuadrant(int quadrantIndex, IGame.ROTATE_DIRECTION direction)
     {
-        if (board == null)
-        {
-            Debug.LogError("Board hasn't been assigned to network player yet.");
-            return;
-        }
-
-        board.RotateQuadrant(this, quadrantIndex, direction);
+        CmdRotateQuadrant(quadrantIndex, direction);
     }
 
     [Command] // This function is called from a single client and is executed on the server
@@ -113,7 +101,16 @@ public class PlayerNetwork : NetworkBehaviour, IPlayer
     void RpcPlaceMarble(int spaceIndex)
     {
         Debug.Log("Player " + netId.ToString() + " executing action: Place marble on space " + spaceIndex);
-        ExecutePlaceMarble(spaceIndex);
+
+        /*
+        if (board == null)
+        {
+            Debug.LogError("Board hasn't been assigned to network player yet.");
+            return;
+        }
+
+        board.PlaceMarble(this, spaceIndex);
+        */
     }
 
     [Command] // This function is called from a single client and is executed on the server
@@ -125,6 +122,15 @@ public class PlayerNetwork : NetworkBehaviour, IPlayer
     void RpcRotateQuadrant(int quadrantIndex, ROTATE_DIRECTION direction)
     {
         Debug.Log("Player " + netId.ToString() + " executing action: Rotate quadrant " + quadrantIndex + " " + direction.ToString());
-        ExecuteRotateQuadrant(quadrantIndex, direction);
+
+        /*
+        if (board == null)
+        {
+            Debug.LogError("Board hasn't been assigned to network player yet.");
+            return;
+        }
+
+        board.RotateQuadrant(this, quadrantIndex, direction);
+        */
     }
 }
