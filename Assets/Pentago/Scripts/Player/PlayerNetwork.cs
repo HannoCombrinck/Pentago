@@ -1,10 +1,8 @@
 ﻿using UnityEngine;
-using UnityEngine.Networking;
+using Mirror;
 using static IGame;
 
-#pragma warning disable CS0618 // Type or member is obsolete
 public class PlayerNetwork : NetworkBehaviour, IPlayer
-#pragma warning restore CS0618 // Type or member is obsolete
 {
     [Tooltip("The board this player is playing on.")]
     public Board board;
@@ -93,8 +91,6 @@ public class PlayerNetwork : NetworkBehaviour, IPlayer
         board.RotateQuadrant(this, quadrantIndex, direction);
     }
 
-#pragma warning disable CS0618 // The current networking API is deprecated - suppress this deprecation warning 
-
     [Command] // This function is called from a single client and is executed on the server
     void CmdChangeName(string newName)
     {
@@ -117,6 +113,7 @@ public class PlayerNetwork : NetworkBehaviour, IPlayer
     void RpcPlaceMarble(int spaceIndex)
     {
         Debug.Log("Player " + netId.ToString() + " executing action: Place marble on space " + spaceIndex);
+        ExecutePlaceMarble(spaceIndex);
     }
 
     [Command] // This function is called from a single client and is executed on the server
@@ -128,8 +125,6 @@ public class PlayerNetwork : NetworkBehaviour, IPlayer
     void RpcRotateQuadrant(int quadrantIndex, ROTATE_DIRECTION direction)
     {
         Debug.Log("Player " + netId.ToString() + " executing action: Rotate quadrant " + quadrantIndex + " " + direction.ToString());
+        ExecuteRotateQuadrant(quadrantIndex, direction);
     }
-
-#pragma warning restore CS0618 // The current networking API is deprecated - suppress this deprecation warning 
-
 }
