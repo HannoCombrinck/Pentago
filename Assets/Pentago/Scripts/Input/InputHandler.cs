@@ -3,6 +3,7 @@
 public class InputHandler : MonoBehaviour
 {
     public IInputContext activeContext;
+    public IPlayer playerInControl;
     public MousePointer mousePointer { get; private set; }
     public MouseMovement mouseMovement { get; private set; }
 
