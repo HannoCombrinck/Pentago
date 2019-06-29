@@ -1,6 +1,7 @@
 # Pentago
 Pentago board game made with Unity.
 The game is currently under development and still in alpha.
+Source data for assets to be used is in a separate repository: https://github.com/HannoCombrinck/PentagoAssets.
 
 ## Play the game
 The first alpha release for Windows can be downloaded here: https://github.com/HannoCombrinck/Pentago/releases/tag/v0.1.0.
