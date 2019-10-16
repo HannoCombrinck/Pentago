@@ -79,7 +79,8 @@ public class Board : MonoBehaviour
     // Attempt to visually place a marble in the game world and execute a ActionPlaceMarble action on the Game state.
     public void PlaceMarble(IPlayer player, int spaceIndex)
     {
-        Debug.Assert(player != null, "Reference to player that is attempting the move is required.");
+        // TODO: Replace check when IPlayer components are working
+        //Debug.Assert(player != null, "Reference to player that is attempting the move is required.");
 
         if (!gameInProgress)
             return;
@@ -111,7 +112,8 @@ public class Board : MonoBehaviour
     // Attempt to visually rotate the quadrant in the game world and execute a ActionRotateQuadrant action on the Game.
     public void RotateQuadrant(IPlayer player, int quadrantIndex, ROTATE_DIRECTION direction)
     {
-        Debug.Assert(player != null, "Reference to player that is attempting the move is required.");
+        // TODO: Replace check when IPlayer components are working 
+        //Debug.Assert(player != null, "Reference to player that is attempting the move is required.");
 
         if (!gameInProgress)
             return;

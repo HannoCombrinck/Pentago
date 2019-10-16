@@ -2,6 +2,9 @@
 using UnityEngine;
 using Mirror;
 
+/// <summary>
+/// Temporary quick and dirty menu to test state transitions for setting up single player and multiplayer games. 
+/// </summary>
 public class GUITemp : MonoBehaviour
 {
     public Game game;
@@ -67,7 +70,7 @@ public class GUITemp : MonoBehaviour
 
         GUIAlways();
 
-        switch (activeMenu)
+        /*switch (activeMenu)
         {
             case MENU.MAIN:
                 GUIMain();
@@ -96,7 +99,7 @@ public class GUITemp : MonoBehaviour
             case MENU.FINISHED_NETWORK_MATCH:
                 GUIFinishedNetwork();
                 break;
-        }
+        }*/
 
         GUILayout.EndHorizontal();
     }
@@ -105,7 +108,7 @@ public class GUITemp : MonoBehaviour
     {
         GUILayout.BeginVertical();
 
-        if (GUILayout.Button("Test Play\nNo players, No network"))
+        if (GUILayout.Button("Start Test Game\nNo players, No network"))
             game.StartNewGame();
 
         GUILayout.EndVertical();
