@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Match
+public class Match : MonoBehaviour
 {
     public IGame game;
     public Board board;

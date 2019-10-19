@@ -19,7 +19,7 @@ public class ClickableSpace : MonoBehaviour, IClickable
         Debug.Assert(space != null);
     }
 
-    public void LeftClick()
+    public void LeftClick(IPlayer player)
     {
         if (space.state != SPACE_STATE.UNOCCUPIED)
             return;
@@ -32,11 +32,11 @@ public class ClickableSpace : MonoBehaviour, IClickable
         //
     }
 
-    public void RightClick()
+    public void RightClick(IPlayer player)
     {
     }
 
-    public void MousePointerEnter()
+    public void MousePointerEnter(IPlayer player)
     {
         if (space.state != SPACE_STATE.UNOCCUPIED)
             return;
@@ -50,7 +50,7 @@ public class ClickableSpace : MonoBehaviour, IClickable
         board.PlaceMarbleShowPreview(space.spaceIndex);
     }
 
-    public void MousePointerExit()
+    public void MousePointerExit(IPlayer player)
     {
         onMouseExit?.Invoke(space.spaceIndex);
 

@@ -3,11 +3,11 @@
 public interface IClickable
 {
     // Called when the left mouse button is clicked while pointing at this object.
-    void LeftClick();
+    void LeftClick(IPlayer player);
     // Called when the right mouse button is clicked while pointing at this object.
-    void RightClick();
+    void RightClick(IPlayer player);
     // Called once when the mouse pointer moves onto this object.
-    void MousePointerEnter();
+    void MousePointerEnter(IPlayer player);
     // Called once when the mouse pointer moves away from this object.
-    void MousePointerExit();
+    void MousePointerExit(IPlayer player);
 }

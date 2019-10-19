@@ -9,7 +9,8 @@ public class GUITemp : MonoBehaviour
     public NetworkManager networkManager;
     public PlayerNetworkList networkPlayerList;
     public bool readyToStartNetworkMatch = false;
-    public GameObject match;
+    public Match match;
+    public GameObject matchControllers;
     public GameObject matchNetworkPrefab;
     private MatchNetwork matchNetwork = null; 
     public GameObject playerLocalPrefab;
@@ -60,7 +61,30 @@ public class GUITemp : MonoBehaviour
         networkPlayerList.onPlayerAdded += OnNetworkPlayerAdded;
         networkPlayerList.onPlayerRemoved += OnNetworkPlayerRemoved;
     }
-    
+
+    private void Update()
+    {
+        // Temp test game start setup
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            game.StartNewGame();
+            // TODO:
+        }
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            game.StartNewGame();
+            // TODO:
+            //var matchNetwork = match.GetComponentInChildren<MatchNetwork>(true);
+            networkManager.gameObject.SetActive(true);
+        }
+        if (Input.GetKeyDown(KeyCode.H))
+            networkManager.StartHost();
+        if (Input.GetKeyDown(KeyCode.C))
+            networkManager.StartClient();
+        if (Input.GetKeyDown(KeyCode.S))
+            networkManager.StopHost();
+    }
+
     void OnGUI()
     {
         GUILayout.BeginHorizontal();
@@ -121,7 +145,7 @@ public class GUITemp : MonoBehaviour
         }
         if (GUILayout.Button("Network Match"))
         {
-            var matchNetwork = match.GetComponentInChildren<MatchNetwork>(true);
+            var matchNetwork = matchControllers.GetComponentInChildren<MatchNetwork>(true);
             Debug.Assert(matchNetwork != null, "MatchNetword component required");
             //matchNetwork.gameObject.SetActive(true);
             //currentMatch = matchNetwork;
@@ -181,7 +205,7 @@ public class GUITemp : MonoBehaviour
             }
 
             // Setup match based on players above and UI state about match
-            var matchLocal = match.GetComponentInChildren<MatchLocal>(true);
+            var matchLocal = matchControllers.GetComponentInChildren<MatchLocal>(true);
             matchLocal.gameObject.SetActive(true);
             Debug.Assert(matchLocal != null, "MatchLocal component required");
             matchLocal.match.game = game;

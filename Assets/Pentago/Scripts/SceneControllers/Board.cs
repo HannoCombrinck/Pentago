@@ -81,6 +81,9 @@ public class Board : MonoBehaviour
     {
         Debug.Assert(player != null, "Reference to player that is attempting the move is required.");
 
+        if (player != null && game.GetState().currentPlayer != player.GetPlayerID())
+            Debug.LogError(player.GetName() + " is attempting to place a marble out of turn");
+
         if (!gameInProgress)
             return;
 
