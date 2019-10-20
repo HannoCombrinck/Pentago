@@ -9,15 +9,14 @@ public class MousePointer : MonoBehaviour
     public IClickable clickable { get; private set; }
     public bool overUI { get; private set; }
     public Ray ray { get; private set; }
-    [HideInInspector]
-    public RaycastHit hitInfo;
+
+    private RaycastHit hitInfo;
     
     void Update()
     {
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         overUI = EventSystem.current.IsPointerOverGameObject();
-        //var overGameObject = !Physics.Raycast(ray, out hitInfo, maxPointerDistance, clickableLayer);
         if (!Physics.Raycast(ray, out hitInfo, maxPointerDistance) || overUI)
         {
             clickable = null;
