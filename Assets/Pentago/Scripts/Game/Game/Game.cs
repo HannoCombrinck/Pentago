@@ -24,6 +24,11 @@ public class Game : IGame
         onNewGameStarted?.Invoke();
     }
 
+    public override void ExitGame()
+    {
+        Application.Quit();
+    }
+
     public override bool ExecuteAction(IAction action)
     {
         /*if (!action.IsValid(state))

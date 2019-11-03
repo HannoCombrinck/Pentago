@@ -51,9 +51,9 @@ public class Board : MonoBehaviour
         quadrants = GetComponent<QuadrantController>();
         spaces = GetComponent<SpaceController>();
 
-        game.onNewGameStarted += OnGameStarted;
-        game.onActionExecuted += ApplyGameStateToVisuals;
-        game.onGameWon += OnGameEnded;
+        game.onNewGameStarted.AddListener(OnGameStarted);
+        game.onActionExecuted.AddListener(ApplyGameStateToVisuals);
+        game.onGameWon.AddListener(OnGameEnded);
     }
 
     private void Start()

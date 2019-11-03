@@ -59,8 +59,8 @@ public class GUITemp : MonoBehaviour
         Debug.Assert(networkManager != null, "NetworkManager reference required.");
         Debug.Assert(networkPlayerList != null, "NetworkPlayerList reference required.");
 
-        game.onGameTie += OnGameFinished;
-        game.onGameWon += OnGameFinished;
+        game.onGameTie.AddListener(OnGameFinished);
+        game.onGameWon.AddListener(OnGameFinished);
         networkPlayerList.onPlayerAdded += OnNetworkPlayerAdded;
         networkPlayerList.onPlayerRemoved += OnNetworkPlayerRemoved;
     }

@@ -14,23 +14,16 @@ public class OrbitCamera : ICameraController
     public float minPitch = -60f;
     public float maxPitch = 60f;
 
-    private Camera attachedCamera;
     private Quaternion rotation;
 
     void Awake()
     {
         rotation = Quaternion.AngleAxis(yaw, Vector3.up) * Quaternion.AngleAxis(pitch, Vector3.right);
-        attachedCamera = GetComponent<Camera>();
     }
 
     void Update()
     {
         UpdateCameraTransform();
-    }
-
-    public override Camera GetCamera()
-    {
-        return attachedCamera;
     }
 
     public override void Yaw(float angle)

@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public abstract class IGame : MonoBehaviour
 {
@@ -42,11 +43,11 @@ public abstract class IGame : MonoBehaviour
 
     // Game events.
     // {
-    public Action onNewGameStarted;
-    public Action onGameWon;
-    public Action onGameTie;
-    public Action onActionExecuted;
-    public Action onGameStateAdvanced;
+    public UnityEvent onNewGameStarted;
+    public UnityEvent onGameWon;
+    public UnityEvent onGameTie;
+    public UnityEvent onActionExecuted;
+    public UnityEvent onGameStateAdvanced;
     //public Action onIllegalActionAttempted;
     // }
 
@@ -55,6 +56,9 @@ public abstract class IGame : MonoBehaviour
 
     // Set game state to represent the beginning of a new game.
     public abstract void StartNewGame();
+
+    // Exit the application
+    public abstract void ExitGame();
 
     // Execute the given action by updating the game state accordingly.
     // Return false if the action is invalid/illegal without executing it.
